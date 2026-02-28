@@ -1,3 +1,3 @@
-# timdownsmullen.github.io
+# downsmullen.github.io
 Tim's Learning Curve of Awesomeness
-part duex
+
