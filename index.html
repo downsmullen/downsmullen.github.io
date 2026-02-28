@@ -1,141 +1,247 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tim S. Downs Mullen – Engineering Manager</title>
-  <meta name="description" content="Engineering Leader with 17+ years in aerospace and financial services.">
-  <style>
-    :root{
-      --bg:#f8f8f8; --fg:#111; --muted:#555; --card:#fff; --line:#eaeaea;
-      --maxw:960px; --radius:14px; --pad:22px;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    header,main,footer{max-width:var(--maxw);margin:auto;padding:var(--pad)}
-    header{padding-top:34px}
-    h1{margin:0 0 6px;font-size:2rem}
-    h2{margin:0 0 12px;font-size:1.25rem}
-    p.sub{margin:4px 0 10px;color:var(--muted)}
-    a{color:inherit}
-    .row{display:flex;flex-wrap:wrap;gap:12px}
-    .chip{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:.9rem;background:#fff}
-    section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:var(--pad);margin:14px 0}
-    ul{margin:8px 0 0 20px}
-    .grid{display:grid;gap:14px}
-    @media(min-width:840px){.grid-2{grid-template-columns:1fr 1fr}}
-    .btn{display:inline-block;border:1px solid var(--fg);padding:10px 14px;border-radius:10px;text-decoration:none}
-    footer{color:var(--muted);text-align:center;padding-bottom:34px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim S. Downs Mullen</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: rgba(255, 255, 255, 0.02);
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 2rem;
+            position: relative;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            z-index: 2;
+        }
+        header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(88, 166, 255, 0.3);
+            padding-bottom: 2rem;
+            text-align: center;
+        }
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            color: var(--accent-color);
+            margin-top: 1.5rem;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
+        }
+        h3 {
+            color: #e6edf3;
+            margin-bottom: 0.2rem;
+            margin-top: 1.5rem;
+        }
+        .sub {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .skills-grid {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            margin-bottom: 1rem;
+        }
+        .skill-tag {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            transition: transform 0.2s;
+            cursor: default;
+        }
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            background: rgba(88, 166, 255, 0.2);
+        }
+        section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        p {
+            line-height: 1.5;
+        }
+        .btn {
+            display: inline-block;
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-color);
+            padding: 10px 15px;
+            border: 1px solid var(--accent-color);
+            border-radius: 5px;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: rgba(88, 166, 255, 0.2);
+            text-decoration: none;
+        }
+        .btn-pulse {
+            animation: pulse-border 2s infinite;
+            margin-left: 10px;
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(88, 166, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0); }
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        .glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(88,166,255,0.07) 0%, rgba(0,0,0,0) 60%);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.1s ease-out;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Tim S. Downs Mullen</h1>
-    <p class="sub">Scrum Master · Software Systems Engineer</p>
-    <p>
-      <a href="mailto:tim@downsmullen.com">tim@downsmullen.com</a> ·
-      <a href="tel:+13194812824">(319) 481-2824</a> ·
-      <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">linkedin.com/in/tim-downs-mullen-0599a050</a>
-    </p>
-    <div class="row">
-      <span class="chip">Servant Leader</span>
-      <span class="chip">Velocity +98–115%</span>
-      <span class="chip">2 Patents</span>
-      <span class="chip">USMC Veteran</span>
-    </div>
-  </header>
+    <div class="glow" id="cursor-glow"></div>
+    <main class="container">
+        <header>
+            <h1>Tim S. Downs Mullen</h1>
+            <p class="sub">Scrum Master · Software Systems Engineer</p>
+            <p>
+                <a href="mailto:tim@downsmullen.com">tim@downsmullen.com</a> ·
+                <a href="tel:+13194812824">(319) 481-2824</a>
+            </p>
+            <div style="margin-top: 1.5rem;">
+                <a class="btn" href="Interview_Packet_Tim_Downs_Mullen.pdf" target="_blank">Download Resume</a>
+                <a class="btn btn-pulse" href="presentation.html">Launch Interactive Presentation</a>
+            </div>
+        </header>
 
-  <main>
-    <section>
-      <h2>Summary</h2>
-      <p>
-        Accomplished engineering leader with over 15 years of experience directing cross-functional teams in the full lifecycle software and systems delivery for complex avionics and defense platforms. Expert in Agile transformation and coaching, leveraging Lean principles and Earned Value (EVMS) to drive project execution and efficiency. Proven ability to mentor technical staff and manage multi-million dollar projects for mission-critical applications. Holds patents in RFID security and automated checklist methods.
-      </p>
-    </section>
+        <section>
+            <h2>Summary</h2>
+            <p>Accomplished engineering leader with over 15 years of experience directing cross-functional teams in the full lifecycle software and systems delivery for complex avionics and defense platforms. Expert in Agile transformation and coaching, leveraging Lean principles and Earned Value (EVMS) to drive project execution and efficiency. Proven ability to mentor technical staff and manage multi-million dollar projects for mission-critical applications. Holds patents in RFID security and automated checklist methods.</p>
+        </section>
 
-    <section class="grid grid-2">
-      <div>
-        <h2>Core Competencies</h2>
-        <div class="row">
-          <span class="chip">Agile / SAFe / Scrum</span>
-          <span class="chip">Lean Process Improvement</span>
-          <span class="chip">End-to-End Project Delivery</span>
-          <span class="chip">Team Coaching & Mentorship</span>
-          <span class="chip">Cross-Functional Leadership</span>
-          <span class="chip">Process Automation</span>
-          <span class="chip">Systems Engineering</span>
-          <span class="chip">Security Architecture</span>
-          <span class="chip">Program Management</span>
-        </div>
-      </div>
-      <div>
-        <h2>Technical Skills</h2>
-        <p><strong>Methods:</strong> Agile (SAFe, Scrum, XP, Kanban), Lean, TDD, Full SDLC, Six Sigma, SEER-SEM</p>
-        <p><strong>Languages:</strong> Python, .NET, C#, C++, Java, SQL, HTML, XML, UML, ANSI C, SysML</p>
-        <p><strong>Tools:</strong> Jira, Confluence, Git, Salesforce, Selenium, MS Project, Visual Studio, Subversion, DOORS, ClearCase, NUnit, Model Based Systems Engineering (MBSE) Principles</p>
-        
-      </div>
-    </section>
+        <section>
+            <h2>Core Competencies</h2>
+            <div class="skills-grid">
+                <span class="skill-tag">Agile / SAFe / Scrum</span>
+                <span class="skill-tag">Lean Process Improvement</span>
+                <span class="skill-tag">End-to-End Project Delivery</span>
+                <span class="skill-tag">Team Coaching & Mentorship</span>
+                <span class="skill-tag">Cross-Functional Leadership</span>
+                <span class="skill-tag">Process Automation</span>
+                <span class="skill-tag">Systems Engineering</span>
+            </div>
 
-    <section>
-      <h2>Professional Experience</h2>
+            <h2>Technical Skills</h2>
+            <p><strong>Languages:</strong> Python, .NET, C#, C++, Java, SQL, HTML, XML, UML, ANSI C, SysML</p>
+            <p><strong>Tools:</strong> Jira, Confluence, Git, Salesforce, Selenium, MS Project, Visual Studio, Subversion, DOORS, ClearCase, NUnit, Model Based Systems Engineering (MBSE) Principles</p>
+            <p><strong>Methods:</strong> Agile (SAFe, Scrum, XP, Kanban), Lean, TDD, Full SDLC, Six Sigma, SEER-SEM</p>
+        </section>
 
-      <h3>Collins Aerospace — Scrum Master / Software Systems Engineer <span class="sub">(2019–2025)</span></h3>
-      <ul>
-        <li>-Provided agile coaching and mentorship as Scrum Master, increasing team story completion by 2.5x by implementing Lean process improvements and removing impediments.</li>
-        <li>- Achieved 98–115% sprint velocities through effective backlog grooming, sprint planning, and removing impediments using JIRA and other Agile tools.</li>
-        <li>- Led teams in unified department vision, delivering consistent on-time, on-budget results.</li>
-        <li>- Mentored team members to align strengths with tasks, sustaining 90%+ on-time delivery.</li>
-        <li>- Served as Export Classification Lead (JCL2) for department compliance.</li>
-      </ul>
+        <section>
+            <h2>Professional Experience</h2>
 
-      <h3>Transamerica / TCS — Agile Coach / Scrum Master <span class="sub">(2013–2019)</span></h3>
-      <ul>
-         <li>- Guided leadership and teams through Agile adoption, tailoring frameworks to business needs.</li>
-        <li>- Led innovation sessions producing 9x more ideas than prior methods.</li>
-        <li>- Built Agile team delivering award-winning initiative for Customer Service Representatives.</li>
-        <li>- Developed documented SDLC meeting Agile and insurance compliance requirements.</li>
-        <li>- Headed customer support and train-the-trainer initiatives during rollout.</li>
-      </ul>
+            <h3>Collins Aerospace <span class="sub">— Scrum Master / Software Systems Engineer (2019–2025)</span></h3>
+            <ul>
+                <li>Provided agile coaching and mentorship as Scrum Master, increasing team story completion by 2.5x by implementing Lean process improvements and removing impediments.</li>
+                <li>Achieved 98–115% sprint velocities through effective backlog grooming, sprint planning, and removing impediments using JIRA and other Agile tools.</li>
+                <li>Led teams in unified department vision, delivering consistent on-time, on-budget results.</li>
+                <li>Mentored team members to align strengths with tasks, sustaining 90%+ on-time delivery.</li>
+                <li>Served as Export Classification Lead (JCL2) for department compliance.</li>
+            </ul>
 
-      <h3>Rockwell Collins — Lead Project Engineer <span class="sub">(2004–2013)</span></h3>
-      <ul>
-        <li>- Delivered a 24-month estimated avionics project in 18 months by authoring an Agile Systems Software Development Plan (SDP).</li>
-<li>- Transformed a traditional waterfall environment  using Lean and test driven development (TDD) practices.</li>
-<li>- Managed project scope, schedule, and budget, applying Earned Value (EVMS) principles to maintain on-time, on-budget delivery for projects valued at over $1M annually.</li>
-<li>- Directed security architecture for connected aircraft, setting new industry standards.</li>
-<li>- Received patent for automated checklist methods.</li>
+            <h3>Transamerica / TCS <span class="sub">— Agile Coach / Scrum Master (2013–2019)</span></h3>
+            <ul>
+                <li>Guided leadership and teams through Agile adoption, tailoring frameworks to business needs.</li>
+                <li>Led innovation sessions producing 9x more ideas than prior methods.</li>
+                <li>Built Agile team delivering award-winning initiative for Customer Service Representatives.</li>
+                <li>Developed documented SDLC meeting Agile and insurance compliance requirements.</li>
+                <li>Headed customer support and train-the-trainer initiatives during rollout.</li>
+            </ul>
 
-      </ul>
+            <h3>Rockwell Collins <span class="sub">— Lead Project Engineer (2004–2013)</span></h3>
+            <ul>
+                <li>Delivered a 24-month estimated avionics project in 18 months by authoring an Agile Systems Software Development Plan (SDP).</li>
+                <li>Transformed a traditional waterfall environment using Lean and test-driven development (TDD) practices.</li>
+                <li>Managed project scope, schedule, and budget, applying Earned Value (EVMS) principles to maintain on-time, on-budget delivery for projects valued at over $1M annually.</li>
+                <li>Directed security architecture for connected aircraft, setting new industry standards.</li>
+                <li>Received patent for automated checklist methods.</li>
+            </ul>
 
-      <h3>Intermec Technologies — Software Engineer III <span class="sub">(2000–2004)</span></h3>
-      <ul>
-        <li>Introduced XP and Agile practices company-wide.</li>
-        <li>Received patent for RFID security processes.</li>
-      </ul>
+            <h3>Intermec Technologies <span class="sub">— Software Engineer III (2000–2004)</span></h3>
+            <ul>
+                <li>Introduced XP and Agile practices company-wide.</li>
+                <li>Received patent for RFID security processes.</li>
+            </ul>
 
-      <h3>United States Marine Corps — Intelligence Specialist, Corporal <span class="sub">(1988–1992)</span></h3>
-      <ul>
-        <li>Honor Graduate, Parris Island & Intelligence School.</li>
-        <li>Improvise, Adapt, Overcome — Agile since 1775.</li>
-      </ul>
-    </section>
+            <h3>United States Marine Corps <span class="sub">— Intelligence Specialist, Corporal (1988–1992)</span></h3>
+            <ul>
+                <li>Honor Graduate, Parris Island & Intelligence School.</li>
+                <li>Improvise, Adapt, Overcome — Agile since 1775.</li>
+            </ul>
+        </section>
 
-    <section>
-      <h2>Education</h2>
-      <p><strong>B.S., Computer Engineering — Iowa State University</strong> (Graduated with Distinction, 3.5 GPA)</p>
-    </section>
+        <section>
+            <h2>Education</h2>
+            <p><strong>B.S., Computer Engineering — Iowa State University</strong> (Graduated with Distinction, 3.5 GPA)</p>
+        </section>
+    </main>
 
-    <section>
-      <h2>Download</h2>
-      <!-- Upload your PDF to the repo with this filename or adjust the link -->
-      <p><a class="btn" href="Interview_Packet_Tim_Downs_Mullen.pdf">Download Interview Packet (PDF)</a></p>
-    </section>
-  </main>
+    <footer>
+        <p>&copy; <span id="y"></span> Tim S. Downs Mullen</p>
+    </footer>
 
-  <footer>
-    <p>&copy; <span id="y"></span> Tim S. Downs Mullen</p>
-  </footer>
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+    <script>
+        document.getElementById('y').textContent = new Date().getFullYear();
+
+        // Interactive cursor glow tracking
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.getElementById('cursor-glow');
+            glow.style.left = `${e.clientX}px`;
+            glow.style.top = `${e.clientY}px`;
+        });
+    </script>
 </body>
 </html>
