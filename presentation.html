@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <title>Tim S. Downs Mullen - Professional Overview</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #c9d1d9;
+            --accent-color: #58a6ff;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        /* Fallback message for unsupported browsers */
+        .fallback-message {
+            display: none;
+            padding: 20px;
+            text-align: center;
+            color: red;
+        }
+        .impress-not-supported .fallback-message {
+            display: block;
+        }
+
+        /* Base styles for all steps */
+        .step {
+            position: relative;
+            width: 800px;
+            padding: 40px;
+            background: var(--card-bg);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            transition: opacity 1s;
+            opacity: 0.2; /* Dim when not active */
+        }
+        
+        /* Active step is fully visible */
+        .step.active {
+            opacity: 1;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #e6edf3;
+            font-size: 1.8rem;
+        }
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        ul {
+            font-size: 1.4rem;
+            line-height: 1.6;
+        }
+        li {
+            margin-bottom: 15px;
+        }
+        
+        /* Specific tweaks for the overview */
+        #overview {
+            text-align: center;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+        #overview h1 {
+            font-size: 4rem;
+            border: none;
+        }
+        
+        .hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: #8b949e;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser doesn't support the features required by impress.js. Please use a modern browser.</p>
+</div>
+
+<div class="hint">Use spacebar or arrow keys to navigate</div>
+
+<div id="impress">
+
+    <div id="overview" class="step" data-x="0" data-y="0" data-scale="3">
+        <h1>Professional Engineering Lifecycle</h1>
+        <h2>Foundation &rarr; Execution &rarr; Transformation</h2>
+    </div>
+
+    <div id="foundation" class="step" data-x="-1200" data-y="-800" data-scale="1">
+        <h1>1. Foundation</h1>
+        <h2>United States Marine Corps</h2>
+        <ul>
+            <li><span class="highlight">Intelligence Specialist</span></li>
+            <li>Philosophy of <span class="highlight">Maneuver Warfare</span></li>
+            <li><span class="highlight">Decentralized Command:</span> Empowering those closest to the work.</li>
+            <li>Agile since 1775: Improvise, adapt, and overcome.</li>
+        </ul>
+    </div>
+
+    <div id="execution" class="step" data-x="1200" data-y="-800" data-scale="1">
+        <h1>2. Execution</h1>
+        <h2>Rockwell Collins & Intermec</h2>
+        <ul>
+            <li><span class="highlight">Avionics Lifecycle:</span> Engineered secure architectures for connected aircraft.</li>
+            <li>Managed <span class="highlight">DO-178B/C</span> compliance.</li>
+            <li>Secured <span class="highlight">patents</span> in RFID security and automated workflow methods.</li>
+            <li>Built a technical core through hands-on coding and full SDLC delivery.</li>
+        </ul>
+    </div>
+
+    <div id="transformation" class="step" data-x="0" data-y="800" data-scale="1">
+        <h1>3. Transformation</h1>
+        <h2>Collins Aerospace & Transamerica</h2>
+        <ul>
+            <li>Agile Coach / Scrum Master integrating <span class="highlight">Lean principles</span> and TDD.</li>
+            <li>Shifted focus from building software to <span class="highlight">building teams</span>.</li>
+            <li>Consistently increased team velocity by <span class="highlight">2.5x</span>.</li>
+            <li>Reduced project schedules by <span class="highlight">25%</span> focusing on business impact.</li>
+        </ul>
+    </div>
+
+    <div id="current" class="step" data-x="0" data-y="2000" data-z="1000" data-scale="2">
+        <h1>Tim S. Downs Mullen</h1>
+        <h2>Senior Systems & Software Engineer</h2>
+        <ul>
+            <li>Relentless focus on <span class="highlight">predictable delivery</span> (90%+ on-time).</li>
+            <li>Aligning stakeholders using <span class="highlight">EVMS (Earned Value Management System)</span>.</li>
+            <li>Removing impediments and coaching high-performing teams.</li>
+        </ul>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/impress/impress.js@2.0.0/js/impress.js"></script>
+<script>
+    // Initialize presentation
+    impress().init();
+</script>
+
+</body>
+</html>
