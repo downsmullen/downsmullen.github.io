@@ -297,16 +297,18 @@
 
         .insight-graphic {
             height: 200px;
-            background-color: #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-family: monospace;
-            font-size: 0.9rem;
+            background-color: var(--bg-white); /* Changed from grey placeholder */
             border-bottom: 1px solid #e2e8f0;
+            overflow: hidden; /* Ensures image corners don't break the card's border radius */
+            padding: 0; 
         }
-
+        .insight-graphic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center; 
+            display: block;
+        }
         .insight-content {
             padding: 2rem;
             display: flex;
@@ -495,12 +497,12 @@
         
         <div class="insights-grid">
             <div class="insight-card">
-                <div class="insight-graphic">
-                    [Insert Transamerica Graphic]
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Case Study</span>
-                    <h4>Transamerica 'One Desktop'</h4>
+    <div class="insight-graphic">
+        <img src="onedesktop.png" alt="Transamerica One Desktop Initiative Logo">
+    </div>
+    <div class="insight-content">
+        <span class="insight-type">Case Study</span>
+        <h4>Transamerica 'One Desktop'</h4>
                     <p>How an Agile transformation and rigorous SDLC compliance led to a Best New Initiative award for a massive CSR platform rollout.</p>
                     <a href="case-study-transamerica.html" class="read-more">Read Case Study &rarr;</a>
                 </div>
