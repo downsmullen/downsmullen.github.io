@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementing the 5 C's Presentation | Tim Downs Mullen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a192f; 
+            --primary-light: #112240; 
+            --accent: #64ffda; 
+            --text-main: #ccd6f6; 
+            --text-muted: #8892b0; 
+            --bg-white: #ffffff;
+            --text-dark: #0f172a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background-color: rgba(10, 25, 47, 0.95);
+            position: fixed;
+            width: 90%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo a {
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Deck Header */
+        .deck-header {
+            padding: 10rem 10% 4rem 10%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
+        .deck-type {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .deck-header h1 {
+            font-size: clamp(35px, 4vw, 60px);
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 auto 1rem auto;
+            line-height: 1.1;
+            max-width: 900px;
+        }
+
+        .deck-header p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Presentation Viewer Container */
+        .presentation-container {
+            padding: 5rem 10%;
+            background-color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        /* Individual Slides */
+        .slide {
+            background-color: var(--bg-white);
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            border-radius: 8px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 4rem;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Slide Top Accent */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--primary-dark);
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 3rem;
+            font-family: monospace;
+            color: #94a3b8;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .slide h2 {
+            color: var(--primary-dark);
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-content p {
+            color: #475569;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .slide-content ul {
+            color: #475569;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            padding-left: 1.5rem;
+        }
+
+        .slide-content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .slide-content li strong {
+            color: var(--primary-dark);
+        }
+
+        /* Emphasized Quote Slide */
+        .slide.quote-slide {
+            background: var(--primary-dark);
+            color: var(--text-main);
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide.quote-slide::before {
+            background: var(--accent);
+        }
+
+        .slide.quote-slide h2 {
+            display: none;
+        }
+
+        .slide.quote-slide blockquote {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .slide.quote-slide blockquote span {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 6rem 10%;
+            text-align: center;
+            background-color: var(--primary-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .deck-header { padding: 8rem 5% 4rem 5%; }
+            .presentation-container { padding: 3rem 5%; gap: 2rem; }
+            .slide { padding: 2rem; aspect-ratio: auto; min-height: 400px; }
+            .slide h2 { font-size: 1.8rem; }
+            .slide-content p, .slide-content ul { font-size: 1.1rem; }
+            .slide.quote-slide blockquote { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><a href="index.html">Engineering <span>Transformation</span></a></div>
+        <div class="nav-links">
+            <a href="index.html#expertise">Capabilities</a>
+            <a href="index.html#matrix">Technical Stack</a>
+            <a href="index.html#insights">Insights</a>
+            <a href="presentation.html">Executive Briefing</a>
+        </div>
+    </nav>
+
+    <header class="deck-header">
+        <span class="deck-type">Executive Briefing Deck</span>
+        <h1>Implementing the 5 C's</h1>
+        <p class="subtitle">A tactical rollout strategy for shifting strict regulatory environments from phase-gate bottlenecks to high-velocity decentralized command.</p>
+    </header>
+
+    <section class="presentation-container">
+        
+        <div class="slide">
+            <h2>The Diagnostic: Identifying the Bottleneck</h2>
+            <div class="slide-content">
+                <p>In high-compliance engineering spaces (DO-178C, EAR/ITAR), schedule delays are rarely caused by a lack of technical skill. They are caused by rigid group dynamics.</p>
+                <ul>
+                    <li><strong>Siloed Execution:</strong> Hardware, Software, and Systems Safety operating sequentially rather than concurrently.</li>
+                    <li><strong>The 'Why' Culture:</strong> Post-incident reviews focused on assigning blame ("Why did this fail?") rather than system discovery ("What broke down in the process?").</li>
+                    <li><strong>Centralized Authority:</strong> Decision-making bottlenecks at the CAM/Lead level, stalling daily execution.</li>
+                </ul>
+            </div>
+            <span class="slide-number">01</span>
+        </div>
+
+        <div class="slide quote-slide">
+            <blockquote>
+                Stop asking <span>'Why'</span>.<br>Start asking <span>'What'</span>.
+            </blockquote>
+            <span class="slide-number">02</span>
+        </div>
+
+        <div class="slide">
+            <h2>Phase 1: Establishing the Baseline</h2>
+            <div class="slide-content">
+                <p>Before demanding execution, leadership must establish the structural environment using the first two C's.</p>
+                <ul>
+                    <li><strong>Connect (Collaboration & Integration):</strong> Tear down the silos. Mandate cross-functional Agile events. Ensure Systems, Software, and QA are operating on the same cadence with integrated toolchains (Jira/DOORS).</li>
+                    <li><strong>Capable (Competence & Resources):</strong> Eliminate excuses. Audit the team. Do they have the necessary training? Are the build servers adequate? Do not assign responsibility without providing the means to execute it.</li>
+                </ul>
+            </div>
+            <span class="slide-number">03</span>
+        </div>
+
+        <div class="slide">
+            <h2>Phase 2: Driving Execution</h2>
+            <div class="slide-content">
+                <p>Once the environment is stabilized, focus the team on execution and tactical risk management.</p>
+                <ul>
+                    <li><strong>Count (Impact & Alignment):</strong> Map daily tasks directly to EVMS metrics. Every engineer must understand how their specific Jira ticket impacts the $10M+ Performance Measurement Baseline (PMB).</li>
+                    <li><strong>Courage (Innovation & Risk):</strong> Build psychological safety. Reward teams for identifying technical debt early. High-compliance requires rigorous testing, which demands the courage to fail fast during early integration phases.</li>
+                </ul>
+            </div>
+            <span class="slide-number">04</span>
+        </div>
+
+        <div class="slide">
+            <h2>The Objective: Decentralized Command</h2>
+            <div class="slide-content">
+                <p>If Connect, Capable, Count, and Courage are successfully established, the environment is ready for the ultimate objective.</p>
+                <ul>
+                    <li><strong>Choice (Autonomy & Ownership):</strong> Pushing decision-making authority to the lowest possible level.</li>
+                    <li>The engineers closest to the problem own the solution.</li>
+                    <li>Leadership transitions from managing tasks to managing the boundary conditions of the portfolio.</li>
+                </ul>
+            </div>
+            <span class="slide-number">05</span>
+        </div>
+
+    </section>
+
+    <footer>
+        <h2>Bring this transformation to your organization.</h2>
+        <a href="mailto:tim@downsmullen.com" class="btn-primary">Contact Tim Downs Mullen</a>
+    </footer>
+
+</body>
+</html>
