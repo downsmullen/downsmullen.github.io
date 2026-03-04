@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 5 C's Framework | Tim Downs Mullen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a192f; 
+            --primary-light: #112240; 
+            --accent: #64ffda; 
+            --text-main: #ccd6f6; 
+            --text-muted: #8892b0; 
+            --bg-white: #ffffff;
+            --text-dark: #0f172a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background-color: rgba(10, 25, 47, 0.95);
+            position: fixed;
+            width: 90%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo a {
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Document Header */
+        .doc-header {
+            padding: 10rem 10% 4rem 10%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .doc-type {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .doc-header h1 {
+            font-size: clamp(35px, 4vw, 60px);
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 1rem 0;
+            line-height: 1.1;
+            max-width: 900px;
+        }
+
+        .doc-header p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 0;
+        }
+
+        /* Layout */
+        .doc-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            padding: 5rem 10%;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .doc-main h2 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .doc-main h3 {
+            font-size: 1.5rem;
+            color: var(--primary-light);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+        }
+
+        .doc-main h3::before {
+            content: "■";
+            color: var(--accent);
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        .doc-main p {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .framework-box {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .framework-box p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Sidebar */
+        .doc-sidebar {
+            background: #f8fafc;
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .doc-sidebar h4 {
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .fact-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .fact-label {
+            display: block;
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .fact-value {
+            display: block;
+            font-size: 1rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            padding: 6rem 10%;
+            text-align: center;
+            background-color: var(--primary-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+
+        @media (max-width: 900px) {
+            .doc-container { grid-template-columns: 1fr; }
+            .doc-sidebar { position: static; }
+            .nav-links { display: none; }
+            .doc-header { padding: 8rem 5% 4rem 5%; }
+            .doc-container { padding: 4rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><a href="index.html">Engineering <span>Transformation</span></a></div>
+        <div class="nav-links">
+            <a href="index.html#expertise">Capabilities</a>
+            <a href="index.html#matrix">Technical Stack</a>
+            <a href="index.html#insights">Insights</a>
+            <a href="presentation.html">Executive Briefing</a>
+        </div>
+    </nav>
+
+    <header class="doc-header">
+        <span class="doc-type">Leadership Whitepaper</span>
+        <h1>The 5 C's Framework</h1>
+        <p class="subtitle">A proprietary model for optimizing engineering group dynamics, establishing high-performance teams, and executing decentralized command.</p>
+    </header>
+
+    <section class="doc-container">
+        <div class="doc-main">
+            <h2>The Core Philosophy</h2>
+            <p>The 5 C's Framework is explicitly designed as a guide for setting up technical teams and managing complex group dynamics. Rooted in Maneuver Warfare principles, it establishes the necessary conditions for decentralized execution in high-stakes engineering environments.</p>
+
+            <div class="framework-box">
+                <p>The critical shift in the 5 C's is moving the organization from blame-oriented 'Why' questions (which trigger defensive postures) to discovery-oriented 'What' questions (which drive systemic solutions).</p>
+            </div>
+
+            <h2>The 5 Pillars of Team Dynamics</h2>
+            
+            <h3>Connect: Collaboration &amp; Integration</h3>
+            <p>Engineers cannot operate in silos. 'Connect' ensures the structural and relational pathways exist for cross-functional collaboration. It focuses on how teams integrate their outputs and maintain a continuous feedback loop across the enterprise architecture.</p>
+
+            <h3>Count: Impact &amp; Alignment</h3>
+            <p>Every team member must understand how their specific tasks translate to the broader mission. 'Count' is the relentless alignment of daily engineering work with enterprise-level strategic impact, ensuring no effort is wasted on misaligned objectives.</p>
+
+            <h3>Capable: Competence &amp; Resources</h3>
+            <p>A team cannot be held accountable if they lack the means to execute. 'Capable' demands that leadership provides the exact technical competence, training, and physical/budgetary resources required to meet the objective before assigning responsibility.</p>
+
+            <h3>Courage: Innovation &amp; Risk</h3>
+            <p>Strict compliance environments often stifle creative engineering. 'Courage' establishes psychological safety, empowering engineers to identify technical debt, take calculated risks, and drive innovation without the fear of punitive action for necessary experimentation.</p>
+
+            <h3>Choice: Autonomy &amp; Ownership</h3>
+            <p>The ultimate goal of the framework. 'Choice' is the absolute execution of decentralized command. It is not about character or abstract connection; it is the concrete delegation of authority, allowing the engineers closest to the problem to make the technical decisions and own the outcomes.</p>
+
+        </div>
+
+        <aside class="doc-sidebar">
+            <h4>Framework Profile</h4>
+            
+            <div class="fact-group">
+                <span class="fact-label">Primary Application</span>
+                <span class="fact-value">Team Setup &amp; Group Dynamics</span>
+            </div>
+
+            <div class="fact-group">
+                <span class="fact-label">Core Principle</span>
+                <span class="fact-value">Decentralized Command</span>
+            </div>
+
+            <div class="fact-group">
+                <span class="fact-label">Philosophical Shift</span>
+                <span class="fact-value">From 'Why' to 'What'</span>
+            </div>
+
+            <div class="fact-group">
+                <span class="fact-label">Operational Goal</span>
+                <span class="fact-value">Autonomy &amp; Ownership at the lowest level</span>
+            </div>
+        </aside>
+    </section>
+
+    <footer>
+        <h2>Ready to implement the 5 C's?</h2>
+        <a href="mailto:tim@downsmullen.com" class="btn-primary">Contact Tim Downs Mullen</a>
+    </footer>
+
+</body>
+</html>
