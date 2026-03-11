@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth; scroll-padding-top: 120px;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Systems Engineering & Agile Architecture consulting by Tim Downs Mullen. Specializing in Lean optimization and EVMS alignment for complex aerospace & defense platforms.">
     <title>Engineering Transformation | Tim Downs Mullen</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -11,7 +12,7 @@
             --primary-light: #112240; 
             --accent: #64ffda; 
             --text-main: #ccd6f6; 
-            --text-muted: #8892b0; 
+            --text-muted: #a8b2d1; 
             --bg-white: #ffffff;
             --text-dark: #0f172a;
         }
@@ -67,7 +68,7 @@
 
         /* Hero Section */
         .hero {
-            min-height: 85vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -82,6 +83,7 @@
             margin-bottom: 1rem;
             letter-spacing: 1px;
             text-transform: uppercase;
+            margin-top: auto; 
         }
 
         .hero h1 {
@@ -127,18 +129,16 @@
 
         /* Metrics / Social Proof Bar */
         .metrics-bar {
-            background-color: var(--primary-light);
-            padding: 4rem 10%;
+            padding: 4rem 0 0 0; 
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr); 
             gap: 2rem;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-top: auto; 
         }
 
         .metric h3 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 3vw, 3rem); 
             color: var(--accent);
             margin: 0;
             font-weight: 800;
@@ -297,11 +297,12 @@
 
         .insight-graphic {
             height: 200px;
-            background-color: var(--bg-white); /* Changed from grey placeholder */
+            background-color: var(--bg-white); 
             border-bottom: 1px solid #e2e8f0;
-            overflow: hidden; /* Ensures image corners don't break the card's border radius */
+            overflow: hidden; 
             padding: 0; 
         }
+        
         .insight-graphic img {
             width: 100%;
             height: 100%;
@@ -309,6 +310,7 @@
             object-position: center; 
             display: block;
         }
+        
         .insight-content {
             padding: 2rem;
             display: flex;
@@ -380,6 +382,14 @@
             .nav-links { display: none; }
             .hero { padding: 8rem 5% 4rem 5%; justify-content: flex-start; }
             .hero h1 { font-size: 2.5rem; }
+            
+            .metrics-bar { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 1.5rem;
+                padding-top: 3rem;
+            }
+            .metric h3 { font-size: 2rem; }
+            
             .services, .insights { padding: 4rem 5%; }
             .matrix-container { padding: 2rem; }
         }
@@ -402,31 +412,31 @@
         <h1>Accelerating Predictable Delivery.</h1>
         <h2>For Complex Aerospace & Defense Platforms.</h2>
         <p class="description">
-            Bringing 25+ years of Tier-1 aerospace engineering and decentralized command principles to mission-critical software delivery. Specializing in Lean optimization, EVMS alignment, and scaling execution across high-compliance environments.
+            Bringing 25+ years of Tier-1 aerospace engineering and autonomous execution principles to mission-critical software delivery. Specializing in Lean optimization, EVMS alignment, and scaling execution across high-compliance environments.
         </p>
         <div>
             <a href="mailto:tim@downsmullen.com" class="btn-primary">Schedule a Consultation</a>
         </div>
-    </header>
 
-    <section class="metrics-bar">
-        <div class="metric">
-            <h3>2.5x</h3>
-            <p>Velocity Increase</p>
+        <div class="metrics-bar">
+            <div class="metric">
+                <h3>2.5x</h3>
+                <p>Velocity Increase</p>
+            </div>
+            <div class="metric">
+                <h3>25%</h3>
+                <p>Schedule Reduction</p>
+            </div>
+            <div class="metric">
+                <h3>&lt;5%</h3>
+                <p>EVMS Variance</p>
+            </div>
+            <div class="metric">
+                <h3>$10M+</h3>
+                <p>Portfolio Authority (CAM)</p>
+            </div>
         </div>
-        <div class="metric">
-            <h3>25%</h3>
-            <p>Schedule Reduction</p>
-        </div>
-        <div class="metric">
-            <h3>$10M+</h3>
-            <p>Portfolio Authority (CAM)</p>
-        </div>
-        <div class="metric">
-            <h3>$25M+</h3>
-            <p>Lifecycle Leadership</p>
-        </div>
-    </section>
+    </header>
 
     <section id="expertise" class="services">
         <h2 class="section-title">Consulting Capabilities</h2>
@@ -446,8 +456,8 @@
                 <p>Orchestrated the delivery of AIMS/IMS-3500 platforms, leading a 13-member core engineering team and synchronizing 300+ matrixed stakeholders through a 5-year development lifecycle.</p>
             </div>
             <div class="service-card">
-                <h4>Decentralized Command & Coaching</h4>
-                <p>Forged in the USMC and scaled in the enterprise. Building high-performing engineering teams utilizing the 5 C's Framework and Maneuver Warfare principles to empower execution at the lowest level.</p>
+                <h4>Autonomous Execution & Coaching</h4>
+                <p>Scaled in the enterprise. Building high-performing engineering teams utilizing the 5 C's Framework and shared vision principles to empower autonomous execution.</p>
             </div>
         </div>
 
@@ -497,12 +507,12 @@
         
         <div class="insights-grid">
             <div class="insight-card">
-    <div class="insight-graphic">
-        <img src="onedesktop.png" alt="Transamerica One Desktop Initiative Logo">
-    </div>
-    <div class="insight-content">
-        <span class="insight-type">Case Study</span>
-        <h4>Transamerica 'One Desktop'</h4>
+                <div class="insight-graphic">
+                    <img src="onedesktop.png" alt="Transamerica One Desktop Initiative Logo">
+                </div>
+                <div class="insight-content">
+                    <span class="insight-type">Case Study</span>
+                    <h4>Transamerica 'One Desktop'</h4>
                     <p>How an Agile transformation and rigorous SDLC compliance led to a Best New Initiative award for a massive CSR platform rollout.</p>
                     <a href="case-study-transamerica.html" class="read-more">Read Case Study &rarr;</a>
                 </div>
@@ -510,7 +520,7 @@
 
             <div class="insight-card">
                 <div class="insight-graphic">
-                    <img src="5csFrameworkImage.jpg" alt="5 C's Framework ">
+                    <img src="5csFrameworkImage.jpg" alt="5 C's Framework">
                 </div>
                 <div class="insight-content">
                     <span class="insight-type">Whitepaper</span>
