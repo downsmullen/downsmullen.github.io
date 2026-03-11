@@ -54,6 +54,7 @@
         .nav-links {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
 
         .nav-links a {
@@ -65,6 +66,20 @@
         }
 
         .nav-links a:hover { color: var(--accent); }
+
+        .nav-cta {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent) !important;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark) !important;
+        }
 
         /* Hero Section */
         .hero {
@@ -266,6 +281,58 @@
             margin-right: 8px;
         }
 
+        /* Testimonials Section */
+        .testimonials {
+            padding: 5rem 10%;
+            background-color: var(--primary-light);
+            color: var(--text-main);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: rgba(10, 25, 47, 0.5);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 4rem;
+            color: rgba(100, 255, 218, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         /* Insights & Case Studies Section */
         .insights {
             padding: 6rem 10%;
@@ -340,6 +407,7 @@
             font-size: 0.95rem;
             margin-bottom: 2rem;
             flex-grow: 1;
+            line-height: 1.6;
         }
 
         .read-more {
@@ -390,7 +458,7 @@
             }
             .metric h3 { font-size: 2rem; }
             
-            .services, .insights { padding: 4rem 5%; }
+            .services, .testimonials, .insights { padding: 4rem 5%; }
             .matrix-container { padding: 2rem; }
         }
     </style>
@@ -404,6 +472,7 @@
             <a href="#matrix">Technical Stack</a>
             <a href="#insights">Insights</a>
             <a href="presentation.html">Executive Briefing</a>
+            <a href="mailto:tim@downsmullen.com" class="nav-cta">Contact</a>
         </div>
     </nav>
 
@@ -457,7 +526,7 @@
             </div>
             <div class="service-card">
                 <h4>Autonomous Execution & Coaching</h4>
-                <p>Scaled in the enterprise. Building high-performing engineering teams utilizing the 5 C's Framework and shared vision principles to empower autonomous execution.</p>
+                <p>Scaled in the enterprise. Building high-performing engineering teams utilizing the 5 C's Framework and shared vision principles to empower execution at the lowest level.</p>
             </div>
         </div>
 
@@ -501,9 +570,26 @@
         </div>
     </section>
 
+    <section class="testimonials">
+        <h2 class="section-title" style="color: var(--text-main);">Stakeholder Feedback</h2>
+        <p class="section-subtitle" style="color: var(--text-muted);">Observations from cross-functional teams and matrixed leadership.</p>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"You speak both tech and biz. You mediate and advocate for both sides. The tech guys can say their 'stuff' and you can turn right around and make it so I understand. Then you can hear what I'm saying and tell it to the tech guys in a way that they understand as well."</p>
+                <div class="testimonial-author">— Cross-Functional Stakeholder</div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Completely and totally outside the box thinking—encourages others to dream bigger. You exhibit patience and zero annoyance, making it completely comfortable to approach you for anything."</p>
+                <div class="testimonial-author">— Engineering Team Member</div>
+            </div>
+        </div>
+    </section>
+
     <section id="insights" class="insights">
         <h2 class="section-title">Insights & Case Studies</h2>
-        <p class="section-subtitle">Methodologies and outcomes from 25+ years of driving engineering excellence.</p>
+        <p class="section-subtitle">Tactical methodologies and outcomes from 25+ years of driving engineering excellence.</p>
         
         <div class="insights-grid">
             <div class="insight-card">
@@ -513,7 +599,7 @@
                 <div class="insight-content">
                     <span class="insight-type">Case Study</span>
                     <h4>Transamerica 'One Desktop'</h4>
-                    <p>How an Agile transformation and rigorous SDLC compliance led to a Best New Initiative award for a massive CSR platform rollout.</p>
+                    <p>Demonstrating the <strong>Connect</strong> and <strong>Count</strong> pillars: How an enterprise Agile transformation and rigorous SDLC compliance aligned matrixed stakeholders and led to a Best New Initiative award.</p>
                     <a href="case-study-transamerica.html" class="read-more">Read Case Study &rarr;</a>
                 </div>
             </div>
@@ -525,7 +611,7 @@
                 <div class="insight-content">
                     <span class="insight-type">Whitepaper</span>
                     <h4>The 5 C's Framework</h4>
-                    <p>Fostering Connect, Count, Capable, Courage, and Choice (Autonomy & Ownership) in engineering teams by shifting from blame-oriented 'Why' questions to discovery-oriented 'What' questions.</p>
+                    <p>Fostering Connect, Count, Capable, Courage, and Choice (Autonomy & Ownership) in highly regulated environments. Scaling autonomous execution by shifting from blame-oriented 'Why' to discovery-oriented 'What' questions.</p>
                     <a href="5c-framework.html" class="read-more">Read Whitepaper &rarr;</a>
                 </div>
             </div>
@@ -537,7 +623,7 @@
                 <div class="insight-content">
                     <span class="insight-type">Interactive Deck</span>
                     <h4>Implementing the 5 C's</h4>
-                    <p>A dynamic executive briefing and tactical rollout strategy for implementing the 5 C's Framework across traditional waterfall teams.</p>
+                    <p>An executive briefing and tactical rollout strategy for embedding the 5 C's across traditional waterfall and V-Model lifecycles, accelerating delivery without sacrificing DO-178B/C compliance.</p>
                     <a href="5c-presentation.html" class="read-more">View Slide Deck &rarr;</a>
                 </div>
             </div>
