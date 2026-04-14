@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=1024" />
+    <meta name="description" content="Professional overview of Tim Downs Mullen — engineering leadership lifecycle from USMC through avionics execution to Agile transformation.">
     <title>Tim S. Downs Mullen - Professional Overview</title>
     <style>
         :root {
@@ -20,15 +21,56 @@
             overflow: hidden;
         }
         
-        /* Fallback message for unsupported browsers */
-        .fallback-message {
+        /* Mobile fallback — static scrollable version */
+        .mobile-fallback {
             display: none;
-            padding: 20px;
-            text-align: center;
-            color: red;
+            padding: 2rem 5%;
+            overflow-y: auto;
         }
-        .impress-not-supported .fallback-message {
-            display: block;
+        .mobile-fallback h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .mobile-slide {
+            background: var(--card-bg);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .mobile-slide h2 {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            margin-top: 0;
+        }
+        .mobile-slide h3 {
+            color: #e6edf3;
+            font-size: 1.1rem;
+            margin-top: 0.25rem;
+        }
+        .mobile-slide ul {
+            font-size: 1rem;
+            line-height: 1.6;
+            padding-left: 1.25rem;
+        }
+        .mobile-slide li { margin-bottom: 0.5rem; }
+        .mobile-back {
+            text-align: center;
+            padding: 1rem 0 2rem;
+        }
+        .mobile-back a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            body { overflow: auto; }
+            #impress, .hint { display: none !important; }
+            .mobile-fallback { display: block; }
         }
 
         /* Base styles for all steps */
@@ -103,8 +145,51 @@
 </head>
 <body class="impress-not-supported">
 
-<div class="fallback-message">
-    <p>Your browser doesn't support the features required by impress.js. Please use a modern browser.</p>
+<div class="mobile-fallback">
+    <h1>Professional Engineering Lifecycle</h1>
+    <p style="color: #8b949e; margin-bottom: 1.5rem;">Foundation &rarr; Execution &rarr; Transformation</p>
+
+    <div class="mobile-slide">
+        <h2>1. Foundation</h2>
+        <h3>United States Marine Corps</h3>
+        <ul>
+            <li>Philosophy of <span class="highlight">Strategic Alignment &amp; Shared Vision</span></li>
+            <li><span class="highlight">Decentralized Execution:</span> Empowering cross-functional teams through autonomy (The 5 C's).</li>
+            <li>Driving <span class="highlight">Sustainable Agile Velocity</span> and proactive risk mitigation.</li>
+        </ul>
+    </div>
+
+    <div class="mobile-slide">
+        <h2>2. Execution</h2>
+        <h3>Rockwell Collins &amp; Intermec</h3>
+        <ul>
+            <li><span class="highlight">Avionics &amp; FMS Lifecycle:</span> Directed full life-cycle development for AIMS and Flight Management Systems.</li>
+            <li>Maintained strict <span class="highlight">DO-178B/C, DO-254, and EAR/ITAR (JCL2)</span> compliance.</li>
+        </ul>
+    </div>
+
+    <div class="mobile-slide">
+        <h2>3. Transformation</h2>
+        <h3>Collins Aerospace &amp; Transamerica</h3>
+        <ul>
+            <li>Agile Coach / Scrum Master integrating <span class="highlight">Lean principles</span> and TDD.</li>
+            <li>Shifted focus from building software to <span class="highlight">building teams</span>.</li>
+            <li>Managed <span class="highlight">$25M+ lifecycle portfolios</span> and cross-functional teams of 9–15 engineers.</li>
+            <li>Reduced project schedules by <span class="highlight">25%</span> while increasing Agile velocity by 2.5x.</li>
+        </ul>
+    </div>
+
+    <div class="mobile-slide">
+        <h2>Tim S. Downs Mullen</h2>
+        <h3>Engineering Leader | Avionics &amp; Systems Execution</h3>
+        <ul>
+            <li>Architecting <span class="highlight">predictable delivery</span> in strict DO-178C environments.</li>
+            <li>Control Account Manager (CAM) holding EVMS variances to an <span class="highlight">elite &lt;5% margin</span>.</li>
+            <li>Fostering inclusive, intrinsically motivated teams through <span class="highlight">"The 5 C's" framework</span>.</li>
+        </ul>
+    </div>
+
+    <div class="mobile-back"><a href="index.html">&larr; Back to site</a></div>
 </div>
 
 <div class="hint">Use spacebar or arrow keys to navigate</div>
