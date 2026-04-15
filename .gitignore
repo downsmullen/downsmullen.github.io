@@ -3,3 +3,13 @@ HANDOFF.md
 WORKPACKAGE.md
 CLAUDE.md
 HANDOFF_ARCHIVE.md
+RETRO.md
+_Tasks.md
+_Kanban.md
+state.json
+docs/
+
+# Secrets (SOP-001)
+.secrets/
+*.env
+.env.*
