@@ -15,6 +15,7 @@ Establish a professional web presence for the job search and consulting pipeline
 | `5c-presentation.html` | Interactive executive brief (Prezi replacement) |
 | `case-study-transamerica.html` | Enterprise case study — Transamerica engagement |
 | `multi-agent-handoff-protocol.html` | Technical deep-dive — AI multi-agent coordination |
+| `plan-gate.html` | Field report — fail-closed AI agent governance (plan-gate / StrictLock) |
 | `presentation.html` | Slide-style presentation page |
 
 ## Tech Stack
