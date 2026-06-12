@@ -406,7 +406,7 @@
 
             <p><strong>Write truncation</strong> was the scariest failure. On three separate occasions, the executor's session ended with the handoff file truncated mid-sentence — the write process failed partway through, leaving corrupt state. Because the file looked <em>mostly</em> correct on casual inspection, the planner would load it, parse the truncated section as intentional, and propagate the corruption forward. The fix was a post-write verification step — checksum the file, verify line count, warn if the file shrank — but the root cause remains unresolved.</p>
 
-            <p>Those last two are infrastructure failures a file convention can't fix — and they sit one layer below a question I tackle separately: how do you stop an agent from taking an action you never approved in the first place? That's a companion field report on <a href="plan-gate.html">fail-closed agent governance</a>.</p>
+            <p>Those last two are infrastructure failures a file convention can't fix — I came back to that layer later in a field report on <a href="externalized-memory.html">externalized memory</a>, where git becomes the ground truth and writes go atomic. They also sit one layer below a question I tackle separately: how do you stop an agent from taking an action you never approved in the first place? That's a companion field report on <a href="plan-gate.html">fail-closed agent governance</a>.</p>
 
             <h2>The Takeaway</h2>
 

@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fail-Closed AI Agents | Tim Downs Mullen</title>
-    <meta name="description" content="Prose-governed AI agents fail open; structurally-governed agents fail closed. Moving agent governance out of the system prompt and into a gate at the tool boundary — and getting the compliance audit trail for free.">
+    <title>Your Agent Forgets Everything. Your Filesystem Doesn't. | Tim Downs Mullen</title>
+    <meta name="description" content="A field report on externalized memory — running stateless AI agents against one on-disk state file per project: what broke making it trustworthy, and why git is the ground truth.">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://downsmullen.com/plan-gate.html">
-    <meta property="og:title" content="Fail-Closed AI Agents | Tim Downs Mullen">
-    <meta property="og:description" content="Don't ask an AI agent to behave — build a gate it can't work around. A field report on structural, fail-closed agent governance.">
+    <meta property="og:url" content="https://downsmullen.com/externalized-memory.html">
+    <meta property="og:title" content="Your Agent Forgets Everything. Your Filesystem Doesn't. | Tim Downs Mullen">
+    <meta property="og:description" content="Your agent forgets everything; your filesystem doesn't. One on-disk state file per project as the single source of truth — and the scars from making it trustworthy.">
     <meta property="og:image" content="https://downsmullen.com/TDM.Monogram.webp">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Fail-Closed AI Agents | Tim Downs Mullen">
-    <meta name="twitter:description" content="Don't ask an AI agent to behave — build a gate it can't work around. Structural, fail-closed agent governance.">
+    <meta name="twitter:title" content="Your Agent Forgets Everything. Your Filesystem Doesn't. | Tim Downs Mullen">
+    <meta name="twitter:description" content="One on-disk state file per project as the single source of truth. A field report on externalized memory for stateless AI agents — and why git is the ground truth.">
     <meta name="twitter:image" content="https://downsmullen.com/TDM.Monogram.webp">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -349,75 +349,96 @@
     </nav>
 
     <header class="cs-header">
-        <span class="cs-type">Field Report — AI Governance Architecture</span>
-        <h1>Build a Gate It Can't Work Around.</h1>
-        <p class="subtitle">Prose-governed agents fail open. Structurally-governed agents fail closed. How I moved agent governance out of the system prompt and into a gate at the tool boundary — and got the compliance audit trail for free.</p>
+        <span class="cs-type">Field Report — Externalized Memory</span>
+        <h1>Your Agent Forgets Everything. Your Filesystem Doesn't.</h1>
+        <p class="subtitle">A field report on externalized memory — two months of running stateless AI agents against one on-disk state file per project, what broke along the way, and why the pattern is becoming the next public StrictLock module.</p>
     </header>
 
     <section class="cs-container">
         <div class="cs-main">
 
-            <p>I let AI agents take real actions on my systems. Not just produce text — edit files, run shell commands, call APIs, write to systems of record. The moment you do that in a regulated domain, the math of a mistake changes. A bad paragraph, you regenerate. An action the operator never approved — a disclosed record, an unauthorized change to a system of record, a file sent to the wrong party — you report. The cost stops being "try again" and becomes a reportable event.</p>
+            <h2>The memory of a memory</h2>
 
-            <p>So how does almost everyone govern these agents today? With prose. The system prompt says "always ask before deleting anything." The policy doc says "escalate to a human for anything sensitive." These are real attempts at control, and they're better than nothing. They're also the weakest kind, because they share one fatal property: <strong>they fail open.</strong></p>
+            <p>I run AI agents across six active projects: a regulated-domain health-tech product, a business entity, a job search, this website, an open-source governance suite, and the scaffold that coordinates all of it. Sessions run 90 to 120 minutes. Then the window closes, and the agent that did the work ceases to exist.</p>
 
-            <p>A control fails open when, the moment it stops working, the dangerous thing happens anyway. Prose governance is exactly this. The instruction is advisory — the model has to <em>choose</em> to honor it on every single turn. Under context pressure, under momentum toward the goal it was pointed at, under an ambiguous request, that instruction is the first thing to slip. And when it slips, nothing catches the action. The agent just does the thing. The guardrail was a suggestion, and suggestions aren't load-bearing.</p>
+            <p>The next session starts with a different agent that knows nothing. Not "needs a refresher" — nothing. An LLM agent is functionally stateless across sessions. Its working memory is the context window: ephemeral, bounded, and gone the moment the session ends or crashes.</p>
 
-            <p>Engineers have a name for the opposite posture. A <strong>fail-closed</strong> system defaults to the safe state when something goes wrong: the brake that engages when air pressure is lost, the door that locks when the power dies, the valve that shuts when the signal drops. You don't trust the operator to remember to pull the brake. You build a brake that pulls itself.</p>
+            <p>Most people patch this with vibes. They paste yesterday's chat into today's prompt, or they trust the agent's summary of what it did, or they keep one heroic never-ending conversation alive until it degrades into soup. All three fail the same way: if the only record of "what was approved" and "what has been done" lives in a context window, then your project state is as durable as a chat log. An approval that existed in a since-evicted context window is a memory of a memory.</p>
 
-            <blockquote>
-                <p>Agentic governance has to move the same way: out of the prose and into a structural gate. Stop instructing the agent to ask permission — put a mechanism between its intent and its effect that physically blocks any action outside an approved envelope, before it runs.</p>
-            </blockquote>
+            <p>That's not a productivity problem. In regulated work, it's a governance problem. You cannot audit a vibe.</p>
 
-            <h2>The Gate</h2>
+            <h2>The pattern</h2>
 
-            <p>What I built sits at the tool boundary. Every consequential tool call — every file write, every command — gets intercepted <em>before it executes</em> and checked against an approved plan. The protocol is boring on paper: PLAN, then CONFIRM, then EXECUTE. The agent states, in advance, exactly what it intends to do — which files, which commands. I read it and say yes, no, or modify. The agent may then act on the confirmed items, and only those. An action that isn't in the approved plan does not run.</p>
+            <p>The fix is old enough to have a name from 1980s AI research: the <strong>shared blackboard</strong>. One on-disk state file per project, serving as the single source of truth for cross-session state. Mine is called <code>HANDOFF.md</code>, and every project gets exactly one.</p>
 
-            <p>The difference from a careful system prompt — the whole difference — is <em>where the rule lives</em>. In the prose approach, the agent is simultaneously the actor and the thing deciding whether to honor the rule. In the structural approach, the check runs in ordinary code the agent doesn't control. It can't reason its way past it, can't decide the rule doesn't apply this time, can't forget it under momentum. The rule isn't something the agent is asked to follow. It's a condition of the action happening at all. This is the difference between asking a driver to brake and installing a brake that engages itself.</p>
-
-            <p>The governing bias is <strong>consent over completion</strong>. An autonomous system has a natural pull toward finishing the task — that's what it was pointed at, and that pull is exactly the momentum that runs over a guardrail. So the default is inverted: when an action is unapproved, ambiguous, or surprising, the gate denies and stops for a human. An agent that can't get approval does nothing. Doing nothing is the safe state, and the system defaults to it.</p>
-
-            <h2>How It Got Strict</h2>
-
-            <p>I didn't design the strict version up front. Every tightening was scar tissue from a specific failure that slipped through the looser version. Two are worth telling, because they're the ones that convinced me the enforcement was real and not theater.</p>
-
-            <p>The first: <strong>the gate blocked its own author's agent.</strong> Mid-session, my assistant tried to save a routine note to its own memory directory. The gate denied it — no approved plan named that path. Nothing about the write was dangerous; it was the agent's own scratchpad. That is the point. A structural gate doesn't reason about intent or benignity. It blocks anything outside the approved envelope, including my own trusted tooling. Prose governance would have waved a "harmless" write through. The fix was the right one — widen the approved plan to name the path explicitly — not "trust the agent because it meant well."</p>
-
-            <p>The second cut the other way. I'd added a tightly-scoped carve-out so the agent could write to one specific memory directory without ceremony. A <em>different</em> memory directory — one character of path apart — wasn't covered, so writes there got denied unexpectedly. The lesson runs both directions: tight scoping keeps the blast radius small, but it produces "why didn't it work <em>here</em>?" surprises. The resolution was to authorize the specific path explicitly — <strong>not</strong> to broaden the carve-out to "all memory directories." Choosing the narrow, annoying fix over the broad, convenient one is the entire discipline in miniature.</p>
-
-            <h2>What It Catches, and What It Only Sees</h2>
-
-            <p>I want to be honest about the boundary, because governance is only credible if it survives contact with how agents actually break. Some failures the gate <em>prevents</em> outright: an action outside the approved plan simply does not run, and momentum that would have shipped an unapproved change under prose governance gets stopped at the gate instead.</p>
-
-            <p>Others it only <em>detects</em>, or only mitigates — and pretending otherwise would be the same fail-open dishonesty I'm arguing against. A write silently truncated mid-content; a cached filesystem that serves stale reads so the agent acts on pre-edit state and signals nothing. The gate can warn, but it doesn't prevent those. They live a layer below authorization, in the state-transfer machinery between agent sessions. I wrote about that layer separately — <a href="multi-agent-handoff-protocol.html">what breaks when you give two AI agents a shared notepad</a> — because those failures have a different shape and a different fix. This piece is about the authorization layer: keeping the agent inside an envelope I approved.</p>
-
-            <h2>The Compliance Falls Out</h2>
-
-            <p>Here's the part I didn't expect. I built the gate to keep the agent safe. I did not build an "audit-logging feature." But every gate decision — every allow, every deny — gets recorded with a timestamp, the target, the command, and the plan that governed it. That record is just <em>exhaust</em>. The gate produces it while doing its actual job.</p>
-
-            <p>And that exhaust turns out to be most of what a SOC 2 or ISO audit asks you to evidence: who was permitted to touch what, a monitoring trail of policy-violation attempts, a documented approve-act-record cycle for every change, a human as the sole authorizing authority. The same handful of mechanisms answers a security framework, a quality framework, and an AI-management framework at once — because all three are, at bottom, asking the same question: <em>can you show this system only did what it was authorized to do, and prove it after the fact?</em> A fail-closed gate answers yes by construction.</p>
-
-            <blockquote>
-                <p>You don't build these controls to pass an audit. You build them to keep the agent safe — and the audit evidence is what they emit while doing it.</p>
-            </blockquote>
-
-            <h2>What I'd Tell You</h2>
-
-            <p>If you take one thing from this: don't ask an agent to behave — build a gate it can't work around. Any governance that lives in prose is a request the agent can decline, and under enough pressure it eventually will. The only governance you can rely on runs in code the agent doesn't control and defaults to <em>deny</em> when it's unsure.</p>
-
-            <p>Four moves carry almost all the weight:</p>
+            <p>It carries five things:</p>
 
             <ul>
-                <li><strong>Put the rule at the tool boundary, not in the prompt.</strong> A pre-action hook that checks every consequential call against an approved plan is a small amount of code, and it changes your risk posture immediately. Start there.</li>
-                <li><strong>Fail closed.</strong> When an action is unapproved, ambiguous, or surprising, block it and stop for a human. Bias the whole system toward consent over completion.</li>
-                <li><strong>Enumerate; never grant broadly.</strong> Authorize the exact files and the exact commands, not the directory or the tool. Broad grants are fail-open invitations wearing the costume of convenience.</li>
-                <li><strong>Let the gate be your audit trail.</strong> Don't build a separate compliance feature. Log every gate decision and you'll find you've already produced most of what the auditors want.</li>
+                <li><strong>Meta</strong> — when the last session ran, which agent ran it, the git ref it left behind, and the files it touched.</li>
+                <li><strong>Next Action</strong> — what the next session does first. Not the backlog. The next action.</li>
+                <li><strong>Active Threads</strong> — open work items with status, each one line.</li>
+                <li><strong>Decisions</strong> — what was decided, when, and the rationale, so no future session relitigates it.</li>
+                <li><strong>Constraints</strong> — the known sharp edges, so no future session rediscovers them.</li>
             </ul>
 
-            <p>None of this needs a big team or a greenfield system. The gate I run was extracted from a working product, and its strictest features are scar tissue from real failures — which means you can adopt it incrementally, and let your own failures tell you where to tighten next. I open-sourced it as plan-gate, the flagship module of a suite I call <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>.</p>
+            <p>Any agent picking up the work reads the blackboard first. Any agent finishing work writes it last, and the close-out commit is the heartbeat — no commit, no "done."</p>
+
+            <p>Just as important is what the state file is <em>not</em>. It's not a mailbox and it's not an archive. Those are separate files with one job each: a work-package file carries execution plans between sessions and gets cleared to a sentinel line after use; an archive file holds completed history. The first time I let those concerns share a file, the state file became a junk drawer and stopped being readable at a glance — which, for a file whose entire job is "be readable at a glance by an amnesiac," is death.</p>
+
+            <h2>What broke</h2>
+
+            <p>The pattern is simple. Keeping it trustworthy was not. Every rule below is a scar.</p>
+
+            <h3>The filesystem lied</h3>
+
+            <p>One of my agent runtimes reads files through a virtualization layer, and its cache drifts. For weeks I had sessions where the state file said one thing and <code>git show HEAD</code> said another — stale reads serving content that had been overwritten days earlier, and phantom writes that reported success while putting nothing on disk.</p>
+
+            <p>The fix reframed the whole system: <strong>git is the ground truth, not the file</strong>. Every session now opens with a staleness tripwire — <code>git log --oneline -3</code> — and compares what it sees against the git ref recorded in the state file's own Meta block. If they disagree, every cached read this session is suspect and gets re-verified. The blackboard carries its own freshness check, because I learned the hard way that "I just read the file" is not evidence the file is what's on disk.</p>
+
+            <h3>The file rotted from success</h3>
+
+            <p>Early on, completed items got a satisfying checkmark and stayed put. Within weeks the state file was mostly a graveyard of past wins that every new session had to wade through to find the live work. The rule now: <strong>completed items are removed, not checked off</strong>. History lives in the archive file; the blackboard describes the present.</p>
+
+            <p>Long-lived items had a subtler version of the same disease — status rows quietly accreting addenda every time they were touched, until single rows ran to paragraphs. The eventual fix was structural: records of decisions and threads moved to individual files, with closed records made immutable, and the state file's tables generated from them. You can't accrete addenda onto a record that physically refuses edits.</p>
+
+            <h3>Crash mid-write</h3>
+
+            <p>A blackboard is only as trustworthy as its worst write. A crash halfway through rewriting the state file leaves you with half a state file — which is worse than a stale one, because it looks authoritative. So writes are atomic: <strong>write to a temp file, then rename</strong>. The rename either happens or it doesn't; there is no half.</p>
+
+            <h3>Two writers, one file</h3>
+
+            <p>Once I started running concurrent agent sessions in parallel git worktrees, two sessions would both want to update the same state file at close-out. The answer was a <strong>single-writer convention</strong>: each unit of work declares a claim on the state file up front, a validator denies any second concurrent claim, and first mover wins. The losing session doesn't fight — it folds its update into the next session's reconcile step. Boring, deterministic, no merge archaeology.</p>
+
+            <h3>The silent wedge</h3>
+
+            <p>My favorite scar. A crashed git process left behind a zero-byte lock file. The hourly job that keeps local state fresh respected the lock — and silently no-op'd for sixteen hours straight. Fifteen consecutive runs, each one reporting nothing, because technically nothing was wrong.</p>
+
+            <p>Two rules came out of that. First, self-heal the known case: a lock file older than fifteen minutes gets moved aside — moved to a lost-and-found, never deleted, because the recovery mechanism must not be capable of destroying evidence. Second, for everything else: <strong>no silent failure</strong>. When the sync can't proceed for any other reason, it drops a reason-tagged sentinel flag that the next session is required to surface to me verbatim. The system is allowed to be stuck. It is not allowed to be quietly stuck.</p>
+
+            <h2>Why this is governance, not housekeeping</h2>
+
+            <p>Everything above sounds like ops hygiene. Here's why it's actually the load-bearing wall.</p>
 
             <blockquote>
-                <p>Build the gate. Let it hold.</p>
+                <p>State that lives outside the model can be inspected, version-controlled, diffed, and replayed. An approval recorded on the blackboard and committed is an artifact — evidence with a timestamp and a hash. An approval that lived in a context window is testimony from a witness who no longer exists.</p>
+            </blockquote>
+
+            <p>I've written before about <a href="plan-gate.html">moving agent governance out of prose and into a fail-closed gate at the tool boundary</a>. The gate checks every consequential action against an explicitly approved plan. But "approved" only means something because the plan, the state, and the close-out all live on disk, in git, where an auditor — or just me, three weeks later — can trace what was authorized, what ran, and what changed. The audit trail isn't a feature I built; it's exhaust from the pattern working. Externalized memory is what the gate stands on.</p>
+
+            <h2>Coming home: the StrictLock module</h2>
+
+            <p><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> v1 shipped three modules — plan-gate, commit-msg-gate, memory-cap — all variations on one thesis: structure beats self-discipline, in agents as in people. The roadmap has marked the externalized-memory pattern as the natural next module to bring home, and this article is its field report.</p>
+
+            <p>What ships: a state-file template, a work-package mailbox template, the atomic write-temp-then-rename reference, and the design write-up — the why behind every rule above. Structure and prose only, never real handoff data. Like the rest of the suite it's standalone, plain files, no daemon, Apache-2.0. Adopt the template without the gate, or the gate without the template — though they're better together, because each one makes the other auditable.</p>
+
+            <h2>The takeaway</h2>
+
+            <p>Treat agent memory as infrastructure, because that's what it is. If your agent's memory of what it <em>may do</em> lives in a prompt, and its memory of what it <em>did</em> lives in a chat scroll, you don't have an audit trail — you have vibes with a timestamp.</p>
+
+            <p>Externalize the state. One file per project, one job per file. Make git the ground truth and make every session start by distrusting its own memory. Write atomically, claim exclusively, and when something wedges, make it wedge loudly.</p>
+
+            <blockquote>
+                <p>The agent is stateless. The work doesn't have to be.</p>
             </blockquote>
 
             <div class="author-bio">
@@ -436,7 +457,7 @@
 
             <div class="fact-group">
                 <span class="fact-label">Published</span>
-                <span class="fact-value">May 2026</span>
+                <span class="fact-value">June 2026</span>
             </div>
 
             <div class="fact-group">
@@ -447,27 +468,27 @@
             <div class="fact-group">
                 <span class="fact-label">Topics</span>
                 <div style="margin-top: 0.5rem;">
-                    <span class="topic-tag">AI Governance</span>
+                    <span class="topic-tag">Externalized Memory</span>
                     <span class="topic-tag">Agentic AI</span>
-                    <span class="topic-tag">Fail-Closed Systems</span>
-                    <span class="topic-tag">Regulated Industries</span>
-                    <span class="topic-tag">Compliance</span>
+                    <span class="topic-tag">State Management</span>
+                    <span class="topic-tag">AI Governance</span>
+                    <span class="topic-tag">Auditability</span>
                 </div>
             </div>
 
             <div class="fact-group">
                 <span class="fact-label">Key Idea</span>
-                <span class="fact-value">Structural consent enforced at the tool boundary — default deny</span>
+                <span class="fact-value">One on-disk state file per project — git is the ground truth, not the file</span>
             </div>
 
             <div class="fact-group">
                 <span class="fact-label">Architecture</span>
-                <span class="fact-value">Pre-action gate + per-plan allowlist + <a href="externalized-memory.html">externalized memory</a></span>
+                <span class="fact-value">Shared blackboard + bidirectional work-package mailbox + atomic write-temp-then-rename</span>
             </div>
 
             <div class="fact-group">
                 <span class="fact-label">Reference Implementation</span>
-                <span class="fact-value"><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (plan-gate module)</span>
+                <span class="fact-value"><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (externalized-memory module — planned)</span>
             </div>
         </aside>
     </section>

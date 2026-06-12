@@ -7,7 +7,7 @@ Read HANDOFF.md and WORKPACKAGE.md on startup. This is a GitHub Pages static sit
 - **Domain:** downsmullen.com (GitHub Pages, CNAME configured)
 - **Repo:** downsmullen/downsmullen.github.io (independent repo, not a vault submodule — DEC-001)
 - **Stack:** Static HTML/CSS, no framework, no build step
-- **Pages:** 6 HTML files (index, 5c-framework, 5c-presentation, case-study-transamerica, multi-agent-handoff-protocol, presentation)
+- **Pages:** 8 HTML files (index, 5c-framework, 5c-presentation, case-study-transamerica, multi-agent-handoff-protocol, plan-gate, externalized-memory, presentation)
 
 ## Compliance
 
