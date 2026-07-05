@@ -109,6 +109,21 @@
             margin-bottom: 0;
         }
 
+        .cs-dates {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin: 1.5rem 0 0 0;
+        }
+
+        .cs-dates a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .cs-dates a:hover { text-decoration: underline; }
+
         /* Article Content Layout */
         .cs-container {
             display: grid;
@@ -266,6 +281,26 @@
             font-size: 1.1rem;
         }
 
+        .footer-links {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--accent); }
+
         .btn-primary {
             display: inline-block;
             background-color: transparent;
@@ -352,6 +387,7 @@
         <span class="cs-type">Field Report — AI Governance Architecture</span>
         <h1>Build a Gate It Can't Work Around.</h1>
         <p class="subtitle">Prose-governed agents fail open. Structurally-governed agents fail closed. How I moved agent governance out of the system prompt and into a gate at the tool boundary — and got the compliance audit trail for free.</p>
+        <p class="cs-dates">First published: 2026-05-30. Last updated: 2026-07-05. The shipped implementation of this idea is <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (plan-gate module).</p>
     </header>
 
     <section class="cs-container">
@@ -478,6 +514,13 @@
         <h2>Ready to optimize your SDLC?</h2>
         <p>Whether you require a strategic Agile pivot, embedded coaching, or rigorous systems engineering leadership, predictable delivery starts here.</p>
         <a href="mailto:tim@downsmullen.com" class="btn-primary">Contact Tim Downs Mullen</a>
+        <div class="footer-links">
+            <a href="https://github.com/downsmullen">GitHub</a>
+            <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
+            <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
+            <a href="https://hipaapath.com">HIPAAPath</a>
+            <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
+        </div>
     </footer>
 
 <script>
