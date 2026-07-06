@@ -109,6 +109,21 @@
             margin-bottom: 0;
         }
 
+        .cs-dates {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin: 1.5rem 0 0 0;
+        }
+
+        .cs-dates a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .cs-dates a:hover { text-decoration: underline; }
+
         /* Article Content Layout */
         .cs-container {
             display: grid;
@@ -364,7 +379,7 @@
             <a href="index.html#expertise">Capabilities</a>
             <a href="index.html#matrix">Technical Stack</a>
             <a href="index.html#insights">Insights</a>
-            <a href="presentation.html">Executive Briefing</a>
+            <a href="presentation.html">Background</a>
         </div>
     </nav>
 
@@ -372,6 +387,7 @@
         <span class="cs-type">Case Study — AI Workflow Architecture</span>
         <h1>What Breaks When You Give Two AI Agents a Shared Notepad</h1>
         <p class="subtitle">How I built (and rebuilt) the protocol layer between a planning agent and an execution agent — and why the handoff architecture is the architecture.</p>
+        <p class="cs-dates">First published: 2026-04-14. Last updated: 2026-07-06.</p>
     </header>
 
     <section class="cs-container">
@@ -387,7 +403,7 @@
 
             <p>Three failure modes surfaced within the first dozen sessions. Each one looked like a different problem. They weren't.</p>
 
-            <p><strong>Context rot</strong> is the most fundamental. It's a property of how transformer attention works: as the context window fills with conversation history, the model's ability to recall constraints from earlier in the session degrades. Research from Stanford demonstrated that accuracy can drop from 75% to 55% when critical information is buried in the middle of a moderate context window. In practice, this meant my planning agent would forget architectural decisions it had made two sessions earlier and propose approaches that had already been tried and failed. The executor would re-investigate solved problems because the resolution was buried under pages of newer output.</p>
+            <p><strong>Context rot</strong> is the most fundamental. It's a property of how transformer attention works: as the context window fills with conversation history, the model's ability to recall constraints from earlier in the session degrades. Research from Stanford (<a href="https://arxiv.org/abs/2307.03172">&ldquo;Lost in the Middle&rdquo;, Liu et al. 2023</a>) demonstrated that accuracy can drop from 75% to 55% when critical information is buried in the middle of a moderate context window. In practice, this meant my planning agent would forget architectural decisions it had made two sessions earlier and propose approaches that had already been tried and failed. The executor would re-investigate solved problems because the resolution was buried under pages of newer output.</p>
 
             <p><strong>Junk drawer handoffs</strong> are what happens when you use a single file for everything. My initial handoff file tried to be a task queue, a decision log, an execution trace, and a session summary simultaneously. Every session appended to it. The instructions explicitly said to remove completed items — but once the file crossed a critical mass, the agents stopped following those instructions. Context rot ate its own mitigation: the rule to keep the file clean was buried in a file that had gotten too dirty to parse reliably. The executor agent couldn't reliably distinguish between a completed task and an active one because the formatting had drifted — the planner might use <code>### Pending Tasks</code> one session and <code>## To-Do List</code> the next, and the executor's pattern matching would silently miss the renamed section. Instead of crashing, the agent would hallucinate a response. The file grew until it consumed a meaningful portion of the context window just being read, crowding out space for actual reasoning.</p>
 
@@ -500,6 +516,7 @@
         <h2>Ready to optimize your SDLC?</h2>
         <p>Whether you require a strategic Agile pivot, embedded coaching, or rigorous systems engineering leadership, predictable delivery starts here.</p>
         <a href="mailto:tim@downsmullen.com" class="btn-primary">Contact Tim Downs Mullen</a>
+        <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@downsmullen.com" style="color: var(--accent); text-decoration: none;">tim@downsmullen.com</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
