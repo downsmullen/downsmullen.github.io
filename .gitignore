@@ -1,15 +1,4 @@
-# Vault management files — not deployed to GitHub Pages
-HANDOFF.md
-WORKPACKAGE.md
-CLAUDE.md
-HANDOFF_ARCHIVE.md
-RETRO.md
-_Tasks.md
-_Kanban.md
-state.json
-docs/
-
-# Secrets (SOP-001)
+# Secrets — never commit (static public repo)
 .secrets/
 *.env
 .env.*
