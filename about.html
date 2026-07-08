@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth; scroll-padding-top: 120px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="description" content="Why an avionics engineer who certified flight software is the person you want checking the AI-era work nobody can afford to get wrong. About Tim Downs Mullen.">
+    <title>About | Tim Downs Mullen</title>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://downsmullen.com/about.html">
+    <meta property="og:title" content="About | Tim Downs Mullen">
+    <meta property="og:description" content="From the Marine Corps to avionics to enterprise transformation to founder — the certify-it-or-it-doesn't-ship discipline, applied to the AI tools entering your business now.">
+    <meta property="og:image" content="https://downsmullen.com/TDM.Monogram.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About | Tim Downs Mullen">
+    <meta name="twitter:description" content="From the Marine Corps to avionics to enterprise transformation to founder — the certify-it-or-it-doesn't-ship discipline, applied to the AI tools entering your business now.">
+    <meta name="twitter:image" content="https://downsmullen.com/TDM.Monogram.webp">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Tim Downs Mullen",
+      "url": "https://downsmullen.com/",
+      "sameAs": [
+        "https://github.com/downsmullen",
+        "https://www.linkedin.com/in/tim-downs-mullen-0599a050",
+        "https://www.npmjs.com/package/eslint-plugin-strictlock"
+      ]
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a192f;
+            --primary-light: #112240;
+            --accent: #64ffda;
+            --text-main: #ccd6f6;
+            --text-muted: #a8b2d1;
+            --bg-white: #ffffff;
+            --text-dark: #0f172a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background-color: rgba(10, 25, 47, 0.95);
+            position: fixed;
+            width: 90%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .logo a { color: inherit; text-decoration: none; }
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a.current { color: var(--accent); }
+
+        .nav-cta {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent) !important;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark) !important;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10rem 10% 5rem 10%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+        }
+
+        .hero p.overline {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 4.5vw, 60px);
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.15;
+            max-width: 950px;
+        }
+
+        .hero p.description {
+            max-width: 720px;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-top: 1.75rem;
+        }
+
+        .hero p.description strong { color: var(--text-main); font-weight: 600; }
+
+        /* Narrative arc */
+        .arc {
+            padding: 6rem 10%;
+            background-color: var(--primary-dark);
+        }
+
+        .arc h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 0.75rem 0;
+        }
+
+        .arc .arc-sub {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 0 4rem 0;
+        }
+
+        .beat {
+            border-left: 4px solid var(--accent);
+            padding: 0 0 0 2rem;
+            margin: 0 0 3.5rem 0;
+            max-width: 840px;
+        }
+
+        .beat:last-child { margin-bottom: 0; }
+
+        .beat .beat-label {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .beat h3 {
+            color: var(--text-main);
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin: 0 0 1rem 0;
+        }
+
+        .beat p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin: 0 0 1.25rem 0;
+        }
+
+        .beat .means {
+            color: var(--text-main);
+            font-size: 1.05rem;
+            border-top: 1px solid rgba(100, 255, 218, 0.15);
+            padding-top: 1rem;
+            margin: 0;
+        }
+
+        .beat .means strong { color: var(--accent); font-weight: 600; }
+
+        /* Credentials strip */
+        .cred-strip {
+            padding: 4rem 10%;
+            background-color: var(--primary-light);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
+        .cred-strip p {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .cred-strip p strong { color: var(--text-main); }
+
+        /* Engagement (light services section) */
+        .services {
+            padding: 6rem 10%;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--primary-dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .lane-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            padding: 2.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e1;
+        }
+
+        .service-card h4 {
+            font-size: 1.35rem;
+            color: var(--primary-dark);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .service-card p {
+            color: #475569;
+            font-size: 1rem;
+            flex-grow: 1;
+        }
+
+        .service-card .placeholder {
+            color: #b45309;
+            background: #fffbeb;
+            border: 1px dashed #f59e0b;
+            border-radius: 4px;
+            padding: 0 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .read-more {
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #0ea5e9;
+            align-self: flex-start;
+            padding-bottom: 2px;
+            margin-top: 1.75rem;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            background-color: #0ea5e9;
+            color: var(--bg-white);
+        }
+
+        /* Testimonial pull-through */
+        .testimonials {
+            padding: 5rem 10%;
+            background-color: var(--primary-light);
+            color: var(--text-main);
+        }
+
+        .testimonial-card {
+            background: rgba(10, 25, 47, 0.5);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            position: relative;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 4rem;
+            color: rgba(100, 255, 218, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer / CTA */
+        footer {
+            padding: 6rem 10%;
+            text-align: center;
+            background-color: var(--primary-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover { background-color: rgba(100, 255, 218, 0.1); }
+
+        .deck-link {
+            margin-top: 2.5rem !important;
+            font-size: 0.95rem;
+        }
+
+        .deck-link a { color: var(--accent); text-decoration: none; }
+
+        .footer-links {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--accent); }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            line-height: 1;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav { position: relative; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-dark);
+                padding: 1rem 5%;
+                gap: 1rem;
+                z-index: 99;
+                border-top: 1px solid rgba(100,255,218,0.1);
+            }
+            .nav-links.open { display: flex; }
+            .hero { padding: 9rem 5% 4rem 5%; }
+            .hero h1 { font-size: 2.2rem; }
+            .arc, .cred-strip, .services, .testimonials, footer { padding-left: 5%; padding-right: 5%; }
+            .arc { padding-top: 4rem; padding-bottom: 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><a href="index.html">Tim <span>Downs Mullen</span></a></div>
+        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+        <div class="nav-links">
+            <a href="index.html#expertise">Capabilities</a>
+            <a href="index.html#matrix">Technical Stack</a>
+            <a href="index.html#feedback">Feedback</a>
+            <a href="index.html#insights">Insights</a>
+            <a href="about.html" class="current">About</a>
+            <a href="mailto:tim@tdmtechsolutions.com" class="nav-cta">Contact</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <p class="overline">About</p>
+        <h1>I've spent 25 years in rooms where a software mistake isn't an inconvenience &mdash; it's a grounded fleet or a federal violation.</h1>
+        <p class="description">That's the discipline I bring to the AI tools now walking into your business: <strong>certify it, or it doesn't ship.</strong> Here's the path that built it &mdash; and what each part of it means for the people I work with.</p>
+    </header>
+
+    <section class="arc">
+        <h2>Four rooms, one habit.</h2>
+        <p class="arc-sub">Marine Corps to avionics to enterprise transformation to founder. Different stakes each time; the same refusal to ship work I can't stand behind.</p>
+
+        <div class="beat">
+            <p class="beat-label">Foundation &mdash; U.S. Marine Corps</p>
+            <h3>A plan only works if the lowest level can execute it without you.</h3>
+            <p>I started in the Marine Corps, where you learn fast that command isn't standing over people &mdash; it's setting a clear intent and trusting the team to adapt when the plan meets reality. Strategic alignment at the top, decentralized execution at the edge. It's the opposite of micromanagement, and it's the only thing that scales under pressure.</p>
+            <p class="means"><strong>What this means for you:</strong> someone who builds teams that execute without being babysat &mdash; and who would rather remove your bottleneck than become one.</p>
+        </div>
+
+        <div class="beat">
+            <p class="beat-label">Execution &mdash; Rockwell Collins &amp; Intermec</p>
+            <h3>&ldquo;It works on my machine&rdquo; is not an acceptable answer at 35,000 feet.</h3>
+            <p>Then two decades in avionics &mdash; flight management systems and the AIMS / IMS-3500 platform, software that actually flies. That world runs on DO-178B/C, DO-254, and ARP4754, and it doesn't bend. I also led export compliance as the EAR/ITAR Export Classification Lead (JCL2), because in that arena getting the paperwork wrong is its own kind of failure.</p>
+            <p class="means"><strong>What this means for you:</strong> discipline formed where a mistake isn't a bug ticket &mdash; brought to your work, where the stakes may be quieter but the audit is just as real.</p>
+        </div>
+
+        <div class="beat">
+            <p class="beat-label">Transformation &mdash; Collins Aerospace &amp; Transamerica</p>
+            <h3>Speed and compliance aren't a trade-off, if the system is designed right.</h3>
+            <p>I moved from building the systems to changing how teams build them &mdash; Agile coaching inside heavily regulated enterprises. $25M+ lifecycle portfolios, teams of 9 to 15, 300+ matrixed stakeholders across a five-year lifecycle. As an EVMS Control Account Manager I held $10M+ baselines under 5% variance while cutting schedule 25% and lifting velocity 2.5x. The 5 C's framework came out of that work; the Transamerica &ldquo;One Desktop&rdquo; effort earned a Best New Initiative award.</p>
+            <p class="means"><strong>What this means for you:</strong> proof, not a promise, that you can go faster <em>and</em> stay compliant &mdash; the two reinforce each other by design.</p>
+        </div>
+
+        <div class="beat">
+            <p class="beat-label">Now &mdash; Founder, TDM Technologies</p>
+            <h3>The same rule, pointed at AI: certify it, or it doesn't ship.</h3>
+            <p>Today I run TDM Technologies, applying that avionics discipline to AI-augmented software delivery. Multi-agent architecture with a git-verifiable audit trail; HIPAAPath, which turns HIPAA documentation into something a small practice can actually finish; and StrictLock, the guardrail tooling underneath it. The differentiator was never the AI tooling &mdash; it's the auditability.</p>
+            <p class="means"><strong>What this means for you:</strong> the same certify-it-or-it-doesn't-ship accountability that ships flight software, aimed at the AI tools entering your business right now.</p>
+        </div>
+    </section>
+
+    <section class="cred-strip">
+        <p>25 years in software — 21 in regulated industries. Avionics at <strong>Rockwell Collins / Collins Aerospace</strong> (DO-178B/C; EVMS Control Account Manager on $10M+ baselines) · Enterprise Agile transformation at <strong>Transamerica</strong> · U.S. Marine Corps · Founder, <strong>TDM Technologies</strong>.</p>
+    </section>
+
+    <section class="services">
+        <h2 class="section-title">How an engagement works</h2>
+        <p class="section-subtitle">Two lanes, depending on who you are and what you're worried about.</p>
+
+        <div class="lane-grid">
+            <div class="service-card">
+                <h4>Engineering &amp; AI-SDLC consulting</h4>
+                <p>This is embedded work. I come in as a coach or a hands-on architect and help your team adopt AI-assisted development without losing engineering control &mdash; whether that's a transformation engagement, embedded Agile coaching, or standing up AI adoption under governance. The artifacts are real: published engineering SOPs, an IP authorship ledger structured for US Copyright Office registration, and a git-verifiable audit trail &mdash; not a slide deck. Cadence fits your team; the deliverable is a capability you keep after I leave.</p>
+                <a href="mailto:tim@tdmtechsolutions.com?subject=Engineering%20%2F%20AI-SDLC%20consulting" class="read-more">Email Tim about consulting &rarr;</a>
+            </div>
+            <div class="service-card">
+                <h4>AI + HIPAA readiness assessment <span style="font-weight:600;color:#64748b;">(fixed fee)</span></h4>
+                <p>A fixed-fee box for practices and professional firms. Your staff are probably already using AI tools, and client data may be going with them. I map where regulated data actually flows, check it against your obligations, and hand you a prioritized, plain-English fix list &mdash; the deliverable is the list, not a 200-page report. Built on the same audit-trail discipline used to certify flight software, by the founder of <a href="https://hipaapath.com" style="color: var(--primary-dark); font-weight: 600;">HIPAAPath</a>. A fixed-fee engagement, about three weeks end to end &mdash; built not to disrupt a working practice.</p>
+                <a href="mailto:tim@tdmtechsolutions.com?subject=AI%20%2B%20HIPAA%20readiness" class="read-more">Email Tim about an assessment &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="testimonial-card">
+            <p class="testimonial-text">"You speak both tech and biz. You mediate and advocate for both sides. The tech guys can say their 'stuff' and you can turn right around and make it so I understand. Then you can hear what I'm saying and tell it to the tech guys in a way that they understand as well."</p>
+            <div class="testimonial-author">— Cross-Functional Stakeholder</div>
+        </div>
+    </section>
+
+    <footer>
+        <h2>Let's talk about the work.</h2>
+        <p>If you've got software that has to be right &mdash; or AI tools entering a place where the data matters &mdash; that's the conversation I'm built for.</p>
+        <a href="mailto:tim@tdmtechsolutions.com" class="btn-primary">Contact Tim Downs Mullen</a>
+        <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: none;">tim@tdmtechsolutions.com</a></p>
+        <p class="deck-link">Prefer the 5-minute slide version? <a href="presentation.html">See the interview deck &rarr;</a></p>
+        <div class="footer-links">
+            <a href="https://github.com/downsmullen">GitHub</a>
+            <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
+            <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
+            <a href="https://hipaapath.com">HIPAAPath</a>
+            <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
+        </div>
+    </footer>
+
+<script>
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('open');
+    });
+</script>
+</body>
+</html>
