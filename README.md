@@ -38,15 +38,3 @@ open index.html
 # Deploy
 git push origin main  # GitHub Pages auto-deploys
 ```
-
-## Project Management
-
-This project follows the TDM ESOP standard. Key files:
-
-- `HANDOFF.md` — Session state transfer (read on startup)
-- `WORKPACKAGE.md` — CLI execution plans
-- `_Tasks.md` — Local backlog with task sizing
-- `_Kanban.md` — WIP tracker
-- `state.json` — Project metadata blackboard
-- `RETRO.md` — Friction log and lessons learned
-- `docs/ENGINEERING_INTENT_JOURNAL.md` — IP/human authorship documentation
