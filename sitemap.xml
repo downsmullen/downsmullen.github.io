@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Keep in sync: adding a public page = adding a <loc> below (see docs/specs/SPEC-analytics-and-hygiene.md).
+  Pending pages (add their <loc> when built):
+    - https://downsmullen.com/about.html          (SPEC-about-page.md)
+    - the practice-facing article                 (SPEC-insight-practice-piece.md)
+  Deliberately NOT listed: docs/ specs, CLAUDE.md, README (tracked/public but not sitemap material).
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://downsmullen.com/</loc></url>
+  <url><loc>https://downsmullen.com/5c-framework.html</loc></url>
+  <url><loc>https://downsmullen.com/5c-presentation.html</loc></url>
+  <url><loc>https://downsmullen.com/case-study-transamerica.html</loc></url>
+  <url><loc>https://downsmullen.com/multi-agent-handoff-protocol.html</loc></url>
+  <url><loc>https://downsmullen.com/plan-gate.html</loc></url>
+  <url><loc>https://downsmullen.com/externalized-memory.html</loc></url>
+  <url><loc>https://downsmullen.com/presentation.html</loc></url>
+</urlset>
