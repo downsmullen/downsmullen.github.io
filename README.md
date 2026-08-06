@@ -18,6 +18,8 @@ Establish a professional web presence for the job search and consulting pipeline
 | `plan-gate.html` | Field report — fail-closed AI agent governance (plan-gate / StrictLock) |
 | `externalized-memory.html` | Field report — externalized memory for stateless AI agents (next StrictLock module) |
 | `presentation.html` | Slide-style presentation page |
+| `ai-client-data-practices.html` | Plain-English guide — where client data goes when staff use AI |
+| `agile-without-the-words.html` | Practitioner essay — what survived on a certified program, and the load-bearing test |
 
 ## Tech Stack
 
