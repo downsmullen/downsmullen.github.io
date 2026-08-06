@@ -543,6 +543,11 @@
                 margin-bottom: 1.25rem;
                 overflow: hidden;
             }
+            /* Cancel the desktop zebra stripe in stacked mode. NOTE: the zebra rule is
+               `tr:nth-child(even) td` = specificity (0,2,3), which out-ranks a bare
+               `td:first-child` (0,2,2) — so the first/last-child rules below are written
+               as `tr td:first-child` (0,2,3) and rely on source order to win. Without the
+               `tr`, even rows keep the stripe behind light text: 1.4:1, invisible. */
             table.complaints tr:nth-child(even) td { background: transparent; }
             table.complaints td {
                 border-bottom: none;
@@ -558,14 +563,14 @@
                 color: #64748b;
                 margin-bottom: 0.2rem;
             }
-            table.complaints td:first-child {
+            table.complaints tr td:first-child {
                 background: var(--primary-dark);
             }
-            table.complaints td:first-child,
-            table.complaints td:first-child::before {
+            table.complaints tr td:first-child,
+            table.complaints tr td:first-child::before {
                 color: var(--text-main);
             }
-            table.complaints td:last-child {
+            table.complaints tr td:last-child {
                 background: #f0fdfa;
                 border-top: 1px solid #ccfbf1;
             }
