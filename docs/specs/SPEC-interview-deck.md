@@ -15,7 +15,7 @@ Three problems with the current deck:
 Keep the lifecycle frame ("Foundation → Execution → Transformation"), extend it:
 
 1. **Foundation — U.S. Marine Corps.** Keep current bullets (strategic alignment, decentralized execution / 5 C's, sustainable velocity).
-2. **Execution — Rockwell Collins & Intermec.** Keep current bullets (AIMS/FMS lifecycle; DO-178B/C, DO-254, EAR/ITAR JCL2).
+2. **Execution — Rockwell Collins & Intermec.** Keep current bullets (AIM/FMS lifecycle; DO-178B/C, DO-254, EAR/ITAR JCL2).
 3. **Transformation — Collins Aerospace & Transamerica.** Keep current bullets ($25M+ portfolios, 9–15 engineers, 25% schedule reduction, 2.5x velocity, Lean/TDD, building teams).
 4. **NEW: AI Under Engineering Control — TDM Technologies (Founder).** Bullets drawn from index copy, e.g.:
    - AI-assisted SDLC where every work package has a published SOP and a git-verifiable audit trail (`index.html:602`).

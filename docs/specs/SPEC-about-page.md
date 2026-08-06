@@ -21,7 +21,7 @@ Both buy the *person* before the capability matrix. The page's job is trust, the
 
 ## Voice rule (applies to every section)
 
-Same story as the deck — USMC → avionics → enterprise transformation → founder — but every beat ends in **what this means for you**, not what Tim did. The deck says "Directed full life-cycle development for AIMS and Flight Management Systems"; this page says why a person who certified flight software is the person you want checking work nobody can afford to get wrong.
+Same story as the deck — USMC → avionics → enterprise transformation → founder — but every beat ends in **what this means for you**, not what Tim did. The deck says "directed full life-cycle development for Flight Management Systems and the Aircraft Information Manager (AIM)"; this page says why a person who certified flight software is the person you want checking work nobody can afford to get wrong.
 
 First person ("I"), plain sentences, no résumé voice. The register of the existing field reports (`plan-gate.html`, `externalized-memory.html`) is the model — direct, concrete, a little wry — not the register of the index hero.
 
@@ -30,7 +30,7 @@ First person ("I"), plain sentences, no résumé voice. The register of the exis
 1. **Hero one-liner.** Working direction: a single sentence bridging the site's promise to the person. e.g. "I've spent 25 years in rooms where a software mistake isn't an inconvenience — it's a grounded fleet or a federal violation." (Draft; Tim rules final.)
 2. **Narrative arc — four beats,** each a short section (2–4 sentences + one "what this means for you" line):
    - **Foundation — U.S. Marine Corps.** Strategic alignment, decentralized execution, empowering the lowest level. → *Means for you:* someone who builds teams that execute without being micromanaged.
-   - **Execution — Rockwell Collins / Intermec.** Avionics & FMS lifecycle (AIMS, Flight Management Systems); DO-178B/C, DO-254, EAR/ITAR (JCL2). → *Means for you:* discipline formed where "it works on my machine" is not an acceptable answer.
+   - **Execution — Rockwell Collins / Intermec.** Avionics & FMS lifecycle (Aircraft Information Manager AIM, Flight Management Systems); DO-178B/C, DO-254, EAR/ITAR (JCL2). → *Means for you:* discipline formed where "it works on my machine" is not an acceptable answer.
    - **Transformation — Collins Aerospace / Transamerica.** Agile coaching in regulated enterprises; $25M+ lifecycle portfolios; teams of 9–15; 25% schedule reduction; 2.5x velocity; EVMS variance under 5%; the 5 C's framework. → *Means for you:* speed and compliance are not a trade-off if the system is designed right.
    - **Now — Founder, TDM Technologies.** AI-augmented SDLC under engineering control; multi-agent architecture with audit trails; HIPAAPath; StrictLock. → *Means for you:* the same certify-it-or-it-doesn't-ship discipline, applied to the AI tools entering your business right now.
 3. **Credentials strip.** Reuse the exact pattern and copy at `index.html:576` ("25 years in software — 21 in regulated industries…"). Keep the copy in sync — one source of truth; do not reword it here.
@@ -46,7 +46,7 @@ First person ("I"), plain sentences, no résumé voice. The register of the exis
 ## Facts inventory (every claim must trace here — no new facts without Tim)
 
 All sourced from current live copy (`index.html`, `presentation.html`):
-USMC · Rockwell Collins & Intermec · AIMS / IMS-3500 / Flight Management Systems · DO-178B/C, DO-254, ARP4754 · EAR/ITAR export compliance, Export Classification Lead, JCL2 · Collins Aerospace & Transamerica · Agile coach/Scrum Master, Lean, TDD · $25M+ lifecycle portfolios · teams of 9–15 · 13-member core team, 300+ matrixed stakeholders, 5-year lifecycle (AIMS/IMS-3500) · 25% schedule reduction · 2.5x velocity · EVMS CAM, variance <5%, $10M+ PMB · 25 years software / 21 regulated · 5 C's framework · Transamerica "One Desktop," Best New Initiative award · TDM Technologies · HIPAAPath · StrictLock / eslint-plugin-strictlock · NIST SP 800-66.
+USMC · Rockwell Collins & Intermec · Aircraft Information Manager (AIM, the Pro Line 4/21/Fusion database-and-chart update service) / IMS-3500 & 6000 hardware / Flight Management Systems · DO-178B/C, DO-254, ARP4754 · EAR/ITAR export compliance, Export Classification Lead, JCL2 · Collins Aerospace & Transamerica · Agile coach/Scrum Master, Lean, TDD · $25M+ lifecycle portfolios · teams of 9–15 · 13-member core team, 300+ matrixed stakeholders, 5-year lifecycle (AIM / IMS-3500) · 25% schedule reduction · 2.5x velocity · EVMS CAM, variance <5%, $10M+ PMB · 25 years software / 21 regulated · 5 C's framework · Transamerica "One Desktop," Best New Initiative award · TDM Technologies · HIPAAPath · StrictLock / eslint-plugin-strictlock · NIST SP 800-66.
 
 ## Design language
 

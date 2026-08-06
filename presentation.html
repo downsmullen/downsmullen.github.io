@@ -255,7 +255,7 @@
         <h2>2. Execution</h2>
         <h3>Rockwell Collins &amp; Intermec</h3>
         <ul>
-            <li><span class="highlight">Avionics &amp; FMS lifecycle:</span> directed full life-cycle development for AIMS and Flight Management Systems.</li>
+            <li><span class="highlight">Avionics &amp; FMS lifecycle:</span> directed full life-cycle development for Flight Management Systems and the Aircraft Information Manager (AIM) &mdash; the service delivering database and chart updates to Pro Line flight decks.</li>
             <li>Maintained strict <span class="highlight">DO-178B/C, DO-254, and EAR/ITAR (JCL2)</span> compliance.</li>
         </ul>
     </div>
@@ -329,7 +329,7 @@
         <p class="act-label">2. Execution</p>
         <h1>Rockwell Collins &amp; Intermec</h1>
         <ul>
-            <li><span class="highlight">Avionics &amp; FMS lifecycle:</span> directed full life-cycle development for AIMS and Flight Management Systems.</li>
+            <li><span class="highlight">Avionics &amp; FMS lifecycle:</span> directed full life-cycle development for Flight Management Systems and the Aircraft Information Manager (AIM) &mdash; the service delivering database and chart updates to Pro Line flight decks.</li>
             <li>Maintained strict <span class="highlight">DO-178B/C, DO-254, and EAR/ITAR (JCL2)</span> compliance.</li>
         </ul>
     </div>
@@ -381,7 +381,15 @@
         document.body.style.overflow = 'auto';
     }
     try {
-        if (typeof impress === 'function') {
+        // Only run the deck where it is actually usable. impress().init() writes an
+        // inline `overflow: hidden` onto <body>, which out-ranks the `body { overflow: auto }`
+        // in the max-width:768px media query — so on a phone the static fallback rendered
+        // but could not be scrolled: everything past the first viewport was unreachable.
+        // Matching the CSS breakpoint here keeps the two in step, and honouring
+        // prefers-reduced-motion closes the same gap for anyone who can't take the 3D moves.
+        var deckIsUsable = window.matchMedia('(min-width: 769px)').matches
+                        && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (typeof impress === 'function' && deckIsUsable) {
             impress().init();
             // impress leaves body.impress-not-supported on unsupported browsers
             if (document.body.classList.contains('impress-not-supported')) {
