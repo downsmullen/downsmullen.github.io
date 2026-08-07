@@ -240,7 +240,7 @@
             border-color: #cbd5e1;
         }
 
-        .service-card h4 {
+        .service-card h3 {
             font-size: 1.25rem;
             color: var(--primary-dark);
             margin-top: 0;
@@ -412,7 +412,7 @@
         }
 
         .insight-type {
-            color: #0ea5e9; 
+            color: #0369a1; 
             font-size: 0.85rem;
             font-weight: 800;
             text-transform: uppercase;
@@ -420,7 +420,7 @@
             margin-bottom: 0.5rem;
         }
 
-        .insight-content h4 {
+        .insight-content h3 {
             color: var(--primary-dark);
             font-size: 1.3rem;
             margin-top: 0;
@@ -440,14 +440,14 @@
             color: var(--primary-dark);
             font-weight: 600;
             text-decoration: none;
-            border-bottom: 2px solid #0ea5e9;
+            border-bottom: 2px solid #0369a1;
             align-self: flex-start;
             padding-bottom: 2px;
             transition: all 0.2s;
         }
 
         .read-more:hover {
-            background-color: #0ea5e9;
+            background-color: #0369a1;
             color: var(--bg-white);
         }
 
@@ -533,14 +533,43 @@
             .services, .testimonials, .insights { padding: 4rem 5%; }
             .matrix-container { padding: 2rem; }
         }
+    
+        /* Skip link — off-screen until focused (a11y: bypass blocks) */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 1000;
+            padding: 0.75rem 1.25rem;
+            background: #ffffff;
+            color: #0a192f;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid #0369a1;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus { left: 0; }
+        main[tabindex="-1"]:focus { outline: none; }
+
+        /* Respect reduced-motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .service-card:hover, .insight-card:hover { transform: none; }
+        }
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
     <nav>
         <div class="logo">Tim <span>Downs Mullen</span></div>
-        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-        <div class="nav-links">
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
             <a href="#expertise">Capabilities</a>
             <a href="#matrix">Technical Stack</a>
             <a href="#feedback">Feedback</a>
@@ -550,6 +579,8 @@
         </div>
     </nav>
 
+<main id="main" tabindex="-1">
+
     <header class="hero">
         <p class="overline">Systems Engineering & Agile Architecture</p>
         <h1>Accountable systems for people who can't afford a mistake.</h1>
@@ -557,8 +588,8 @@
         <p class="description">
             Bringing 25 years in software — more than a decade of it in Tier-1 aerospace, where I built the security boundary between flight decks and the ground services that update them — and autonomous execution principles to mission-critical delivery, now augmented with AI-assisted SDLC under engineering control. Specializing in Lean optimization, EVMS alignment, multi-agent architecture, and scaling execution across high-compliance environments.
         </p>
-        <p class="description" style="margin-top: -2rem; font-size: 1.05rem;">Now: building <a href="https://hipaapath.com" style="color: var(--accent); text-decoration: none;">HIPAAPath</a> — guided, audit-ready HIPAA documentation for small practices.</p>
-        <p class="description" style="margin-top: -2rem; font-size: 1.05rem;">Run a practice or professional firm and worried about staff using AI with client data? <a href="#practice-readiness" style="color: var(--accent); text-decoration: none;">I do fixed-fee AI + HIPAA readiness assessments &rarr;</a></p>
+        <p class="description" style="margin-top: -2rem; font-size: 1.05rem;">Now: building <a href="https://hipaapath.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">HIPAAPath</a> — guided, audit-ready HIPAA documentation for small practices.</p>
+        <p class="description" style="margin-top: -2rem; font-size: 1.05rem;">Run a practice or professional firm and worried about staff using AI with client data? <a href="#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">I do fixed-fee AI + HIPAA readiness assessments &rarr;</a></p>
         <div class="metrics-bar">
             <div class="metric">
                 <h3>2.5x</h3>
@@ -586,35 +617,35 @@
         
         <div class="services-grid">
             <div class="service-card">
-                <h4>Agile in High-Compliance Spaces</h4>
+                <h3>Agile in High-Compliance Spaces</h3>
                 <p>Tailoring SAFe, Scrum, LeSS, and Lean frameworks to operate seamlessly within rigorous regulatory constraints, including DO-178B/C and EAR/ITAR compliance protocols. At small-team scale the frameworks come off and the mechanics stay &mdash; sequenced to the constraint, not to a playbook.</p>
-                <p style="margin: 0;"><a href="agile-without-the-words.html" style="color: #0ea5e9; font-weight: 600; text-decoration: none;">Read: what survived on a certified program &rarr;</a></p>
+                <p style="margin: 0;"><a href="agile-without-the-words.html" style="color: #0369a1; font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px;">Read: what survived on a certified program &rarr;</a></p>
             </div>
             <div class="service-card">
-                <h4>EVMS & Predictable Execution</h4>
+                <h3>EVMS & Predictable Execution</h3>
                 <p>Directly managing $10M+ Performance Measurement Baselines (PMB). Utilizing Earned Value Management Systems to ensure massive portfolios remain within budget and schedule variance.</p>
             </div>
             <div class="service-card">
-                <h4>Systems Architecture & Autonomy</h4>
+                <h3>Systems Architecture & Autonomy</h3>
                 <p>Orchestrated delivery of Rockwell Collins' IMS-3500/6000 onboard software and the Aircraft Information Manager (AIM) service that keeps Pro Line 4, 21, and Fusion flight decks current, leading a 13-member core engineering team and synchronizing 300+ matrixed stakeholders through a 5-year development lifecycle.</p>
             </div>
             <div class="service-card">
-                <h4>Autonomous Execution & Coaching</h4>
+                <h3>Autonomous Execution & Coaching</h3>
                 <p>Scaled in the enterprise. Building high-performing engineering teams utilizing the 5 C's Framework and shared vision principles to empower execution at the lowest level.</p>
             </div>
             <div class="service-card">
-                <h4>Security Architecture for Certified Systems</h4>
+                <h3>Security Architecture for Certified Systems</h3>
                 <p>I architected and implemented the security for Rockwell Collins' Aircraft Information Manager service and for its interface to the IMS-3500/6000 onboard equipment &mdash; the trust boundary where a ground system talks to certified avionics. There was no airworthiness security standard to follow at the time, so the design had to carry its own argument. That is exactly where AI governance sits today: no settled standard, and you still have to show why your controls are sufficient and produce the evidence that they held.</p>
-                <p style="margin: 0;"><a href="plan-gate.html" style="color: #0ea5e9; font-weight: 600; text-decoration: none;">Read: what that looks like pointed at AI agents &rarr;</a></p>
+                <p style="margin: 0;"><a href="plan-gate.html" style="color: #0369a1; font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px;">Read: what that looks like pointed at AI agents &rarr;</a></p>
             </div>
             <div class="service-card">
-                <h4>AI-Augmented SDLC for Regulated Industries</h4>
+                <h3>AI-Augmented SDLC for Regulated Industries</h3>
                 <p>Shipping AI-assisted work under engineering control: every work package backed by a published Engineering SOP, an IP authorship ledger structured for US Copyright Office registration, and a git-verifiable audit trail. Multi-agent architecture and AI governance discipline — the differentiator is not the tooling, it's the auditability.</p>
             </div>
             <div class="service-card" id="practice-readiness">
-                <h4>AI + HIPAA Readiness for Small Practices & Professional Firms</h4>
+                <h3>AI + HIPAA Readiness for Small Practices & Professional Firms</h3>
                 <p>Your staff are probably already using AI tools — and client data may be going with them. A fixed-fee assessment maps where regulated data actually flows, what your obligations are, and gives you a prioritized, plain-English fix list. Built on the same audit-trail discipline used to certify flight software — by the founder of <a href="https://hipaapath.com" style="color: var(--primary-dark); font-weight: 600;">HIPAAPath</a>.</p>
-                <p style="margin: 0 0 1rem 0;"><a href="ai-client-data-practices.html" style="color: #0ea5e9; font-weight: 600; text-decoration: none;">Read: where client data actually goes &rarr;</a></p>
+                <p style="margin: 0 0 1rem 0;"><a href="ai-client-data-practices.html" style="color: #0369a1; font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px;">Read: where client data actually goes &rarr;</a></p>
                 <a href="mailto:tim@tdmtechsolutions.com?subject=AI%20%2B%20HIPAA%20readiness" class="read-more">Email Tim about an assessment &rarr;</a>
             </div>
         </div>
@@ -696,11 +727,11 @@
         <div class="insights-grid">
             <div class="insight-card">
                 <div class="insight-graphic">
-                    <img src="onedesktop.png" alt="Transamerica One Desktop Initiative Logo">
+                    <img src="onedesktop.png" alt="Transamerica One Desktop Initiative Logo" width="1137" height="795" loading="lazy" decoding="async">
                 </div>
                 <div class="insight-content">
                     <span class="insight-type">Case Study</span>
-                    <h4>Transamerica 'One Desktop'</h4>
+                    <h3>Transamerica 'One Desktop'</h3>
                     <p>Demonstrating the <strong>Connect</strong> and <strong>Count</strong> pillars: How an enterprise Agile transformation and rigorous SDLC compliance aligned matrixed stakeholders and led to a Best New Initiative award.</p>
                     <a href="case-study-transamerica.html" class="read-more">Read Case Study &rarr;</a>
                 </div>
@@ -708,11 +739,11 @@
 
             <div class="insight-card">
                 <div class="insight-graphic">
-                    <img src="5csFrameworkImage.jpg" alt="5 C's Framework">
+                    <img src="5csFrameworkImage.jpg" alt="5 C's Framework" width="1024" height="559" loading="lazy" decoding="async">
                 </div>
                 <div class="insight-content">
                     <span class="insight-type">Whitepaper</span>
-                    <h4>The 5 C's Framework</h4>
+                    <h3>The 5 C's Framework</h3>
                     <p>Fostering Connect, Count, Capable, Courage, and Choice (Autonomy & Ownership) in highly regulated environments. Scaling autonomous execution by shifting from blame-oriented 'Why' to discovery-oriented 'What' questions.</p>
                     <a href="5c-framework.html" class="read-more">Read Whitepaper &rarr;</a>
                 </div>
@@ -720,11 +751,11 @@
 
             <div class="insight-card">
                 <div class="insight-graphic">
-                    <img src="Slide Deck Image.jpg" alt="Slide Deck Image">
+                    <img src="Slide Deck Image.jpg" alt="Slide Deck Image" width="1024" height="559" loading="lazy" decoding="async">
                 </div>
                 <div class="insight-content">
                     <span class="insight-type">Interactive Deck</span>
-                    <h4>Implementing the 5 C's</h4>
+                    <h3>Implementing the 5 C's</h3>
                     <p>An executive briefing and tactical rollout strategy for embedding the 5 C's across traditional waterfall and V-Model lifecycles, accelerating delivery without sacrificing DO-178B/C compliance.</p>
                     <a href="5c-presentation.html" class="read-more">View Slide Deck &rarr;</a>
                 </div>
@@ -736,7 +767,7 @@
                 </div>
                 <div class="insight-content">
                     <span class="insight-type">Case Study</span>
-                    <h4>Multi-Agent Handoff Protocol</h4>
+                    <h3>Multi-Agent Handoff Protocol</h3>
                     <p>What breaks when you give two AI agents a shared notepad, and the architecture that fixed it. Context rot, junk drawer handoffs, and cross-project contamination — three failure modes with one root cause.</p>
                     <a href="multi-agent-handoff-protocol.html" class="read-more">Read Case Study &rarr;</a>
                 </div>
@@ -748,7 +779,7 @@
                 </div>
                 <div class="insight-content">
                     <span class="insight-type">Field Report</span>
-                    <h4>Fail-Closed AI Agents</h4>
+                    <h3>Fail-Closed AI Agents</h3>
                     <p>Prose tells an AI agent to behave. A gate <em>makes</em> it. Why I moved agent governance out of the system prompt and into the tool boundary — fail-open vs. fail-closed, two war stories, and the audit trail you get for free.</p>
                     <a href="plan-gate.html" class="read-more">Read Field Report &rarr;</a>
                 </div>
@@ -760,7 +791,7 @@
                 </div>
                 <div class="insight-content">
                     <span class="insight-type">Field Report</span>
-                    <h4>Externalized Memory</h4>
+                    <h3>Externalized Memory</h3>
                     <p>Your agent forgets everything; your filesystem doesn't. One on-disk state file per project as the single source of truth — the scars from making it trustworthy, and why git, not the file, is the ground truth.</p>
                     <a href="externalized-memory.html" class="read-more">Read Field Report &rarr;</a>
                 </div>
@@ -772,7 +803,7 @@
                 </div>
                 <div class="insight-content">
                     <span class="insight-type">Plain-English Guide</span>
-                    <h4>Where Client Data Goes When Staff Use AI</h4>
+                    <h3>Where Client Data Goes When Staff Use AI</h3>
                     <p>For practices and firms, no jargon: the four ordinary ways client and patient data slips out through everyday AI tools, what HIPAA actually asks of you, and a five-step fix you can start this week.</p>
                     <a href="ai-client-data-practices.html" class="read-more">Read the Guide &rarr;</a>
                 </div>
@@ -784,7 +815,7 @@
                 </div>
                 <div class="insight-content">
                     <span class="insight-type">Practitioner Essay</span>
-                    <h4>Six Practices Survived a Certified Program</h4>
+                    <h3>Six Practices Survived a Certified Program</h3>
                     <p>Twelve years as the Agile guy, most of it where you can't skip a document. When every ceremony competes with certification evidence, you find out fast which practices are load-bearing &mdash; and which ones only a reporting line would miss.</p>
                     <a href="agile-without-the-words.html" class="read-more">Read the Essay &rarr;</a>
                 </div>
@@ -792,12 +823,14 @@
         </div>
     </section>
 
+</main>
+
     <footer>
         <h2>Ready to optimize your SDLC?</h2>
         <p>Whether you require a strategic Agile pivot, embedded coaching, or rigorous systems engineering leadership, predictable delivery starts here.</p>
         <a href="mailto:tim@tdmtechsolutions.com" class="btn-primary">Contact Tim Downs Mullen</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: none;">tim@tdmtechsolutions.com</a></p>
-        <p style="margin-top: 1rem;">Not an engineering shop? If you run a practice or professional firm, start with an <a href="#practice-readiness" style="color: var(--accent); text-decoration: none;">AI + HIPAA readiness assessment &rarr;</a></p>
+        <p style="margin-top: 1rem;">Not an engineering shop? If you run a practice or professional firm, start with an <a href="#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
@@ -809,7 +842,8 @@
 
 <script>
     document.querySelector('.menu-toggle').addEventListener('click', function() {
-        document.querySelector('.nav-links').classList.toggle('open');
+        var open = document.querySelector('.nav-links').classList.toggle('open');
+        this.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 </script>
 </body>

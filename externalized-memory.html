@@ -25,7 +25,7 @@
             --primary-light: #112240;
             --accent: #64ffda;
             --text-main: #ccd6f6;
-            --text-muted: #8892b0;
+            --text-muted: #a8b2d1;
             --bg-white: #ffffff;
             --text-dark: #0f172a;
         }
@@ -123,7 +123,8 @@
 
         .cs-dates a {
             color: var(--accent);
-            text-decoration: none;
+            text-decoration: underline;
+            text-underline-offset: 3px;
         }
 
         .cs-dates a:hover { text-decoration: underline; }
@@ -219,7 +220,7 @@
             top: 100px;
         }
 
-        .cs-sidebar h4 {
+        .cs-sidebar h3 {
             color: var(--primary-dark);
             font-size: 1.1rem;
             text-transform: uppercase;
@@ -252,10 +253,15 @@
             font-weight: 600;
         }
 
+        .cs-main a {
+            color: #0369a1;
+            font-weight: 600;
+        }
+
         .topic-tag {
             display: inline-block;
             background-color: rgba(10, 165, 233, 0.1);
-            color: #0ea5e9;
+            color: #0369a1;
             padding: 0.3rem 0.75rem;
             border-radius: 4px;
             font-size: 0.85rem;
@@ -372,20 +378,51 @@
             .cs-header { padding: 8rem 5% 4rem 5%; }
             .cs-container { padding: 4rem 5%; }
         }
+    
+        /* Skip link — off-screen until focused (a11y: bypass blocks) */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 1000;
+            padding: 0.75rem 1.25rem;
+            background: #ffffff;
+            color: #0a192f;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid #0369a1;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus { left: 0; }
+        main[tabindex="-1"]:focus { outline: none; }
+
+        /* Respect reduced-motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .service-card:hover, .insight-card:hover { transform: none; }
+        }
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
     <nav>
         <div class="logo"><a href="index.html">Tim <span>Downs Mullen</span></a></div>
-        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-        <div class="nav-links">
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
             <a href="index.html#expertise">Capabilities</a>
             <a href="index.html#matrix">Technical Stack</a>
             <a href="index.html#insights">Insights</a>
             <a href="about.html">About</a>
         </div>
     </nav>
+
+<main id="main" tabindex="-1">
 
     <header class="cs-header">
         <span class="cs-type">Field Report — Externalized Memory</span>
@@ -488,7 +525,7 @@
         </div>
 
         <aside class="cs-sidebar">
-            <h4>Article Details</h4>
+            <h3>Article Details</h3>
 
             <div class="fact-group">
                 <span class="fact-label">Type</span>
@@ -535,12 +572,14 @@
 
     <div class="back-link"><a href="index.html#insights">&larr; Back to Insights</a></div>
 
+</main>
+
     <footer>
         <h2>Ready to optimize your SDLC?</h2>
         <p>Whether you require a strategic Agile pivot, embedded coaching, or rigorous systems engineering leadership, predictable delivery starts here.</p>
         <a href="mailto:tim@tdmtechsolutions.com" class="btn-primary">Contact Tim Downs Mullen</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: none;">tim@tdmtechsolutions.com</a></p>
-        <p style="margin-top: 1rem;">Not an engineering shop? If you run a practice or professional firm, start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: none;">AI + HIPAA readiness assessment &rarr;</a></p>
+        <p style="margin-top: 1rem;">Not an engineering shop? If you run a practice or professional firm, start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
@@ -552,7 +591,8 @@
 
 <script>
     document.querySelector('.menu-toggle').addEventListener('click', function() {
-        document.querySelector('.nav-links').classList.toggle('open');
+        var open = document.querySelector('.nav-links').classList.toggle('open');
+        this.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 </script>
 </body>
