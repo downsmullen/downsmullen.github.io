@@ -68,6 +68,7 @@
         .nav-links {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
 
         .nav-links a {
@@ -79,6 +80,20 @@
         }
 
         .nav-links a:hover { color: var(--accent); }
+
+        .nav-cta {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent) !important;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark) !important;
+        }
 
         /* Deck Header */
         .deck-header {
@@ -369,8 +384,10 @@
         <div class="nav-links" id="nav-links">
             <a href="index.html#expertise">Capabilities</a>
             <a href="index.html#matrix">Technical Stack</a>
+            <a href="index.html#feedback">Feedback</a>
             <a href="index.html#insights">Insights</a>
             <a href="about.html">About</a>
+            <a href="mailto:tim@tdmtechsolutions.com" class="nav-cta">Contact</a>
         </div>
     </nav>
 

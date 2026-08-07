@@ -68,6 +68,7 @@
         .nav-links {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
 
         .nav-links a {
@@ -79,6 +80,20 @@
         }
 
         .nav-links a:hover { color: var(--accent); }
+
+        .nav-cta {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent) !important;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark) !important;
+        }
 
         /* Article Header */
         .cs-header {
@@ -417,8 +432,10 @@
         <div class="nav-links" id="nav-links">
             <a href="index.html#expertise">Capabilities</a>
             <a href="index.html#matrix">Technical Stack</a>
+            <a href="index.html#feedback">Feedback</a>
             <a href="index.html#insights">Insights</a>
             <a href="about.html">About</a>
+            <a href="mailto:tim@tdmtechsolutions.com" class="nav-cta">Contact</a>
         </div>
     </nav>
 
@@ -556,9 +573,9 @@
 </main>
 
     <footer>
-        <h2>Ready to optimize your SDLC?</h2>
-        <p>Whether you require a strategic Agile pivot, embedded coaching, or rigorous systems engineering leadership, predictable delivery starts here.</p>
-        <a href="mailto:tim@tdmtechsolutions.com" class="btn-primary">Contact Tim Downs Mullen</a>
+        <h2>Two agents, one source of truth.</h2>
+        <p>Handoff between autonomous agents fails quietly: the state looks written, the next session reads something else, and nothing raises an error. If you're running more than one agent against shared state, that's the problem I work on &mdash; built on the same audit-trail discipline used to certify flight software.</p>
+        <a href="mailto:tim@tdmtechsolutions.com?subject=Multi-agent%20handoff%20and%20shared%20state" class="btn-primary">Talk about agent coordination</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: none;">tim@tdmtechsolutions.com</a></p>
         <p style="margin-top: 1rem;">Not an engineering shop? If you run a practice or professional firm, start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
