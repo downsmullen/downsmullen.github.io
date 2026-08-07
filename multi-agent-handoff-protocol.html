@@ -477,7 +477,7 @@
 
             <p>The landscape sorts into a spectrum. On one end, you have graph-based orchestration frameworks like LangGraph — full state machines with checkpoint persistence, typed reducers, and Redis-backed memory. They solve every problem I was hitting. They're also wildly overengineered for a two-agent setup run by one person. Operating LangGraph means deploying and maintaining a separate Python application just to manage the handoffs.</p>
 
-            <p>On the other end, you have the AGENTS.md convention — a standardized instruction file that lives in your repository root and gets loaded at the start of every agent session. It's universally adopted and effective for static context: coding style, test commands, environment constraints. But it has zero capacity for dynamic execution state. It's a README, not a database.</p>
+            <p>On the other end, you have the AGENTS.md convention — a standardized instruction file that lives in your repository root and gets loaded at the start of every agent session. It's widely adopted and effective for static context: coding style, test commands, environment constraints. But it has zero capacity for dynamic execution state. It's a README, not a database.</p>
 
             <p>In the middle, I found the patterns that actually mattered for my scale:</p>
 
@@ -577,7 +577,7 @@
         <p>Handoff between autonomous agents fails quietly: the state looks written, the next session reads something else, and nothing raises an error. If you're running more than one agent against shared state, that's the problem I work on &mdash; built on the same audit-trail discipline used to certify flight software.</p>
         <a href="mailto:tim@tdmtechsolutions.com?subject=Multi-agent%20handoff%20and%20shared%20state" class="btn-primary">Talk about agent coordination</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: none;">tim@tdmtechsolutions.com</a></p>
-        <p style="margin-top: 1rem;">Not an engineering shop? If you run a practice or professional firm, start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
+        <p style="margin-top: 1rem;">Run a practice or professional firm? Start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>

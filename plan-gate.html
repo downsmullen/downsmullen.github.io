@@ -489,7 +489,7 @@
 
             <p>Here's the part I didn't expect. I built the gate to keep the agent safe. I did not build an "audit-logging feature." But every gate decision — every allow, every deny — gets recorded with a timestamp, the target, the command, and the plan that governed it. That record is just <em>exhaust</em>. The gate produces it while doing its actual job.</p>
 
-            <p>And that exhaust turns out to be most of what a SOC 2 or ISO audit asks you to evidence: who was permitted to touch what, a monitoring trail of policy-violation attempts, a documented approve-act-record cycle for every change, a human as the sole authorizing authority. The same handful of mechanisms answers a security framework, a quality framework, and an AI-management framework at once — because all three are, at bottom, asking the same question: <em>can you show this system only did what it was authorized to do, and prove it after the fact?</em> A fail-closed gate answers yes by construction.</p>
+            <p>And that exhaust answers the change-authorization questions a SOC 2 or ISO 42001 audit asks: who was permitted to touch what, a monitoring trail of policy-violation attempts, a documented approve-act-record cycle for every change, a human as the sole authorizing authority. The same handful of mechanisms answers a security framework, a quality framework, and an AI-management framework at once — because all three are, at bottom, asking the same question: <em>can you show this system only did what it was authorized to do, and prove it after the fact?</em> A fail-closed gate answers yes by construction.</p>
 
             <blockquote>
                 <p>You don't build these controls to pass an audit. You build them to keep the agent safe — and the audit evidence is what they emit while doing it.</p>
@@ -575,7 +575,7 @@
         <p>A gate an agent cannot work around is the difference between AI-assisted work you can ship and AI-assisted work you have to explain afterwards. If you're adopting agents somewhere the evidence trail matters, that's the problem I work on &mdash; built on the same audit-trail discipline used to certify flight software.</p>
         <a href="mailto:tim@tdmtechsolutions.com?subject=Fail-closed%20controls%20for%20AI%20agents" class="btn-primary">Talk about agent controls</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: none;">tim@tdmtechsolutions.com</a></p>
-        <p style="margin-top: 1rem;">Not an engineering shop? If you run a practice or professional firm, start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
+        <p style="margin-top: 1rem;">Run a practice or professional firm? Start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
