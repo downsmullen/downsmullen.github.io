@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Keep in sync: adding a public page = adding a <loc> below (see docs/specs/SPEC-analytics-and-hygiene.md).
-  Deliberately NOT listed: docs/ specs, CLAUDE.md, README (tracked/public but not sitemap material).
+  Keep in sync: adding a public page = adding a <loc> below.
+  Deliberately NOT listed: CLAUDE.md, README (tracked and publicly served, but not sitemap material).
+  The site specs moved to the vault on 2026-08-07 (TDM_Vault/downsmullen-site-specs/) — they were
+  publicly fetchable here and contained internal critique of the site.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://downsmullen.com/</loc></url>
