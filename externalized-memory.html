@@ -427,8 +427,8 @@
     <header class="cs-header">
         <span class="cs-type">Field Report — Externalized Memory</span>
         <h1>Your Agent Forgets Everything. Your Filesystem Doesn't.</h1>
-        <p class="subtitle">A field report on externalized memory — two months of running stateless AI agents against one on-disk state file per project, what broke along the way, and why the pattern is becoming the next public StrictLock module.</p>
-        <p class="cs-dates">First published: 2026-06-12. Last updated: 2026-07-05. The shipped implementation this pattern extends is <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (externalized-memory module &mdash; planned).</p>
+        <p class="subtitle">A field report on externalized memory — two months of running stateless AI agents against one on-disk state file per project, what broke along the way, and why the pattern is now a shipped StrictLock module.</p>
+        <p class="cs-dates">First published: 2026-06-12. Last updated: 2026-07-05. The shipped implementation this pattern extends is <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (externalized-memory module &mdash; shipped, v1).</p>
     </header>
 
     <section class="cs-container">
@@ -504,9 +504,9 @@
 
             <h2>Coming home: the StrictLock module</h2>
 
-            <p><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> v1 shipped three modules — plan-gate, commit-msg-gate, memory-cap — all variations on one thesis: structure beats self-discipline, in agents as in people. The roadmap has marked the externalized-memory pattern as the natural next module to bring home, and this article is its field report.</p>
+            <p><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> launched with three modules — plan-gate, commit-msg-gate, memory-cap — all variations on one thesis: structure beats self-discipline, in agents as in people. The suite now runs to eleven, and externalized-memory is one of them: it shipped at v1. This article is its field report.</p>
 
-            <p>What ships: a state-file template, a work-package mailbox template, the atomic write-temp-then-rename reference, and the design write-up — the why behind every rule above. Structure and prose only, never real handoff data. Like the rest of the suite it's standalone, plain files, no daemon, Apache-2.0. Adopt the template without the gate, or the gate without the template — though they're better together, because each one makes the other auditable.</p>
+            <p>What ships: a state-file template, a work-package mailbox template, the atomic write-temp-then-rename reference, the projection bundle &mdash; a deterministic, git-free and clock-free renderer that turns the blackboard into a reproducible status projection &mdash; and the design write-up — the why behind every rule above. Structure and prose only, never real handoff data. Like the rest of the suite it's standalone, plain files, no daemon, Apache-2.0. Adopt the template without the gate, or the gate without the template — though they're better together, because each one makes the other auditable.</p>
 
             <h2>The takeaway</h2>
 
@@ -565,7 +565,7 @@
 
             <div class="fact-group">
                 <span class="fact-label">Reference Implementation</span>
-                <span class="fact-value"><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (externalized-memory module — planned)</span>
+                <span class="fact-value"><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (externalized-memory module — shipped, v1)</span>
             </div>
         </aside>
     </section>
