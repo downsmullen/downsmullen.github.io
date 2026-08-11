@@ -1,29 +1,39 @@
 # downsmullen.github.io
 
-Personal consulting website for Tim Downs-Mullen — [downsmullen.com](https://downsmullen.com)
+Source for [downsmullen.com](https://downsmullen.com) — the consulting practice site of
+Tim Downs Mullen.
+
+> **Note:** this repository is public and GitHub Pages serves every file in it, including
+> this README, at `downsmullen.com/<path>`. Treat everything here as buyer-visible.
 
 ## Intent
 
-Establish a professional web presence for the job search and consulting pipeline. The site houses case studies, the 5C Framework methodology, STAR interview examples, and an executive brief — all targeted at potential employers and clients evaluating Tim's Agile, aerospace, and AI workflow expertise.
+The public face of the consulting practice: systems engineering and Agile architecture for
+regulated environments, and AI adopted under engineering control. The site carries the
+evidence a prospect asks for — a case study, field reports on AI governance from real
+projects, the 5 C's methodology, and a plain-English guide for practices and professional
+firms evaluating the fixed-fee AI + HIPAA readiness assessment.
 
-## Site Structure
+## Site structure
 
 | Page | Purpose |
 |:-----|:--------|
-| `index.html` | Landing page — bio, navigation, value proposition |
-| `5c-framework.html` | Original 5C consulting methodology |
-| `5c-presentation.html` | Interactive executive brief (Prezi replacement) |
-| `case-study-transamerica.html` | Enterprise case study — Transamerica engagement |
-| `multi-agent-handoff-protocol.html` | Technical deep-dive — AI multi-agent coordination |
-| `plan-gate.html` | Field report — fail-closed AI agent governance (plan-gate / StrictLock) |
-| `externalized-memory.html` | Field report — externalized memory for stateless AI agents (next StrictLock module) |
-| `presentation.html` | Slide-style presentation page |
+| `index.html` | Landing page — positioning, capabilities, credentials, insights grid |
+| `about.html` | Longer-form background and how an engagement works |
+| `agile-without-the-words.html` | Practitioner essay — what survived on a certified program, and the test that sorts practice from ritual |
 | `ai-client-data-practices.html` | Plain-English guide — where client data goes when staff use AI |
-| `agile-without-the-words.html` | Practitioner essay — what survived on a certified program, and the load-bearing test |
+| `externalized-memory.html` | Field report — externalized memory for stateless AI agents (shipped as a StrictLock module) |
+| `plan-gate.html` | Field report — fail-closed AI agent governance (plan-gate / StrictLock) |
+| `multi-agent-handoff-protocol.html` | Field report — what breaks when two agents share state |
+| `case-study-transamerica.html` | Enterprise case study — Transamerica 'One Desktop' |
+| `5c-framework.html` | The 5 C's methodology |
+| `5c-presentation.html` | The 5 C's as a static slide walkthrough |
+| `presentation.html` | Interview deck (impress.js, with a static mobile fallback) |
+| `404.html` | Not-found page |
 
-## Tech Stack
+## Tech stack
 
-- **Static HTML/CSS** — no framework, no build step
+- **Static HTML/CSS** — no framework, no build step, no dependencies
 - **GitHub Pages** — push to `main` deploys automatically
 - **Custom domain** — `downsmullen.com` via CNAME
 
@@ -34,9 +44,11 @@ Establish a professional web presence for the job search and consulting pipeline
 git clone https://github.com/downsmullen/downsmullen.github.io.git
 
 # Local preview
-open index.html
-# or use any local server: python -m http.server 8000
+python3 -m http.server 8000
 
-# Deploy
-git push origin main  # GitHub Pages auto-deploys
+# Deploy — this publishes immediately
+git push origin main
 ```
+
+Check every change at a 375px viewport before merging. The two worst defects this site has
+shipped were mobile-only and invisible to desktop review.

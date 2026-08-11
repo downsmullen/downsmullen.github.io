@@ -25,7 +25,7 @@
             --primary-light: #112240; 
             --accent: #64ffda; 
             --text-main: #ccd6f6; 
-            --text-muted: #8892b0; 
+            --text-muted: #a8b2d1; 
             --bg-white: #ffffff;
             --text-dark: #0f172a;
         }
@@ -68,6 +68,7 @@
         .nav-links {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
 
         .nav-links a {
@@ -79,6 +80,20 @@
         }
 
         .nav-links a:hover { color: var(--accent); }
+
+        .nav-cta {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent) !important;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark) !important;
+        }
 
         /* Document Header */
         .doc-header {
@@ -311,31 +326,77 @@
             .doc-header { padding: 8rem 5% 4rem 5%; }
             .doc-container { padding: 4rem 5%; }
         }
+    
+        /* Skip link — off-screen until focused (a11y: bypass blocks) */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 1000;
+            padding: 0.75rem 1.25rem;
+            background: #ffffff;
+            color: #0a192f;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid #0369a1;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus { left: 0; }
+        main[tabindex="-1"]:focus { outline: none; }
+
+        /* Respect reduced-motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .service-card:hover, .insight-card:hover { transform: none; }
+        }
+    
+        .footer-legal {
+            margin: 2rem auto 0 auto;
+            max-width: 780px;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            opacity: 0.75;
+        }
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
     <nav>
         <div class="logo"><a href="index.html">Tim <span>Downs Mullen</span></a></div>
-        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-        <div class="nav-links">
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
             <a href="index.html#expertise">Capabilities</a>
             <a href="index.html#matrix">Technical Stack</a>
+            <a href="index.html#feedback">Feedback</a>
             <a href="index.html#insights">Insights</a>
             <a href="about.html">About</a>
+            <a href="mailto:tim@tdmtechsolutions.com" class="nav-cta">Contact</a>
         </div>
     </nav>
+
+<main id="main" tabindex="-1">
 
     <header class="doc-header">
         <span class="doc-type">Leadership Whitepaper</span>
         <h1>The 5 C's Framework</h1>
-        <p class="subtitle">A proprietary model for optimizing engineering group dynamics, establishing high-performance teams, and executing decentralized command.</p>
+        <p class="subtitle">A field-tested model for optimizing engineering group dynamics, establishing high-performance teams, and executing decentralized command &mdash; built on the Crucial C's of Adlerian psychology, adapted to engineering teams, and extended with a fifth.</p>
     </header>
 
     <section class="doc-container">
         <div class="doc-main">
             <h2>The Core Philosophy</h2>
-            <p>The 5 C's Framework is explicitly designed as a guide for setting up technical teams and managing complex group dynamics. Rooted in Maneuver Warfare principles, it establishes the necessary conditions for decentralized execution in high-stakes engineering environments.</p>
+            <p>The 5 C's Framework is explicitly designed as a guide for setting up technical teams and managing complex group dynamics. Four of the five &mdash; Connect, Count, Capable, Courage &mdash; are not mine. They are the Crucial C's identified by Dr. Betty Lou Bettner and Dr. Amy Lew in their research on what makes classrooms and families function, first published in <em>Raising Kids Who Can</em> (1989) and grounded in Alfred Adler's Individual Psychology. The fundamentals that hold in a healthy classroom hold in a healthy team, because the underlying human needs don't change when the people get older.</p>
+
+            <p>I first wrote this up in 2017 as <a href="https://www.linkedin.com/pulse/everything-i-need-scrum-learned-kindergarten-tim-downs-mullen/">Everything I Need for Scrum I Learned in Kindergarten</a> &mdash; the observation being that the fundamentals effective teachers practise map directly onto forming a team, because the underlying human needs don't change when the people get older.</p>
+
+            <p>The fifth, <strong>Choice</strong>, is my addition. Autonomy is what turns compliance into intrinsic motivation, and a team only does its best work when it is self-directed. What I've added beyond that is the translation: what these five look like when the team is shipping certified software, and what they cost you when they're missing. Maneuver Warfare and the Marine Corps' decentralized-command doctrine are the operating model I run them through &mdash; execution at the lowest level, against a clear commander's intent.</p>
 
             <div class="framework-box">
                 <p>The critical shift in the 5 C's is moving the organization from blame-oriented 'Why' questions (which trigger defensive postures) to discovery-oriented 'What' questions (which drive systemic solutions).</p>
@@ -387,23 +448,27 @@
 
     <div class="back-link"><a href="index.html#insights">&larr; Back to Insights</a></div>
 
+</main>
+
     <footer>
         <h2>Ready to implement the 5 C's?</h2>
         <a href="mailto:tim@tdmtechsolutions.com" class="btn-primary">Contact Tim Downs Mullen</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: none;">tim@tdmtechsolutions.com</a></p>
-        <p style="margin-top: 1rem;">Not an engineering shop? If you run a practice or professional firm, start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: none;">AI + HIPAA readiness assessment &rarr;</a></p>
+        <p style="margin-top: 1rem;">Run a practice or professional firm? Start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
             <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
-            <a href="https://hipaapath.com">HIPAAPath</a>
+            <a href="https://www.hipaapath.com">HIPAAPath</a>
             <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
         </div>
+        <p class="footer-legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. LeSS is a trademark of The LeSS Company B.V. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
     </footer>
 
 <script>
     document.querySelector('.menu-toggle').addEventListener('click', function() {
-        document.querySelector('.nav-links').classList.toggle('open');
+        var open = document.querySelector('.nav-links').classList.toggle('open');
+        this.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 </script>
 </body>

@@ -274,7 +274,7 @@
             border-color: #cbd5e1;
         }
 
-        .service-card h4 {
+        .service-card h3 {
             font-size: 1.35rem;
             color: var(--primary-dark);
             margin-top: 0;
@@ -302,7 +302,7 @@
             color: var(--primary-dark);
             font-weight: 600;
             text-decoration: none;
-            border-bottom: 2px solid #0ea5e9;
+            border-bottom: 2px solid #0369a1;
             align-self: flex-start;
             padding-bottom: 2px;
             margin-top: 1.75rem;
@@ -310,7 +310,7 @@
         }
 
         .read-more:hover {
-            background-color: #0ea5e9;
+            background-color: #0369a1;
             color: var(--bg-white);
         }
 
@@ -400,7 +400,7 @@
             font-size: 0.95rem;
         }
 
-        .deck-link a { color: var(--accent); text-decoration: none; }
+        .deck-link a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 
         .footer-links {
             margin-top: 3rem;
@@ -455,14 +455,52 @@
             .arc, .cred-strip, .services, .testimonials, footer { padding-left: 5%; padding-right: 5%; }
             .arc { padding-top: 4rem; padding-bottom: 4rem; }
         }
+    
+        /* Skip link — off-screen until focused (a11y: bypass blocks) */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 1000;
+            padding: 0.75rem 1.25rem;
+            background: #ffffff;
+            color: #0a192f;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid #0369a1;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus { left: 0; }
+        main[tabindex="-1"]:focus { outline: none; }
+
+        /* Respect reduced-motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .service-card:hover, .insight-card:hover { transform: none; }
+        }
+    
+        .footer-legal {
+            margin: 2rem auto 0 auto;
+            max-width: 780px;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            opacity: 0.75;
+        }
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
     <nav>
         <div class="logo"><a href="index.html">Tim <span>Downs Mullen</span></a></div>
-        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-        <div class="nav-links">
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
             <a href="index.html#expertise">Capabilities</a>
             <a href="index.html#matrix">Technical Stack</a>
             <a href="index.html#feedback">Feedback</a>
@@ -471,6 +509,8 @@
             <a href="mailto:tim@tdmtechsolutions.com" class="nav-cta">Contact</a>
         </div>
     </nav>
+
+<main id="main" tabindex="-1">
 
     <header class="hero">
         <p class="overline">About</p>
@@ -492,14 +532,14 @@
         <div class="beat">
             <p class="beat-label">Execution &mdash; Rockwell Collins &amp; Intermec</p>
             <h3>&ldquo;It works on my machine&rdquo; is not an acceptable answer at 35,000 feet.</h3>
-            <p>Then more than a decade in avionics &mdash; flight management systems and the onboard software for the IMS-3500/6000 information servers, software that actually flies. I architected and implemented the security for that service and for its interface to the onboard equipment &mdash; the trust boundary where a ground system talks to certified avionics. There was no airworthiness security standard to follow then, so the design had to carry its own argument rather than point at a clause. On the ground side, the Aircraft Information Manager (AIM): the service that keeps flight-deck databases and charts current across Pro Line 4, 21, and Fusion. Earlier years at Intermec in rugged mobile computing and RFID. That world runs on DO-178B/C, DO-254, and ARP4754, and it doesn't bend. I also led export compliance as the EAR/ITAR Export Classification Lead (JCL2), because in that arena getting the paperwork wrong is its own kind of failure.</p>
+            <p>Then 15 years in avionics &mdash; flight management systems and the onboard software for the IMS-3500/6000 information servers, software that actually flies. I architected and implemented the security for that service and for its interface to the onboard equipment &mdash; the trust boundary where a ground system talks to certified avionics. There was no airworthiness security standard to follow then, so the design had to carry its own argument rather than point at a clause. On the ground side, the Aircraft Information Manager (AIM): the service that keeps flight-deck databases and charts current across Pro Line 4, 21, and Fusion. One phase of that program had a 24-month estimate; we put it on a customer&rsquo;s aircraft in 18, which carried a company-wide delivery goal with it. That work also produced a patent: US 8,736,464, a dynamic checklist for the flight deck, sole inventor. Earlier years at Intermec in rugged mobile computing and RFID, where I was one of four inventors on US 7,471,199, an RFID-based secure-access key. That world runs on DO-178B/C, DO-254, and ARP4754, and it doesn't bend. I also led export compliance as the EAR/ITAR Export Classification Lead (Export Jurisdiction &amp; Classification Level 2, Collins&rsquo; internal certification), because in that arena getting the paperwork wrong is its own kind of failure.</p>
             <p class="means"><strong>What this means for you:</strong> discipline formed where a mistake isn't a bug ticket &mdash; brought to your work, where the stakes may be quieter but the audit is just as real.</p>
         </div>
 
         <div class="beat">
             <p class="beat-label">Transformation &mdash; Collins Aerospace &amp; Transamerica</p>
             <h3>Speed and compliance aren't a trade-off, if the system is designed right.</h3>
-            <p>I moved from building the systems to changing how teams build them &mdash; Agile coaching inside heavily regulated enterprises. $25M+ lifecycle portfolios, teams of 9 to 15, 300+ matrixed stakeholders across a five-year lifecycle. As an EVMS Control Account Manager I held $10M+ baselines under 5% variance while cutting schedule 25% and closing 2.5x the open problem reports of comparable teams working the same backlog &mdash; teams carrying the same mixed load of current commitments alongside it. The 5 C's framework came out of that work; the Transamerica &ldquo;One Desktop&rdquo; effort earned a Best New Initiative award.</p>
+            <p>I moved from building the systems to changing how teams build them &mdash; Agile coaching inside heavily regulated enterprises. Teams of 11 to 15. As an EVMS Control Account Manager I held $10M+ in control accounts under 5% variance while closing 2.5x the open problem reports of comparable teams working the same backlog &mdash; teams carrying the same mixed load of current commitments alongside it. The 5 C's framework came out of that work; the Transamerica &ldquo;One Desktop&rdquo; effort earned a Best New Initiative award.</p>
             <p class="means"><strong>What this means for you:</strong> proof, not a promise, that you can go faster <em>and</em> stay compliant &mdash; the two reinforce each other by design.</p>
         </div>
 
@@ -521,24 +561,27 @@
 
         <div class="lane-grid">
             <div class="service-card">
-                <h4>Engineering &amp; AI-SDLC consulting</h4>
-                <p>This is embedded work. I come in as a coach or a hands-on architect and help your team adopt AI-assisted development without losing engineering control &mdash; whether that's a transformation engagement, embedded Agile coaching, or standing up AI adoption under governance. The artifacts are real: published engineering SOPs, an IP authorship ledger structured for US Copyright Office registration, and a git-verifiable audit trail &mdash; not a slide deck. Cadence fits your team; the deliverable is a capability you keep after I leave.</p>
+                <h3>Engineering &amp; AI-SDLC consulting</h3>
+                <p>This is embedded work. I come in as a coach or a hands-on architect and help your team adopt AI-assisted development without losing engineering control &mdash; whether that's a transformation engagement, embedded Agile coaching, or standing up AI adoption under governance. The artifacts are real: published engineering SOPs, a human-vs-AI authorship ledger so the AI-generated portions can be disclaimed correctly when the work is registered, and a git-verifiable audit trail &mdash; not a slide deck. Cadence fits your team; the deliverable is a capability you keep after I leave.</p>
                 <a href="mailto:tim@tdmtechsolutions.com?subject=Engineering%20%2F%20AI-SDLC%20consulting" class="read-more">Email Tim about consulting &rarr;</a>
             </div>
             <div class="service-card">
-                <h4>AI + HIPAA readiness assessment <span style="font-weight:600;color:#64748b;">(fixed fee)</span></h4>
-                <p>A fixed-fee box for practices and professional firms. Your staff are probably already using AI tools, and client data may be going with them. I map where regulated data actually flows, check it against your obligations, and hand you a prioritized, plain-English fix list &mdash; the deliverable is the list, not a 200-page report. Built on the same audit-trail discipline used to certify flight software, by the founder of <a href="https://hipaapath.com" style="color: var(--primary-dark); font-weight: 600;">HIPAAPath</a>. A fixed-fee engagement, about three weeks end to end &mdash; built not to disrupt a working practice.</p>
+                <h3>AI + HIPAA readiness assessment <span style="font-weight:600;color:#64748b;">(fixed fee)</span></h3>
+                <p>A fixed-fee box for practices and professional firms. Your staff are probably already using AI tools, and client data may be going with them. I map where regulated data actually flows, check it against your obligations, and hand you a prioritized, plain-English fix list &mdash; the deliverable is the list, not a 200-page report. Built on the same audit-trail discipline used to certify flight software, by the founder of <a href="https://www.hipaapath.com" style="color: var(--primary-dark); font-weight: 600;">HIPAAPath</a>. A fixed-fee engagement, about three weeks end to end &mdash; built not to disrupt a working practice. Technical mapping, not legal advice &mdash; it gives your compliance counsel something concrete to work from.</p>
                 <a href="mailto:tim@tdmtechsolutions.com?subject=AI%20%2B%20HIPAA%20readiness" class="read-more">Email Tim about an assessment &rarr;</a>
             </div>
         </div>
     </section>
 
     <section class="testimonials">
+        <p class="section-subtitle" style="color: var(--text-muted);">Peer feedback from engineering and business colleagues.</p>
         <div class="testimonial-card">
             <p class="testimonial-text">"You speak both tech and biz. You mediate and advocate for both sides. The tech guys can say their 'stuff' and you can turn right around and make it so I understand. Then you can hear what I'm saying and tell it to the tech guys in a way that they understand as well."</p>
             <div class="testimonial-author">— Cross-Functional Stakeholder</div>
         </div>
     </section>
+
+</main>
 
     <footer>
         <h2>Let's talk about the work.</h2>
@@ -550,14 +593,16 @@
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
             <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
-            <a href="https://hipaapath.com">HIPAAPath</a>
+            <a href="https://www.hipaapath.com">HIPAAPath</a>
             <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
         </div>
+        <p class="footer-legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. LeSS is a trademark of The LeSS Company B.V. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
     </footer>
 
 <script>
     document.querySelector('.menu-toggle').addEventListener('click', function() {
-        document.querySelector('.nav-links').classList.toggle('open');
+        var open = document.querySelector('.nav-links').classList.toggle('open');
+        this.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 </script>
 </body>

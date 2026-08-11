@@ -25,7 +25,7 @@
             --primary-light: #112240;
             --accent: #64ffda;
             --text-main: #ccd6f6;
-            --text-muted: #8892b0;
+            --text-muted: #a8b2d1;
             --bg-white: #ffffff;
             --text-dark: #0f172a;
         }
@@ -68,6 +68,7 @@
         .nav-links {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
 
         .nav-links a {
@@ -79,6 +80,20 @@
         }
 
         .nav-links a:hover { color: var(--accent); }
+
+        .nav-cta {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent) !important;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark) !important;
+        }
 
         /* Article Header */
         .cs-header {
@@ -123,7 +138,8 @@
 
         .cs-dates a {
             color: var(--accent);
-            text-decoration: none;
+            text-decoration: underline;
+            text-underline-offset: 3px;
         }
 
         .cs-dates a:hover { text-decoration: underline; }
@@ -219,7 +235,7 @@
             top: 100px;
         }
 
-        .cs-sidebar h4 {
+        .cs-sidebar h3 {
             color: var(--primary-dark);
             font-size: 1.1rem;
             text-transform: uppercase;
@@ -252,10 +268,15 @@
             font-weight: 600;
         }
 
+        .cs-main a {
+            color: #0369a1;
+            font-weight: 600;
+        }
+
         .topic-tag {
             display: inline-block;
             background-color: rgba(10, 165, 233, 0.1);
-            color: #0ea5e9;
+            color: #0369a1;
             padding: 0.3rem 0.75rem;
             border-radius: 4px;
             font-size: 0.85rem;
@@ -372,26 +393,68 @@
             .cs-header { padding: 8rem 5% 4rem 5%; }
             .cs-container { padding: 4rem 5%; }
         }
+    
+        /* Skip link — off-screen until focused (a11y: bypass blocks) */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 1000;
+            padding: 0.75rem 1.25rem;
+            background: #ffffff;
+            color: #0a192f;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid #0369a1;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus { left: 0; }
+        main[tabindex="-1"]:focus { outline: none; }
+
+        /* Respect reduced-motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .service-card:hover, .insight-card:hover { transform: none; }
+        }
+    
+        .footer-legal {
+            margin: 2rem auto 0 auto;
+            max-width: 780px;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            opacity: 0.75;
+        }
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
     <nav>
         <div class="logo"><a href="index.html">Tim <span>Downs Mullen</span></a></div>
-        <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-        <div class="nav-links">
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
             <a href="index.html#expertise">Capabilities</a>
             <a href="index.html#matrix">Technical Stack</a>
+            <a href="index.html#feedback">Feedback</a>
             <a href="index.html#insights">Insights</a>
             <a href="about.html">About</a>
+            <a href="mailto:tim@tdmtechsolutions.com" class="nav-cta">Contact</a>
         </div>
     </nav>
+
+<main id="main" tabindex="-1">
 
     <header class="cs-header">
         <span class="cs-type">Field Report — Externalized Memory</span>
         <h1>Your Agent Forgets Everything. Your Filesystem Doesn't.</h1>
-        <p class="subtitle">A field report on externalized memory — two months of running stateless AI agents against one on-disk state file per project, what broke along the way, and why the pattern is becoming the next public StrictLock module.</p>
-        <p class="cs-dates">First published: 2026-06-12. Last updated: 2026-07-05. The shipped implementation this pattern extends is <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (externalized-memory module &mdash; planned).</p>
+        <p class="subtitle">A field report on externalized memory — two months of running stateless AI agents against one on-disk state file per project, what broke along the way, and why the pattern is now a shipped StrictLock module.</p>
+        <p class="cs-dates">First published: 2026-06-12. Last updated: 2026-07-05. The shipped implementation this pattern extends is <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (externalized-memory module &mdash; shipped, v1).</p>
     </header>
 
     <section class="cs-container">
@@ -409,7 +472,7 @@
 
             <h2>The pattern</h2>
 
-            <p>The fix is old enough to have a name from 1980s AI research: the <strong>shared blackboard</strong>. One on-disk state file per project, serving as the single source of truth for cross-session state. Mine is called <code>HANDOFF.md</code>, and every project gets exactly one.</p>
+            <p>The fix is old enough to have a name from 1980s AI research: the <strong>shared blackboard</strong>. One on-disk state file per project, serving as the single source of truth for cross-session state. Mine is called <code>HANDOFF.md</code>: where a project carries cross-session state, it gets exactly one.</p>
 
             <p>It carries five things:</p>
 
@@ -467,9 +530,9 @@
 
             <h2>Coming home: the StrictLock module</h2>
 
-            <p><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> v1 shipped three modules — plan-gate, commit-msg-gate, memory-cap — all variations on one thesis: structure beats self-discipline, in agents as in people. The roadmap has marked the externalized-memory pattern as the natural next module to bring home, and this article is its field report.</p>
+            <p><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> launched with three modules — plan-gate, commit-msg-gate, memory-cap — all variations on one thesis: structure beats self-discipline, in agents as in people. The suite now runs to eleven, and externalized-memory is one of them: it shipped at v1. This article is its field report.</p>
 
-            <p>What ships: a state-file template, a work-package mailbox template, the atomic write-temp-then-rename reference, and the design write-up — the why behind every rule above. Structure and prose only, never real handoff data. Like the rest of the suite it's standalone, plain files, no daemon, Apache-2.0. Adopt the template without the gate, or the gate without the template — though they're better together, because each one makes the other auditable.</p>
+            <p>What ships: a state-file template, a work-package mailbox template, the atomic write-temp-then-rename reference, the projection bundle &mdash; a deterministic, git-free and clock-free renderer that turns the blackboard into a reproducible status projection &mdash; and the design write-up — the why behind every rule above. Structure and prose only, never real handoff data. Like the rest of the suite it's standalone, plain files, no daemon, Apache-2.0. Adopt the template without the gate, or the gate without the template — though they're better together, because each one makes the other auditable.</p>
 
             <h2>The takeaway</h2>
 
@@ -482,13 +545,13 @@
             </blockquote>
 
             <div class="author-bio">
-                <p><em>Tim Downs Mullen is a systems engineering leader with 25 years in aerospace, defense, and healthcare technology. He builds AI-augmented development workflows for regulated environments where "move fast and break things" isn't an option.</em></p>
+                <p><em>Tim Downs Mullen is a systems engineering leader with 25 years in aerospace, defense, and financial services. He builds AI-augmented development workflows for regulated environments where "move fast and break things" isn't an option, and is the founder of HIPAAPath, which builds compliance tooling for healthcare practices.</em></p>
             </div>
 
         </div>
 
         <aside class="cs-sidebar">
-            <h4>Article Details</h4>
+            <h3>Article Details</h3>
 
             <div class="fact-group">
                 <span class="fact-label">Type</span>
@@ -528,31 +591,35 @@
 
             <div class="fact-group">
                 <span class="fact-label">Reference Implementation</span>
-                <span class="fact-value"><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (externalized-memory module — planned)</span>
+                <span class="fact-value"><a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (externalized-memory module — shipped, v1)</span>
             </div>
         </aside>
     </section>
 
     <div class="back-link"><a href="index.html#insights">&larr; Back to Insights</a></div>
 
+</main>
+
     <footer>
-        <h2>Ready to optimize your SDLC?</h2>
-        <p>Whether you require a strategic Agile pivot, embedded coaching, or rigorous systems engineering leadership, predictable delivery starts here.</p>
-        <a href="mailto:tim@tdmtechsolutions.com" class="btn-primary">Contact Tim Downs Mullen</a>
+        <h2>State your agents can't lose.</h2>
+        <p>A shared on-disk source of truth only works if the writes are atomic and the trail is verifiable &mdash; otherwise it fails silently, which is the worst way for state to fail. If your agents are dropping context between sessions or writing over each other, that's the problem I work on &mdash; built on the same audit-trail discipline used to certify flight software.</p>
+        <a href="mailto:tim@tdmtechsolutions.com?subject=Externalized%20memory%20for%20AI%20agents" class="btn-primary">Talk about agent state</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: none;">tim@tdmtechsolutions.com</a></p>
-        <p style="margin-top: 1rem;">Not an engineering shop? If you run a practice or professional firm, start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: none;">AI + HIPAA readiness assessment &rarr;</a></p>
+        <p style="margin-top: 1rem;">Run a practice or professional firm? Start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
             <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
-            <a href="https://hipaapath.com">HIPAAPath</a>
+            <a href="https://www.hipaapath.com">HIPAAPath</a>
             <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
         </div>
+        <p class="footer-legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. LeSS is a trademark of The LeSS Company B.V. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
     </footer>
 
 <script>
     document.querySelector('.menu-toggle').addEventListener('click', function() {
-        document.querySelector('.nav-links').classList.toggle('open');
+        var open = document.querySelector('.nav-links').classList.toggle('open');
+        this.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 </script>
 </body>
