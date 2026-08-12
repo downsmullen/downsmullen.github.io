@@ -9,6 +9,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <meta name="description" content="Why an avionics engineer who certified flight software is the person you want checking the AI-era work nobody can afford to get wrong. About Tim Downs Mullen.">
     <title>About | Tim Downs Mullen</title>
+    <link rel="canonical" href="https://downsmullen.com/about.html">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://downsmullen.com/about.html">
     <meta property="og:title" content="About | Tim Downs Mullen">
@@ -23,12 +24,51 @@
     {
       "@context": "https://schema.org",
       "@type": "Person",
+      "@id": "https://downsmullen.com/#person",
       "name": "Tim Downs Mullen",
+      "givenName": "Tim",
+      "familyName": "Downs Mullen",
+      "additionalName": [
+        "Timothy S. Downs Mullen",
+        "Timothy Shane Downs Mullen"
+      ],
       "url": "https://downsmullen.com/",
+      "jobTitle": "Founder and Lead Engineer",
+      "description": "Fifteen years on certified avionics at Collins Aerospace — DO-178B/C DAL B, flight management systems. Named inventor on U.S. patents. Now building HIPAAPath: HIPAA compliance for small practices.",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "TDM Technologies"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Iowa State University",
+        "sameAs": "https://www.iastate.edu/"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cedar Rapids",
+        "addressRegion": "IA",
+        "addressCountry": "US"
+      },
+      "knowsAbout": [
+        "DO-178B/C software certification",
+        "Avionics software engineering",
+        "Flight management systems",
+        "ARP4754 systems development",
+        "Safety-critical systems",
+        "HIPAA Security Rule",
+        "NIST SP 800-66",
+        "Enterprise Agile transformation",
+        "Earned Value Management Systems (EVMS)",
+        "Multi-agent AI orchestration",
+        "AI governance in regulated industries"
+      ],
       "sameAs": [
         "https://github.com/downsmullen",
         "https://www.linkedin.com/in/tim-downs-mullen-0599a050",
-        "https://www.npmjs.com/package/eslint-plugin-strictlock"
+        "https://www.npmjs.com/package/eslint-plugin-strictlock",
+        "https://patents.google.com/patent/US8736464B1/en",
+        "https://patents.google.com/patent/US7471199B2/en"
       ]
     }
     </script>
@@ -167,6 +207,15 @@
             max-width: 700px;
             margin: 0 0 4rem 0;
         }
+
+        .arc a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .arc a:hover,
+        .arc a:focus-visible { color: var(--text-main); }
 
         .beat {
             border-left: 4px solid var(--accent);
@@ -518,6 +567,11 @@
         <p class="description">That's the discipline I bring to the AI tools now walking into your business: <strong>certify it, or it doesn't ship.</strong> Here's the path that built it &mdash; and what each part of it means for the people I work with.</p>
     </header>
 
+    <section class="arc" style="padding-bottom: 0;">
+        <h2>Tim Downs Mullen &mdash; engineering leader, Cedar Rapids, Iowa</h2>
+        <p class="arc-sub" style="max-width: 820px;">Fifteen years on certified avionics at Rockwell Collins and Collins Aerospace &mdash; DO-178B/C DAL B on flight management systems, and the onboard information systems behind Pro&nbsp;Line flight decks. I&rsquo;m a named inventor on U.S. patents, including sole inventor on a 2014 Rockwell Collins patent for <a href="https://patents.google.com/patent/US8736464B1/en">presenting a dynamic checklist to the user of a vehicle</a>. Between those tenures I led Transamerica&rsquo;s enterprise Agile transformation, on insurance systems handling PHI. Twenty-five years in software, twenty-one of them in regulated industries. B.S. Computer Engineering, Iowa State; Marine Corps intelligence before that. Now I run TDM Technologies and build <a href="https://www.hipaapath.com">HIPAAPath</a> &mdash; HIPAA compliance for small practices, where the documentation never leaves the practice&rsquo;s own storage.</p>
+    </section>
+
     <section class="arc">
         <h2>Four rooms, one habit.</h2>
         <p class="arc-sub">Marine Corps to avionics to enterprise transformation to founder. Different stakes each time; the same refusal to ship work I can't stand behind.</p>
@@ -532,7 +586,7 @@
         <div class="beat">
             <p class="beat-label">Execution &mdash; Rockwell Collins &amp; Intermec</p>
             <h3>&ldquo;It works on my machine&rdquo; is not an acceptable answer at 35,000 feet.</h3>
-            <p>Then 15 years in avionics &mdash; flight management systems and the onboard software for the IMS-3500/6000 information servers, software that actually flies. I architected and implemented the security for that service and for its interface to the onboard equipment &mdash; the trust boundary where a ground system talks to certified avionics. There was no airworthiness security standard to follow then, so the design had to carry its own argument rather than point at a clause. On the ground side, the Aircraft Information Manager (AIM): the service that keeps flight-deck databases and charts current across Pro Line 4, 21, and Fusion. One phase of that program had a 24-month estimate; we put it on a customer&rsquo;s aircraft in 18, which carried a company-wide delivery goal with it. That work also produced a patent: US 8,736,464, a dynamic checklist for the flight deck, sole inventor. Earlier years at Intermec in rugged mobile computing and RFID, where I was one of four inventors on US 7,471,199, an RFID-based secure-access key. That world runs on DO-178B/C, DO-254, and ARP4754, and it doesn't bend. I also led export compliance as the EAR/ITAR Export Classification Lead (Export Jurisdiction &amp; Classification Level 2, Collins&rsquo; internal certification), because in that arena getting the paperwork wrong is its own kind of failure.</p>
+            <p>Then 15 years in avionics &mdash; flight management systems and the onboard software for the IMS-3500/6000 information servers, software that actually flies. I architected and implemented the security for that service and for its interface to the onboard equipment &mdash; the trust boundary where a ground system talks to certified avionics. There was no airworthiness security standard to follow then, so the design had to carry its own argument rather than point at a clause. On the ground side, the Aircraft Information Manager (AIM): the service that keeps flight-deck databases and charts current across Pro Line 4, 21, and Fusion. One phase of that program had a 24-month estimate; we put it on a customer&rsquo;s aircraft in 18, which carried a company-wide delivery goal with it. That work also produced a patent: <a href="https://patents.google.com/patent/US8736464B1/en">US 8,736,464</a>, &ldquo;System and method for presenting a dynamic checklist to the user of a vehicle&rdquo; &mdash; a dynamic checklist for the flight deck, sole inventor, granted 2014. Earlier years at Intermec in rugged mobile computing and RFID, where I was one of four co-inventors on <a href="https://patents.google.com/patent/US7471199B2/en">US 7,471,199</a>, &ldquo;Mobile key using read/write RFID tag&rdquo; &mdash; an RFID-based secure-access key, granted 2008. That world runs on DO-178B/C, DO-254, and ARP4754, and it doesn't bend. I also led export compliance as the EAR/ITAR Export Classification Lead (Export Jurisdiction &amp; Classification Level 2, Collins&rsquo; internal certification), because in that arena getting the paperwork wrong is its own kind of failure.</p>
             <p class="means"><strong>What this means for you:</strong> discipline formed where a mistake isn't a bug ticket &mdash; brought to your work, where the stakes may be quieter but the audit is just as real.</p>
         </div>
 
