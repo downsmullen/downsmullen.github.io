@@ -19,7 +19,9 @@ Repo: downsmullen/downsmullen.github.io.
   Docs-only/internal changes (CLAUDE.md, README, .gitignore) may merge autonomously; say so.
 - Preview locally: `open index.html` or `python3 -m http.server 8000`. No CI; eyeball the
   page before merging.
-- Tim is deaf — anything audio needs visual-first design and a hearing person for sign-off.
+- Audio output needs visual-first design. Any by-ear call — timbre, balance, "does this
+  sound right" — goes to a hearing tester; **the repo owner can't make that call, so don't
+  route it back to him. Ask who to send it to.**
 - No secrets in any file, ever (static public repo).
 
 ## Site map
