@@ -482,7 +482,12 @@
             line-height: 1;
         }
 
-        @media (max-width: 768px) {
+        /* Nav collapses to the menu button at 1100px, not at the layout
+           breakpoint below. The six-item row stops fitting around 1000px
+           (1063px on this page's longer CTA), and before this it wrapped the
+           logo onto two lines and grew the fixed bar by 28px. Layout
+           breakpoints are deliberately left where they were. */
+        @media (max-width: 1100px) {
             .menu-toggle { display: block; }
             nav { position: relative; }
             .nav-links {
@@ -499,6 +504,9 @@
                 border-top: 1px solid rgba(100,255,218,0.1);
             }
             .nav-links.open { display: flex; }
+        }
+
+        @media (max-width: 768px) {
             .hero { padding: 9rem 5% 4rem 5%; }
             .hero h1 { font-size: 2.2rem; }
             .arc, .cred-strip, .services, .testimonials, footer { padding-left: 5%; padding-right: 5%; }

@@ -305,9 +305,12 @@
         }
         .back-link a:hover { color: var(--text-main); }
 
-        @media (max-width: 900px) {
-            .doc-container { grid-template-columns: 1fr; }
-            .doc-sidebar { position: static; }
+        /* Nav collapses to the menu button at 1100px, not at the layout
+           breakpoint below. The six-item row stops fitting around 1000px
+           (1063px on this page's longer CTA), and before this it wrapped the
+           logo onto two lines and grew the fixed bar by 28px. Layout
+           breakpoints are deliberately left where they were. */
+        @media (max-width: 1100px) {
             .menu-toggle { display: block; }
             nav { position: relative; }
             .nav-links {
@@ -324,6 +327,11 @@
                 border-top: 1px solid rgba(100,255,218,0.1);
             }
             .nav-links.open { display: flex; }
+        }
+
+        @media (max-width: 900px) {
+            .doc-container { grid-template-columns: 1fr; }
+            .doc-sidebar { position: static; }
             .doc-header { padding: 8rem 5% 4rem 5%; }
             .doc-container { padding: 4rem 5%; }
         }
