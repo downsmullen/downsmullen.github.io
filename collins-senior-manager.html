@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<title>Tim Downs Mullen — evidence for Senior Manager, Software Engineering</title>
+<meta name="description" content="Five things the role asks for, and one it doesn't. Evidence for Tim Downs Mullen against Collins Aerospace's Senior Manager, Software Engineering role.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary-dark:#0a192f; --primary-light:#112240; --accent:#64ffda;
+  --text-main:#ccd6f6; --text-muted:#a8b2d1;
+  --edge:rgba(100,255,218,.15);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--primary-dark); color:var(--text-main);
+  -webkit-font-smoothing:antialiased; line-height:1.6;
+}
+
+/* ─── controls ─────────────────────────────────────────────── */
+.bar{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; gap:.6rem; align-items:center; flex-wrap:wrap;
+  padding:.6rem 1rem; background:rgba(10,25,47,.92);
+  border-bottom:1px solid var(--edge); backdrop-filter:blur(8px);
+  font-size:.82rem;
+}
+.bar .who{font-weight:800;letter-spacing:-.3px;margin-right:auto}
+.bar .who span{color:var(--accent)}
+.btn{
+  font:inherit; font-weight:600; color:var(--text-muted);
+  background:rgba(100,255,218,.06); border:1px solid var(--edge);
+  border-radius:4px; padding:.35rem .7rem; cursor:pointer;
+}
+.btn:hover{color:var(--accent);border-color:var(--accent)}
+.btn[aria-pressed="true"]{color:var(--primary-dark);background:var(--accent);border-color:var(--accent)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.grp{display:flex;gap:.3rem;align-items:center}
+.grp .lbl{color:var(--text-muted);opacity:.75;margin-right:.15rem}
+
+/* ─── the document (also the no-JS / read-mode floor) ──────── */
+.wrap{max-width:820px;margin:0 auto;padding:5rem 1.25rem 4rem}
+.step{
+  background:var(--primary-light); border:1px solid var(--edge);
+  border-left:4px solid var(--accent); border-radius:10px;
+  padding:1.75rem; margin-bottom:1.75rem;
+}
+.jd{
+  color:var(--accent); font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.72rem; letter-spacing:.06em; text-transform:uppercase;
+  margin:0 0 .5rem; line-height:1.5;
+}
+.jd em{font-style:normal;opacity:.65;text-transform:none;letter-spacing:0}
+h1{font-size:1.9rem;font-weight:800;line-height:1.15;margin:0 0 .75rem;color:var(--text-main)}
+h2{font-size:1.5rem;font-weight:800;line-height:1.2;margin:0 0 .75rem;color:var(--text-main)}
+.note{color:var(--text-muted);font-size:1rem;margin:1rem 0 0}
+.cause{color:var(--text-muted);font-size:.82rem;margin:.5rem 0 0;opacity:.9}
+.cause b{color:var(--text-main);font-weight:600;opacity:1}
+.cause.attrib{font-size:.74rem;opacity:.7;font-style:italic}
+.cs{display:flex;flex-wrap:wrap;gap:.4rem;margin:.4rem 0 0;padding:0;list-style:none}
+.cs li{
+  flex:1 1 8.5rem; border:1px solid var(--edge); border-radius:6px;
+  padding:.4rem .55rem; background:rgba(100,255,218,.05);
+}
+.cs li b{display:block;color:var(--accent);font-size:.85rem;font-weight:800}
+.cs li span{display:block;color:var(--text-muted);font-size:.72rem;line-height:1.35}
+body.impress-enabled .cause{font-size:.95rem}
+.note b{color:var(--accent);font-weight:600}
+figure{margin:1.25rem 0 0}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.cred{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0 0;padding:0;list-style:none}
+.cred li{
+  font-size:.78rem;color:var(--text-muted);
+  border:1px solid var(--edge);border-radius:999px;padding:.25rem .7rem;
+}
+.legal{max-width:820px;margin:0 auto;padding:0 1.25rem 3rem;font-size:.72rem;line-height:1.55;color:var(--text-muted);opacity:.7}
+
+/* ─── deck mode: everything below only applies once impress inits ─── */
+body.impress-enabled .wrap{max-width:none;margin:0;padding:0}
+body.impress-enabled .step{
+  position:relative; width:920px; min-height:520px; margin:0;
+  padding:2.5rem 3rem; border-left-width:1px;
+  opacity:.16; transition:opacity .7s;
+  box-shadow:0 4px 30px rgba(2,12,27,.7);
+}
+body.impress-enabled .step.active{opacity:1;border-color:var(--accent);box-shadow:0 0 26px rgba(100,255,218,.18)}
+body.impress-enabled h1{font-size:2.6rem}
+body.impress-enabled h2{font-size:2rem}
+body.impress-enabled .jd{font-size:.82rem}
+body.impress-enabled .legal{position:fixed;bottom:0;left:0;right:0;margin:0;padding:.4rem 1rem;font-size:.6rem;opacity:.45;background:rgba(10,25,47,.8);z-index:150}
+/* notes are the narration — hidden while presenting, shown in read mode */
+body.impress-enabled .note{display:none}
+body.impress-enabled.read .note{display:block}
+/* The overview renders at 5x, so its footprint is +/-2300 x +/-1375 canvas units.
+   Content steps sit OUTSIDE that but INSIDE the +/-3200 x +/-1900 the camera shows
+   when the overview is active — so the board is visible from the map without the map
+   looming over the content slides. Geometry does this, not an opacity toggle. */
+body.impress-enabled #map{background:transparent;border:none;box-shadow:none;opacity:0}
+body.impress-enabled #map.active,body.impress-enabled #map.present{opacity:1}
+
+.navpair{position:fixed;bottom:1.6rem;right:1rem;z-index:200;display:none;gap:.4rem}
+body.impress-enabled .navpair{display:flex}
+
+/* impress writes transition-duration INLINE on every move, and bakes each step's
+   duration at init — so a live Motion toggle can only win with !important. */
+body.nomotion #impress,body.nomotion #impress *{transition-duration:0ms!important}
+
+/* The canvas is narrowed to 760 units on small screens; the slide has to match or
+   ~17% of every slide sits off-screen with no way to scroll to it. */
+@media (max-width:900px){
+  body.impress-enabled .step{width:700px;min-height:0;padding:1.5rem}
+  body.impress-enabled h1{font-size:1.9rem}
+  body.impress-enabled h2{font-size:1.5rem}
+}
+
+@media print{
+  /* impress leaves inline transform/position/opacity on every step — without
+     !important these lose and the print is an overlapping smear. */
+  #impress,#impress *,.step{
+    transform:none!important;position:static!important;opacity:1!important;
+    width:auto!important;min-height:0!important;transition:none!important;
+  }
+  .bar,.navpair{display:none!important}
+  body{background:#fff;color:#111}
+  .wrap{max-width:none;padding:0}
+  .step{background:#fff;border:1px solid #ccc;border-left:4px solid #0a192f;page-break-inside:avoid;color:#111}
+  h1,h2{color:#0a192f}
+  .note{display:block!important;color:#333}
+  .jd{color:#0a6}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="who">TIM DOWNS MULLEN<span>.</span></div>
+  <div class="grp"><span class="lbl">Motion</span>
+    <button class="btn" id="mFull" type="button" aria-pressed="true">Full</button>
+    <button class="btn" id="mOff" type="button" aria-pressed="false">Reduced</button>
+  </div>
+  <div class="grp"><span class="lbl">View</span>
+    <button class="btn" id="vPresent" type="button" aria-pressed="true">Present</button>
+    <button class="btn" id="vRead" type="button" aria-pressed="false">Read</button>
+  </div>
+</div>
+
+<div class="wrap" id="impress" data-transition-duration="700" data-width="1280" data-height="760">
+
+  <!-- ══ OVERVIEW ══ -->
+  <div id="map" class="step" data-x="0" data-y="0" data-scale="5">
+    <p class="jd">Senior Manager, Software Engineering &middot; Cedar Rapids</p>
+    <h1>Five things the role asks for.<br>One it doesn&rsquo;t.</h1>
+    <figure>
+      <svg viewBox="0 0 760 300" role="img" aria-labelledby="mapT mapD">
+        <title id="mapT">Map of the argument</title>
+        <desc id="mapD">Six regions: deliver, lead without an org chart, build teams across sites, own the number, change the process, and a sixth region for AI under engineering control that the role does not ask for.</desc>
+        <g font-family="Inter,sans-serif">
+          <g fill="none" stroke="#64ffda" stroke-width="1" opacity=".35">
+            <rect x="18"  y="26" width="228" height="72" rx="8"/>
+            <rect x="266" y="26" width="228" height="72" rx="8"/>
+            <rect x="514" y="26" width="228" height="72" rx="8"/>
+            <rect x="18"  y="118" width="228" height="72" rx="8"/>
+            <rect x="266" y="118" width="228" height="72" rx="8"/>
+          </g>
+          <rect x="514" y="118" width="228" height="72" rx="8" fill="rgba(100,255,218,.09)" stroke="#64ffda" stroke-width="2"/>
+          <g fill="#ccd6f6" font-size="15" font-weight="800">
+            <text x="34" y="58">Deliver</text>
+            <text x="282" y="58">Lead without</text><text x="282" y="78">an org chart</text>
+            <text x="530" y="58">Build teams,</text><text x="530" y="78">across sites</text>
+            <text x="34" y="150">Own the number</text>
+            <text x="282" y="150">Change the process</text>
+          </g>
+          <text x="34" y="80" fill="#a8b2d1" font-size="12">AIM / IMS-3500: 24 months &rarr; 18</text>
+          <text x="34" y="172" fill="#a8b2d1" font-size="12">CAM, $10M+ control accounts</text>
+          <text x="282" y="172" fill="#a8b2d1" font-size="12">Lean Champion; Agile-tailored SDP</text>
+          <text x="530" y="145" fill="#64ffda" font-size="15" font-weight="800">AI under engineering</text>
+          <text x="530" y="164" fill="#64ffda" font-size="15" font-weight="800">control</text>
+          <text x="530" y="182" fill="#a8b2d1" font-size="12">the sixth thing</text>
+          <text x="18" y="228" fill="#a8b2d1" font-size="13">Every claim on the following slides is sourced. Nothing here is rounded up.</text>
+          <text x="18" y="252" fill="#a8b2d1" font-size="13" opacity=".8">Rockwell Collins 2004&ndash;2013 &middot; Transamerica 2013&ndash;2019 &middot; Collins Aerospace 2019&ndash;2025 &middot; TDM Technologies 2025&ndash;</text>
+        </g>
+      </svg>
+    </figure>
+    <p class="note">I&rsquo;ve read the req. Rather than walk you through my r&eacute;sum&eacute;, I want to take each thing it asks for and show you where I&rsquo;ve already done it &mdash; most of it here, on these programs. Then one thing it doesn&rsquo;t ask for.</p>
+  </div>
+
+  <!-- ══ 1 DELIVER ══ -->
+  <div class="step" data-x="-2900" data-y="-1800">
+    <p class="jd">&ldquo;delivering on cost, schedule, scope, and quality commitments&rdquo;</p>
+    <h2>A 24-month estimate, delivered in 18.</h2>
+    <figure>
+      <svg viewBox="0 0 760 210" role="img" aria-labelledby="d1T d1D">
+        <title id="d1T">Schedule performance</title>
+        <desc id="d1D">A 24-month estimate bar above an 18-month actual bar, a 25 percent reduction, ending at delivery onto a customer aircraft.</desc>
+        <g font-family="Inter,sans-serif">
+          <text x="0" y="26" fill="#a8b2d1" font-size="13">ESTIMATE</text>
+          <rect x="0" y="38" width="600" height="30" rx="4" fill="rgba(168,178,209,.18)" stroke="#a8b2d1" stroke-width=".5"/>
+          <text x="612" y="59" fill="#a8b2d1" font-size="15" font-weight="600">24 months</text>
+          <text x="0" y="104" fill="#64ffda" font-size="13">ACTUAL</text>
+          <rect x="0" y="116" width="450" height="30" rx="4" fill="rgba(100,255,218,.22)" stroke="#64ffda" stroke-width="1"/>
+          <text x="462" y="137" fill="#64ffda" font-size="15" font-weight="800">18 months</text>
+          <line x1="450" y1="152" x2="450" y2="176" stroke="#64ffda" stroke-width="1" stroke-dasharray="3 3"/>
+          <line x1="600" y1="72" x2="600" y2="176" stroke="#a8b2d1" stroke-width="1" stroke-dasharray="3 3" opacity=".6"/>
+          <path d="M450 182H596" stroke="#64ffda" stroke-width="1"/>
+          <text x="450" y="202" fill="#64ffda" font-size="13" font-weight="600">25% reduction</text>
+          <text x="0" y="176" fill="#a8b2d1" font-size="12">IMS-3500 / AIM phase &mdash; onto a customer&rsquo;s aircraft</text>
+        </g>
+      </svg>
+    </figure>
+    <p class="note">The IMS-3500 / Aircraft Information Manager phase. It carried a <b>company-wide Rockwell Collins delivery goal that fed the corporate Incentive Pay Program</b> &mdash; so the date wasn&rsquo;t mine, it was everybody&rsquo;s bonus. The mechanism was an <b>Agile-tailored Software Development Plan (SDP) I authored</b>, replacing rigid phase-gate execution with iterative delivery. Speed did not come out of process: that software was classified <b>DAL E</b> and we developed it to <b>DAL D rigor anyway</b> &mdash; above what its classification required.</p>
+  </div>
+
+  <!-- ══ 2 LEAD WITHOUT AN ORG CHART ══ -->
+  <div class="step" data-x="0" data-y="-1900">
+    <p class="jd">&ldquo;provide technical leadership&rdquo; &middot; &ldquo;communicate&hellip; to audiences with varying degrees of understanding&rdquo;<br><em>AIM / IMS-3500 &middot; Rockwell Collins, 2004&ndash;2013</em></p>
+    <h2>The hardest team I ever led,<br>I had no authority over.</h2>
+    <figure>
+      <svg viewBox="0 0 760 200" role="img" aria-labelledby="d2T d2D">
+        <title id="d2T">Leadership without positional authority</title>
+        <desc id="d2D">The management chain is drawn as a broken line. A path runs from Tim directly out to the Collins FAA representatives, into a jointly built plan, and back to the team, ending at delivery on time.</desc>
+        <g font-family="Inter,sans-serif">
+          <text x="0" y="18" fill="#a8b2d1" font-size="12" opacity=".7">MANAGEMENT CHAIN</text>
+          <line x1="0" y1="34" x2="760" y2="34" stroke="#a8b2d1" stroke-width="1.5" stroke-dasharray="4 12" opacity=".35"/>
+          <text x="0" y="72" fill="#a8b2d1" font-size="12">THE GOAL, STILL STANDING</text>
+          <g stroke="#64ffda" stroke-width="1.5" fill="none">
+            <path d="M62 116H196"/><path d="M330 116H436"/><path d="M566 116H660"/>
+          </g>
+          <g fill="rgba(100,255,218,.09)" stroke="#64ffda" stroke-width="1">
+            <rect x="0" y="94" width="62" height="44" rx="6"/>
+            <rect x="196" y="94" width="134" height="44" rx="6"/>
+            <rect x="436" y="94" width="130" height="44" rx="6"/>
+            <rect x="660" y="94" width="100" height="44" rx="6"/>
+          </g>
+          <g fill="#ccd6f6" font-size="12.5" font-weight="600" text-anchor="middle">
+            <text x="31" y="120">Tim</text>
+            <text x="263" y="107">Rockwell Collins&rsquo;</text><text x="263" y="122">own FAA</text><text x="263" y="137">representatives</text>
+            <text x="501" y="113">the plan,</text><text x="501" y="130">built together</text>
+            <text x="710" y="120">the team</text>
+          </g>
+          <text x="0" y="172" fill="#64ffda" font-size="14" font-weight="800">Delivered on time.</text>
+          <text x="150" y="172" fill="#a8b2d1" font-size="12.5">No org chart involved.</text>
+        </g>
+      </svg>
+    </figure>
+    <p class="note">The management chain above me had fallen apart, and the company delivery goal was still on the books. So I drove out to the airport, sat down with <b>Rockwell Collins&rsquo; own FAA representatives</b>, and asked them point blank: we need to get this onto a customer aircraft &mdash; what do we need to do? We built the plan together. Then I checked in constantly, both with them and with the team, to keep everyone in sync. It shipped on time. <b>You&rsquo;re hiring for twenty reports.</b> That story is the version where I had authority over none of them.</p>
+  </div>
+
+  <!-- ══ 3 BUILD TEAMS, ACROSS SITES ══ -->
+  <div class="step" data-x="2900" data-y="-1800">
+    <p class="jd">&ldquo;continuously improve the performance of the team through development of staff&rdquo; &middot; &ldquo;coordinate development activities between teams&rdquo;</p>
+    <h2>The engineers were<br>never the problem.</h2>
+    <p class="cause"><b>What was broken:</b> technical debt &middot; communication breakdowns &middot; disconnected engineers &middot; prioritisation &middot; no consistent, visible direction</p>
+    <p class="cause"><b>What I set up:</b></p>
+    <ul class="cs">
+      <li><b>Connect</b><span>to each other, and to the customer</span></li>
+      <li><b>Count</b><span>what you do matters</span></li>
+      <li><b>Capable</b><span>equipped to finish the task</span></li>
+      <li><b>Courage</b><span>safe to fail</span></li>
+      <li><b>Choice</b><span>autonomy in what and how</span></li>
+    </ul>
+    <p class="cause attrib">Connect, Count, Capable and Courage are Bettner and Lew&rsquo;s Crucial C&rsquo;s. Choice is my addition.</p>
+      <figure>
+      <svg viewBox="0 0 760 224" role="img" aria-labelledby="d3T d3D">
+        <title id="d3T">Open problem reports closed, against comparable teams</title>
+        <desc id="d3D">A dedicated team working problem reports full time closed 42. Tim's team closed about 40 while also delivering committed features. The next-best customer delivery team closed about 16, and every other delivery team closed fewer.</desc>
+        <g font-family="Inter,sans-serif">
+          <text x="0" y="16" fill="#a8b2d1" font-size="12">OPEN PROBLEM REPORTS CLOSED &mdash; SAME BACKLOG</text>
+          <rect x="0" y="34" width="441" height="30" rx="4" fill="rgba(168,178,209,.16)" stroke="#a8b2d1" stroke-width=".5" stroke-dasharray="4 3"/>
+          <text x="12" y="54" fill="#a8b2d1" font-size="13">Dedicated OPR team &mdash; 42 <tspan opacity=".75">&middot; worked problem reports full time</tspan></text>
+          <rect x="0" y="74" width="420" height="34" rx="4" fill="rgba(100,255,218,.22)" stroke="#64ffda" stroke-width="1"/>
+          <text x="12" y="96" fill="#64ffda" font-size="13.5" font-weight="800">The team &mdash; ~40 <tspan font-weight="400">&middot; while also delivering committed features</tspan></text>
+          <rect x="0" y="118" width="168" height="30" rx="4" fill="rgba(168,178,209,.16)" stroke="#a8b2d1" stroke-width=".5"/>
+          <text x="180" y="138" fill="#a8b2d1" font-size="13">Next-best delivery team &mdash; ~16</text>
+          <text x="0" y="176" fill="#64ffda" font-size="15" font-weight="800">2.5&times;</text>
+          <text x="40" y="176" fill="#a8b2d1" font-size="13">against comparable customer delivery teams &middot; 98&ndash;115% sustained sprint velocity</text>
+          <text x="0" y="196" fill="#a8b2d1" font-size="12" opacity=".8">Every other customer delivery team closed fewer than 16.</text>
+          <text x="0" y="216" fill="#a8b2d1" font-size="12" opacity=".75">The full-time team finished first. I include it because leaving it out would flatter the number.</text>
+        </g>
+      </svg>
+    </figure>
+    <p class="note">Flight Management Systems, <b>2019&ndash;2025</b> &mdash; teams of about eleven, ranging eleven to fifteen. I was handed engineering teams that weren&rsquo;t working and asked to make them healthy. They were <b>underperforming against their own capacity</b> &mdash; and capacity was never what was missing. The five C&rsquo;s are how I set about it, and I <b>acted as the primary shield</b> while it took hold: stabilising requirements with stakeholders and absorbing upstream dependencies, so the team could hold a roadmap instead of re-planning around churn. Earlier, on AIM / IMS-3500, I led the <b>distributed test team in Chennai</b> and won a <b>worldwide Rockwell Collins award for excellence in communication</b> for that coordination. The req mentions trips to India to coordinate between teams &mdash; I&rsquo;ve been doing that work since before it was in a job description.</p>
+  </div>
+
+  <!-- ══ 4 OWN THE NUMBER ══ -->
+  <div class="step" data-x="2900" data-y="1800">
+    <p class="jd">&ldquo;lead and coordinate program-level cost estimates during the bid and proposal cycle&rdquo; &middot; &ldquo;oversee and operate within budgets&rdquo;</p>
+    <h2>I&rsquo;ve carried the number,<br>not just the schedule.</h2>
+    <figure>
+      <svg viewBox="0 0 760 210" role="img" aria-labelledby="d4T d4D">
+        <title id="d4T">Financial scope, nested</title>
+        <desc id="d4D">Three nested boxes: total program scope of about twenty-five million as context, ten million plus in control accounts personally held as Control Account Manager, and a team annual budget of one to two million. Variance held under five percent.</desc>
+        <g font-family="Inter,sans-serif">
+          <rect x="0" y="16" width="470" height="164" rx="8" fill="none" stroke="#a8b2d1" stroke-width=".75" stroke-dasharray="5 4" opacity=".55"/>
+          <text x="14" y="38" fill="#a8b2d1" font-size="12.5">~$25M total program scope <tspan opacity=".7">(context, not mine to manage)</tspan></text>
+          <rect x="14" y="52" width="442" height="76" rx="6" fill="rgba(100,255,218,.1)" stroke="#64ffda" stroke-width="1.5"/>
+          <text x="28" y="78" fill="#64ffda" font-size="16" font-weight="800">$10M+ in control accounts</text>
+          <text x="28" y="100" fill="#ccd6f6" font-size="13">Held personally as Control Account Manager &mdash; EVMS</text>
+          <text x="28" y="118" fill="#a8b2d1" font-size="12.5">This is the authority claim. The one above it is not.</text>
+          <rect x="14" y="138" width="220" height="30" rx="5" fill="rgba(168,178,209,.14)" stroke="#a8b2d1" stroke-width=".5"/>
+          <text x="26" y="158" fill="#a8b2d1" font-size="12.5">$1&ndash;2M team annual budget</text>
+          <line x1="500" y1="30" x2="500" y2="180" stroke="#64ffda" stroke-width=".75" opacity=".3"/>
+          <text x="524" y="52" fill="#64ffda" font-size="20" font-weight="800">&lt;5%</text>
+          <text x="524" y="74" fill="#a8b2d1" font-size="12.5">budget and schedule</text>
+          <text x="524" y="92" fill="#a8b2d1" font-size="12.5">variance</text>
+          <text x="524" y="130" fill="#ccd6f6" font-size="13" font-weight="600">Bid &amp; proposal</text>
+          <text x="524" y="150" fill="#a8b2d1" font-size="12.5">SEER-SEM cost modeling</text>
+          <text x="524" y="168" fill="#a8b2d1" font-size="12.5">on AIM / eFlight pursuits</text>
+        </g>
+      </svg>
+    </figure>
+    <p class="note">I&rsquo;m drawing the distinction deliberately, because it&rsquo;s the kind of thing that gets rounded up on r&eacute;sum&eacute;s. The program was around <b>$25M in total scope</b> &mdash; that&rsquo;s context, not a portfolio I personally managed. What I <b>held as Control Account Manager was $10M+</b>, running EVMS, holding budget and schedule variance under 5%. On the proposal side I worked customer-facing bids on the AIM and eFlight pursuits, using <b>SEER-SEM</b> for cost modeling.</p>
+  </div>
+
+  <!-- ══ 5 CHANGE THE PROCESS ══ -->
+  <div class="step" data-x="0" data-y="1900">
+    <p class="jd">&ldquo;drive the evolution of team processes, methods, skillsets, tools, and technology while supporting Collins&rsquo; process methodologies&rdquo;</p>
+    <h2>I wrote one of the first Agile-tailored<br>SDPs at Rockwell Collins.</h2>
+    <figure>
+      <svg viewBox="0 0 760 190" role="img" aria-labelledby="d5T d5D">
+        <title id="d5T">Phase-gate to iterative</title>
+        <desc id="d5D">A rigid phase-gate sequence on top, transformed into short iterative cycles below, via the Agile-tailored Software Development Plan Tim authored.</desc>
+        <g font-family="Inter,sans-serif">
+          <text x="0" y="16" fill="#a8b2d1" font-size="12">BEFORE &mdash; RIGID PHASE GATE</text>
+          <g fill="rgba(168,178,209,.14)" stroke="#a8b2d1" stroke-width=".5">
+            <rect x="0" y="28" width="140" height="30" rx="4"/><rect x="150" y="28" width="140" height="30" rx="4"/>
+            <rect x="300" y="28" width="140" height="30" rx="4"/><rect x="450" y="28" width="140" height="30" rx="4"/>
+            <rect x="600" y="28" width="160" height="30" rx="4"/>
+          </g>
+          <g fill="#a8b2d1" font-size="11.5" text-anchor="middle">
+            <text x="70" y="48">requirements</text><text x="220" y="48">design</text><text x="370" y="48">code</text>
+            <text x="520" y="48">integrate</text><text x="680" y="48">verify &mdash; find out</text>
+          </g>
+          <path d="M380 70V96" stroke="#64ffda" stroke-width="1.5" fill="none"/>
+          <rect x="248" y="76" width="264" height="34" rx="17" fill="rgba(100,255,218,.12)" stroke="#64ffda" stroke-width="1.5"/>
+          <text x="380" y="98" fill="#64ffda" font-size="13" font-weight="800" text-anchor="middle">the Agile-tailored SDP I authored</text>
+          <text x="0" y="140" fill="#64ffda" font-size="12">AFTER &mdash; ITERATIVE, TEST-DRIVEN</text>
+          <g fill="rgba(100,255,218,.16)" stroke="#64ffda" stroke-width=".75">
+            <rect x="0" y="152" width="88" height="26" rx="13"/><rect x="98" y="152" width="88" height="26" rx="13"/>
+            <rect x="196" y="152" width="88" height="26" rx="13"/><rect x="294" y="152" width="88" height="26" rx="13"/>
+            <rect x="392" y="152" width="88" height="26" rx="13"/><rect x="490" y="152" width="88" height="26" rx="13"/>
+          </g>
+          <text x="596" y="170" fill="#a8b2d1" font-size="12">&hellip; find out early, every cycle</text>
+        </g>
+      </svg>
+    </figure>
+    <p class="note">At Rockwell Collins I served as the <b>formal Lean Champion</b> and authored <b>one of the first Agile-tailored Software Development Plans</b> there &mdash; the SDP for AIM / IMS-3500 that replaced phase-gate execution with iterative delivery, inside a certification regime. The req asks for someone to drive process evolution while supporting Collins&rsquo; process methodologies. I&rsquo;m not coming in to learn them &mdash; I helped write them.</p>
+  </div>
+
+  <!-- ══ 6 THE SIXTH THING ══ -->
+  <div class="step" data-x="-2900" data-y="1800">
+    <p class="jd">not in the req</p>
+    <h2>The sixth thing.</h2>
+    <figure>
+      <svg viewBox="0 0 760 300" role="img" aria-labelledby="d6T d6D">
+        <title id="d6T">The same trust boundary, drawn twice</title>
+        <desc id="d6D">Above: the AIM ground service, a trust boundary with a security control on it, and the IMS-3500 certified avionics. Below: identical geometry relabelled as an AI agent, a plan gate at the tool boundary, and real systems. One authorised path crosses in each.</desc>
+        <g font-family="Inter,sans-serif">
+          <text x="0" y="14" fill="#a8b2d1" font-size="11.5">2004&ndash;2013 &mdash; WHAT I BUILT</text>
+          <path d="M380 26V52" stroke="#a8b2d1" stroke-width="1.25" stroke-dasharray="5 4" opacity=".6"/>
+          <path d="M380 108V134" stroke="#a8b2d1" stroke-width="1.25" stroke-dasharray="5 4" opacity=".6"/>
+          <rect x="0" y="34" width="250" height="92" rx="7" fill="rgba(168,178,209,.1)" stroke="#a8b2d1" stroke-width=".75"/>
+          <rect x="510" y="34" width="250" height="92" rx="7" fill="rgba(168,178,209,.1)" stroke="#a8b2d1" stroke-width=".75"/>
+          <rect x="326" y="52" width="108" height="56" rx="6" fill="rgba(10,25,47,.9)" stroke="#a8b2d1" stroke-width="1.25"/>
+          <path d="M250 80H318M442 80H510" stroke="#a8b2d1" stroke-width="1.25"/>
+          <g text-anchor="middle" fill="#ccd6f6" font-size="13" font-weight="600">
+            <text x="125" y="76">AIM ground service</text><text x="380" y="85">security</text><text x="635" y="76">IMS-3500 / 6000</text>
+          </g>
+          <g text-anchor="middle" fill="#a8b2d1" font-size="11.5">
+            <text x="125" y="98">database + content updates</text><text x="635" y="98">certified avionics</text>
+          </g>
+
+          <text x="0" y="176" fill="#64ffda" font-size="11.5">2025&ndash; &mdash; WHAT I BUILD NOW</text>
+          <path d="M380 188V214" stroke="#64ffda" stroke-width="1.25" stroke-dasharray="5 4"/>
+          <path d="M380 270V296" stroke="#64ffda" stroke-width="1.25" stroke-dasharray="5 4"/>
+          <rect x="0" y="196" width="250" height="92" rx="7" fill="rgba(100,255,218,.07)" stroke="#64ffda" stroke-width=".75"/>
+          <rect x="510" y="196" width="250" height="92" rx="7" fill="rgba(100,255,218,.07)" stroke="#64ffda" stroke-width=".75"/>
+          <rect x="326" y="214" width="108" height="56" rx="6" fill="rgba(10,25,47,.9)" stroke="#64ffda" stroke-width="1.5"/>
+          <path d="M250 242H318M442 242H510" stroke="#64ffda" stroke-width="1.25"/>
+          <g text-anchor="middle" fill="#ccd6f6" font-size="13" font-weight="600">
+            <text x="125" y="238">AI agent</text><text x="380" y="247">plan gate</text><text x="635" y="238">repo &middot; production</text>
+          </g>
+          <g text-anchor="middle" fill="#a8b2d1" font-size="11.5">
+            <text x="125" y="260">proposes writes, commands</text><text x="635" y="260">systems of record</text>
+          </g>
+        </g>
+      </svg>
+    </figure>
+    <p class="note">Same drawing. Same geometry, vertex for vertex &mdash; only the labels changed. <b>An untrusted side, a certified side, and exactly one authorised path across.</b> That&rsquo;s what I did on the AIM interface to the IMS-3500, and it&rsquo;s what I build now: every work package carries a <b>published Engineering SOP and a git-verifiable audit trail</b>, and a gate at the tool boundary blocks any action outside an approved plan. Strip the word &ldquo;AI&rdquo; off it and you have a DO-178C posture &mdash; evidence under configuration control. <b>Your engineers are probably already using these tools.</b> The question is whether anyone in the building can put them under engineering control. I&rsquo;ve shipped it: <b>StrictLock</b>, an eleven-module fail-closed governance suite, with its eslint plugin published on npm.</p>
+  </div>
+
+  <!-- ══ CLOSE ══ -->
+  <div class="step" data-x="0" data-y="4600" data-scale="2">
+    <p class="jd">Tim Downs Mullen &middot; Cedar Rapids, IA</p>
+    <h2>Twenty-five years in software.<br>Twenty-one regulated &mdash; fifteen on Collins avionics.</h2>
+    <ul class="cred">
+      <li>B.S. Computer Engineering, Iowa State &mdash; with Distinction</li>
+      <li>DO-178B/C &middot; DAL B on FMS</li>
+      <li>DO-254 &middot; ARP4754 &middot; DO-160</li>
+      <li>Export classification &mdash; reviewing and handling export-controlled technical data</li>
+      <li>Control Account Manager &mdash; EVMS</li>
+      <li>SAFe&reg; &middot; Scrum &middot; Lean &middot; MBSE &middot; SysML/UML &middot; DOORS &middot; Jama</li>
+      <li>C / C++ &middot; Python &middot; C# / .NET &middot; Java</li>
+      <li>U.S. Marine Corps &mdash; Intelligence Specialist, Series Honor Graduate</li>
+    </ul>
+    <p class="note">Named inventor on <b>two</b> U.S. patents &mdash; <b>sole inventor</b> on US 8,736,464 B1, <i>System and Method for Presenting a Dynamic Checklist to the User of a Vehicle</i> (Rockwell Collins, 2014), and one of four on US 7,471,199 B2, <i>Mobile Key Using Read/Write RFID Tag</i> (Intermec, 2008). The 5 C&rsquo;s I use for team development are Bettner and Lew&rsquo;s Crucial C&rsquo;s &mdash; Connect, Count, Capable, Courage &mdash; with Choice as my own addition. I&rsquo;d rather attribute it than claim it.</p>
+  </div>
+
+</div>
+
+<div class="navpair">
+  <button class="btn" id="pv" type="button">&larr; Prev</button>
+  <button class="btn" id="nx" type="button">Next &rarr;</button>
+</div>
+
+<p class="legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
+
+<script src="/js/impress.js"></script>
+<script>
+(function(){
+  var root=document.getElementById('impress'), body=document.body, api=null;
+  function ls(k,v){ try{ return v===undefined ? localStorage.getItem(k) : localStorage.setItem(k,v); }catch(e){ return null; } }
+
+  // Small screens: shrink the canvas so the render scale lands near 1:1 instead of ~0.2.
+  // impress reads this config once at init, so it has to happen before init().
+  if(window.matchMedia('(max-width: 900px)').matches){
+    root.setAttribute('data-width','760'); root.setAttribute('data-height','1120');
+  }
+
+  // Motion preference has to be resolved BEFORE init, because impress bakes each step's
+  // transition duration at init time. The body class handles live toggling afterwards.
+  var savedMotion=ls('deckMotion');
+  var reduced = savedMotion ? savedMotion==='reduced'
+                            : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function applyMotion(){
+    root.setAttribute('data-transition-duration', reduced?'0':'700');
+    body.classList.toggle('nomotion', reduced);
+  }
+  applyMotion();
+
+  // Sent ahead? ?read opens with the narration showing. The bare URL stays in Present
+  // for the live screen-share.
+  var wantRead = /[?&]read\b/.test(location.search) || ls('deckView')==='read';
+
+  try{ if(typeof impress==='function'){ api=impress(); api.init(); } }catch(e){}
+
+  // impress claims Tab and Space at the document level, which strands keyboard users:
+  // the toggles and Prev/Next become unreachable — including Read, which reveals the
+  // entire evidence layer. Capture phase runs first, so this frees them without
+  // patching the vendored library.
+  document.addEventListener('keydown', function(e){
+    var inChrome = e.target && e.target.closest && e.target.closest('.bar,.navpair');
+    if(e.keyCode===9 || (inChrome && (e.keyCode===32 || e.keyCode===13))) e.stopPropagation();
+  }, true);
+
+  function press(a,b,on){ a.setAttribute('aria-pressed',on?'true':'false'); b.setAttribute('aria-pressed',on?'false':'true'); }
+  var mFull=document.getElementById('mFull'), mOff=document.getElementById('mOff');
+  var vPresent=document.getElementById('vPresent'), vRead=document.getElementById('vRead');
+
+  function setMotion(full){ reduced=!full; applyMotion(); press(mFull,mOff,full); ls('deckMotion', full?'full':'reduced'); }
+  function setView(read){ body.classList.toggle('read',read); press(vPresent,vRead,!read); ls('deckView', read?'read':'present'); }
+
+  setMotion(!reduced); setView(wantRead);
+
+  mFull.onclick=function(){ setMotion(true); };
+  mOff.onclick=function(){ setMotion(false); };
+  vPresent.onclick=function(){ setView(false); };
+  vRead.onclick=function(){ setView(true); };
+  document.getElementById('pv').onclick=function(){ if(api) api.prev(); };
+  document.getElementById('nx').onclick=function(){ if(api) api.next(); };
+})();
+</script>
+</body>
+</html>
