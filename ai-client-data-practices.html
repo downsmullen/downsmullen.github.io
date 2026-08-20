@@ -446,13 +446,12 @@
         }
         .back-link a:hover { color: var(--text-main); }
 
-        @media (max-width: 900px) {
-            .cs-container {
-                grid-template-columns: 1fr;
-            }
-            .cs-sidebar {
-                position: static;
-            }
+        /* Nav collapses to the menu button at 1100px, not at the layout
+           breakpoint below. The six-item row stops fitting around 1000px
+           (1063px on this page's longer CTA), and before this it wrapped the
+           logo onto two lines and grew the fixed bar by 28px. Layout
+           breakpoints are deliberately left where they were. */
+        @media (max-width: 1100px) {
             .menu-toggle { display: block; }
             nav { position: relative; }
             .nav-links {
@@ -469,6 +468,15 @@
                 border-top: 1px solid rgba(100,255,218,0.1);
             }
             .nav-links.open { display: flex; }
+        }
+
+        @media (max-width: 900px) {
+            .cs-container {
+                grid-template-columns: 1fr;
+            }
+            .cs-sidebar {
+                position: static;
+            }
             .cs-header { padding: 8rem 5% 4rem 5%; }
             .cs-container { padding: 4rem 5%; }
         }
@@ -723,7 +731,7 @@
             <div class="sidebar-cta">
                 <h3>Your Practice</h3>
                 <p>This is the compressed, do-it-yourself version. A readiness assessment maps these paths for your specific practice and hands you a prioritized fix list — the deliverable is the list, not a 200-page report.</p>
-                <a class="cta-link" href="mailto:tim@tdmtechsolutions.com?subject=AI%20%2B%20HIPAA%20readiness">Ask about an assessment &rarr;</a>
+                <a class="cta-link" href="ai-hipaa-readiness.html">See the assessment &rarr;</a>
             </div>
         </aside>
     </section>
@@ -735,7 +743,7 @@
     <footer>
         <h2>Want this mapped for your practice?</h2>
         <p>A fixed-fee readiness assessment finds where client data actually flows, checks it against your obligations, and hands you a plain-English fix list. Built on the same audit-trail discipline used to certify flight software.</p>
-        <a href="mailto:tim@tdmtechsolutions.com?subject=AI%20%2B%20HIPAA%20readiness" class="btn-primary">Ask about a readiness assessment</a>
+        <a href="ai-hipaa-readiness.html" class="btn-primary">See the readiness assessment</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">tim@tdmtechsolutions.com</a></p>
         <p style="margin-top: 1rem;">The productized path to audit-ready HIPAA documentation is <a href="https://www.hipaapath.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">HIPAAPath &rarr;</a></p>
         <div class="footer-links">

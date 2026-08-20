@@ -368,13 +368,12 @@
         }
         .back-link a:hover { color: var(--text-main); }
 
-        @media (max-width: 900px) {
-            .cs-container {
-                grid-template-columns: 1fr;
-            }
-            .cs-sidebar {
-                position: static;
-            }
+        /* Nav collapses to the menu button at 1100px, not at the layout
+           breakpoint below. The six-item row stops fitting around 1000px
+           (1063px on this page's longer CTA), and before this it wrapped the
+           logo onto two lines and grew the fixed bar by 28px. Layout
+           breakpoints are deliberately left where they were. */
+        @media (max-width: 1100px) {
             .menu-toggle { display: block; }
             nav { position: relative; }
             .nav-links {
@@ -391,6 +390,15 @@
                 border-top: 1px solid rgba(100,255,218,0.1);
             }
             .nav-links.open { display: flex; }
+        }
+
+        @media (max-width: 900px) {
+            .cs-container {
+                grid-template-columns: 1fr;
+            }
+            .cs-sidebar {
+                position: static;
+            }
             .cs-header { padding: 8rem 5% 4rem 5%; }
             .cs-container { padding: 4rem 5%; }
         }
@@ -662,7 +670,7 @@
         <p>A gate an agent cannot work around is the difference between AI-assisted work you can ship and AI-assisted work you have to explain afterwards. If you're adopting agents somewhere the evidence trail matters, that's the problem I work on &mdash; built on the same audit-trail discipline used to certify flight software.</p>
         <a href="mailto:tim@tdmtechsolutions.com?subject=Fail-closed%20controls%20for%20AI%20agents" class="btn-primary">Talk about agent controls</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">tim@tdmtechsolutions.com</a></p>
-        <p style="margin-top: 1rem;">Run a practice or professional firm? Start with an <a href="index.html#practice-readiness" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
+        <p style="margin-top: 1rem;">Run a healthcare practice? Start with an <a href="ai-hipaa-readiness.html" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
