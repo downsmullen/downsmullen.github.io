@@ -422,7 +422,8 @@ body.nomotion #impress,body.nomotion #impress *{transition-duration:0ms!importan
 
 <p class="legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
 
-<script src="/js/impress.js"></script>
+<!-- relative, not root-absolute: also works when the file is opened directly from disk -->
+<script src="js/impress.js"></script>
 <script>
 (function(){
   var root=document.getElementById('impress'), body=document.body, api=null;
