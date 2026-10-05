@@ -52,3 +52,17 @@ git push origin main
 
 Check every change at a 375px viewport before merging. The two worst defects this site has
 shipped were mobile-only and invisible to desktop review.
+
+## IndexNow (added 2026-10-05)
+
+`3d4bf1177447d4fec60c001c5237f23b.txt` at the root is the IndexNow ownership key. It is **public by design**, not a secret: Bing, Yandex and other engines fetch it to confirm a submission came from this site. Google ignores IndexNow, but Bing's index feeds ChatGPT search and Copilot.
+
+After publishing new or changed pages, tell the engines (edit the URL list):
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" -X POST https://api.indexnow.org/indexnow \
+  -H "Content-Type: application/json; charset=utf-8" \
+  -d '{"host":"downsmullen.com","key":"3d4bf1177447d4fec60c001c5237f23b","keyLocation":"https://downsmullen.com/3d4bf1177447d4fec60c001c5237f23b.txt","urlList":["https://downsmullen.com/"]}'
+```
+
+200 or 202 = accepted. Submit pages when they change, not on a timer. The key file must be live before the first submission.
