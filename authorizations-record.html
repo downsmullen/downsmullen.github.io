@@ -17,7 +17,7 @@
     <meta property="og:image" content="https://downsmullen.com/TDM.Monogram.webp">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tamper-Evident Audit Logs for AI Agents: Build the Claim True | Tim Downs Mullen">
-    <meta name="twitter:description" content="My paper overclaimed its audit log. I built the claim true, then three adversarial AI reviewers found a path-traversal exploit in it.">
+    <meta name="twitter:description" content="My paper overclaimed its audit log. I built the claim true, then adversarial AI reviewers found a path-traversal exploit in it.">
     <meta name="twitter:image" content="https://downsmullen.com/TDM.Monogram.webp">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -604,15 +604,15 @@
             <ul>
                 <li><strong>It's hash-chained.</strong> Each row stores the hash of the row before it, and its own hash is a SHA-256 over that link plus the row's canonical JSON. Change or delete a row in the middle and every hash after it stops matching.</li>
                 <li><strong>It ships with its verifier.</strong> <code>plan-gate.py verify-log</code> re-walks the chain. It exits 0 when the chain is intact, and otherwise it exits 2 and names the first bad row. Anyone can re-prove the record, not just whoever wrote it.</li>
-                <li><strong>It protects itself.</strong> The gate never authorizes a gated file write into its own log directory, even when an approved plan names that path. The check runs before every allow rule, so no carve-out can shadow it. A gated agent can't be <em>authorized</em> to touch its own audit trail.</li>
+                <li><strong>It protects itself.</strong> The gate never authorizes a gated file write into its own log directory, even when an approved plan names that path. The check runs before the always-writable and plan-path rules, so neither can shadow it. A gated agent can't be <em>authorized</em> to touch its own audit trail.</li>
                 <li><strong>The bypass is witnessed.</strong> The emergency bypass still works, and it still fails open, because a gate that can lock its operator out is its own hazard. But every use now leaves a row.</li>
             </ul>
 
             <p>A row looks like this (values elided):</p>
 
 <pre><code>{"ts": "…", "decision": "deny", "surface": "file", "tool": "Edit",
- "target": "…", "class": "log_self_protect", "reason": "…",
- "plan": "…", "prev": "…", "h": "…"}</code></pre>
+ "target": "…", "command": "", "class": "log_self_protect",
+ "reason": "…", "plan": "…", "cwd": "…", "prev": "…", "h": "…"}</code></pre>
 
             <p>Two older rules carried over unchanged. Logging is fail-open: if the log can't be written, the gate's decision doesn't change. And the log never records file contents or full payloads, only paths, truncated commands and short field prefixes. Concurrent sessions share one log under an advisory lock, and if the last line is ever damaged by a partial write, the chain re-anchors past it and the verifier points at the damaged row.</p>
 
@@ -624,7 +624,7 @@
 
             <p>There's a second boundary, and it belongs to the gate rather than the log. Self-protection covers the file-write surface. If an approved plan grants a shell command broad enough to write anywhere, that plan could write to the log, and the only control on that is the human reviewing the plan. That blind spot existed before this build. It's documented, not hidden.</p>
 
-            <p>The paper now says exactly that: hash-chained, self-protected, verifiable, with those limits stated in the same paragraph as the claim.</p>
+            <p>The paper's compliance table now states the tamper scope right next to the claim: hash-chained, self-protected, verifiable, and what someone with filesystem access can still do. The shell-command blind spot is written down in the build spec.</p>
 
             <h2>Then I asked three reviewers to break it</h2>
 
@@ -646,7 +646,7 @@
 
             <h3>Two quieter ones</h3>
 
-            <p>A malformed character in the gate's input could stop a row from serializing, so that decision was silently dropped from the record. Every row now writes, with the offending characters stripped. And the writer and the verifier split lines slightly differently, so a damaged line ending in a carriage return produced two different hashes and a false mismatch. Both sides now split the same way.</p>
+            <p>A malformed character in the gate's input could stop a row from serializing, so that decision was silently dropped from the record. Every row now writes, with the offending characters replaced. And the writer and the verifier split lines slightly differently, so a damaged line ending in a carriage return produced two different hashes and a false mismatch. Both sides now split the same way.</p>
 
             <p>All four were fixed the same day. Every reproduction is now a regression test, and the plan-gate suite went from 9 tests before this work to 35. The gate-semantics reviewer also ran about 55 differential inputs against the previous version: the only decision that changed was the new self-protection deny, which was the intended one. CI passed and the pull request merged.</p>
 
@@ -666,7 +666,7 @@
                 <li><strong>Point adversarial reviewers at your own controls before you merge.</strong> Give each one a different lens, ask for a runnable reproduction, and keep every reproduction as a test.</li>
             </ul>
 
-            <p>Twenty-one years in regulated industries taught me that documentation is a claim about the system. The paper's claim is true now, and the limits are written down next to it. The full build spec and the review findings, exploits included, are public in <a href="https://github.com/TDM-Technologies/strictlock/blob/main/dev/AUTHORIZATIONS-RECORD-SPEC.md">the StrictLock repo</a>, alongside <a href="https://github.com/TDM-Technologies/strictlock/blob/main/plan-gate/paper.md">the plan-gate paper</a>. The log sits on the same footing as the <a href="externalized-memory.html">externalized memory</a> pattern: state that lives on disk, in git, where it can be checked rather than remembered.</p>
+            <p>Twenty-one years in regulated industries taught me that documentation is a claim about the system. The paper's claim is true now, and its limits are written down: the tamper scope in the paper, the shell-command blind spot in the spec. The full build spec and the review findings, exploits included, are public in <a href="https://github.com/TDM-Technologies/strictlock/blob/main/dev/AUTHORIZATIONS-RECORD-SPEC.md">the StrictLock repo</a>, alongside <a href="https://github.com/TDM-Technologies/strictlock/blob/main/plan-gate/paper.md">the plan-gate paper</a>. The log sits on the same footing as the <a href="externalized-memory.html">externalized memory</a> pattern: state that lives on disk, in git, where it can be checked rather than remembered.</p>
 
             <blockquote>
                 <p>Don't edit the claim down. Build it true, then let someone try to break it.</p>
