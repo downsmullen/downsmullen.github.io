@@ -34,13 +34,22 @@
             color: var(--text-main);
             min-height: 100vh;
             margin: 0;
-            overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Mobile fallback — static scrollable version (also the desktop JS-failure fallback) */
+        /* Static version: the no-JS, failed-init and print floor. With JS on it is hidden
+           up front (no flash) and deckFallback() shows it again if the deck can't start.
+           The deck itself only shows once impress has actually initialised. */
+        html.js .mobile-fallback { display: none; }
+        #impress, .hint, .site-return, .deck-controls, .navpair { display: none; }
+        body.impress-enabled #impress,
+        body.impress-enabled .hint,
+        body.impress-enabled .site-return { display: block; }
+        body.impress-enabled .deck-controls,
+        body.impress-enabled .navpair { display: flex; }
+        body.impress-enabled { overflow: hidden; }
+
         .mobile-fallback {
-            display: none;
             padding: 2rem 5%;
             overflow-y: auto;
             max-width: 820px;
@@ -115,11 +124,10 @@
             font-weight: 600;
         }
         .mobile-links a:hover { color: var(--accent); }
-
-        @media (max-width: 768px) {
-            body { overflow: auto; }
-            #impress, .hint, .site-return { display: none !important; }
-            .mobile-fallback { display: block; }
+        .deck-footer {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 5% 2rem;
         }
 
         /* Base styles for all steps */
@@ -243,7 +251,95 @@
             color: var(--text-muted);
             opacity: 0.75;
         }
+
+        /* Deck controls (ported from collins-senior-manager.html) */
+        .deck-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 200;
+            gap: 0.3rem;
+            align-items: center;
+            font-size: 0.82rem;
+        }
+        .deck-controls .lbl { color: var(--text-muted); opacity: 0.75; margin-right: 0.15rem; }
+        .navpair { position: fixed; right: 20px; bottom: 4.5rem; z-index: 200; gap: 0.4rem; }
+        .btn {
+            font: inherit;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: rgba(10, 25, 47, 0.85);
+            border: 1px solid rgba(100, 255, 218, 0.15);
+            border-radius: 4px;
+            padding: 0.35rem 0.7rem;
+            cursor: pointer;
+        }
+        .btn:hover { color: var(--accent); border-color: var(--accent); }
+        .btn[aria-pressed="true"] { color: var(--primary-dark); background: var(--accent); border-color: var(--accent); }
+        .btn:focus-visible, .site-return:focus-visible, .deck-footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        /* While the deck runs, the links + trademark notice sit in a fixed strip at the bottom. */
+        body.impress-enabled .deck-footer {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            max-width: none;
+            margin: 0;
+            padding: 0.35rem 1rem;
+            background: rgba(10, 25, 47, 0.85);
+            z-index: 150;
+        }
+        body.impress-enabled .mobile-links { gap: 0.2rem 1.1rem; padding: 0 0 0.2rem; border-top: none; }
+        body.impress-enabled .mobile-links a { font-size: 0.72rem; }
+        body.impress-enabled .footer-legal { margin: 0 auto; max-width: none; text-align: center; font-size: 0.6rem; opacity: 0.6; }
+        body.impress-enabled .hint { bottom: 4.5rem; }
+
+        /* impress writes transition-duration INLINE on every move, and bakes each step's
+           duration at init — so a live Motion toggle can only win with !important. */
+        body.nomotion #impress, body.nomotion #impress * { transition-duration: 0ms !important; }
+
+        /* The canvas is narrowed on small screens (data-width/height, set before init);
+           the slide has to match or part of every slide sits off-screen with no way to scroll. */
+        @media (max-width: 900px) {
+            body.impress-enabled .step { width: 700px; padding: 28px 30px; }
+            body.impress-enabled h1 { font-size: 2.1rem; }
+            body.impress-enabled #overview h1 { font-size: 3rem; }
+        }
+        @media (max-width: 768px) {
+            /* Touch: swipe or Prev/Next — the keyboard hint doesn't apply. */
+            body.impress-enabled .hint { display: none; }
+            body.impress-enabled .navpair { bottom: 6.5rem; }
+            .site-return { top: 12px; left: 12px; }
+            .deck-controls { top: 12px; right: 12px; }
+        }
+
+        @media print {
+            /* Print the static version; impress leaves inline height/overflow on html/body. */
+            html, body { height: auto !important; overflow: visible !important; background: #fff !important; color: #111 !important; }
+            #impress, .hint, .site-return, .deck-controls, .navpair { display: none !important; }
+            .mobile-fallback { display: block !important; }
+            body.impress-enabled .deck-footer { position: static; background: none; }
+            .mobile-fallback h1, .mobile-slide h3 { color: #0a192f; }
+            .mobile-slide { background: #fff; border: 1px solid #ccc; border-left: 4px solid #0a192f; page-break-inside: avoid; }
+            .mobile-slide h2, .mobile-arc, .highlight { color: #0a6; }
+            .mobile-slide ul, .mobile-links a, .footer-legal { color: #333; }
+        }
     </style>
+    <script>
+        // Hides the static version up front when JS is on; deckFallback() brings it back.
+        document.documentElement.className += ' js';
+        function deckFallback() {
+            var mf = document.querySelector('.mobile-fallback');
+            if (mf) mf.style.display = 'block';
+            ['#impress', '.hint', '.site-return', '.deck-controls', '.navpair'].forEach(function (s) {
+                var el = document.querySelector(s);
+                if (el) el.style.display = 'none';
+            });
+            document.body.classList.remove('impress-enabled');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -358,7 +454,9 @@
     </div>
 
     <div class="mobile-back"><a href="index.html">&larr; Back to site</a></div>
+</div>
 
+<footer class="deck-footer">
     <div class="mobile-links">
         <a href="https://github.com/downsmullen">GitHub</a>
         <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
@@ -367,11 +465,22 @@
         <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
     </div>
     <p class="footer-legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. LeSS is a trademark of The LeSS Company B.V. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
-</div>
+</footer>
 
 <div class="hint">Use spacebar or arrow keys to navigate</div>
 
 <a class="site-return" href="index.html">&larr; downsmullen.com</a>
+
+<div class="deck-controls" role="group" aria-label="Motion">
+    <span class="lbl">Motion</span>
+    <button class="btn" id="mFull" type="button" aria-pressed="true">Full</button>
+    <button class="btn" id="mOff" type="button" aria-pressed="false">Reduced</button>
+</div>
+
+<div class="navpair">
+    <button class="btn" id="pv" type="button">&larr; Prev</button>
+    <button class="btn" id="nx" type="button">Next &rarr;</button>
+</div>
 
 <div id="impress" data-transition-duration="800">
 
@@ -434,40 +543,61 @@
 
 </div>
 
-<script src="/js/impress.js" onerror="deckFallback()"></script>
+<!-- relative, not root-absolute: also works when the file is opened directly from disk -->
+<script src="js/impress.js"></script>
 <script>
-    // Desktop fallback: if impress.js fails to load or init, show the static
-    // version instead of a blank page (mobile already shows it via @media).
-    function deckFallback() {
-        var mf = document.querySelector('.mobile-fallback');
-        if (mf) mf.style.display = 'block';
-        var im = document.getElementById('impress');
-        if (im) im.style.display = 'none';
-        var h = document.querySelector('.hint');
-        if (h) h.style.display = 'none';
-        document.body.style.overflow = 'auto';
+(function () {
+    // The deck ALWAYS initialises. Reduced motion means instant cuts, not no deck;
+    // a small screen means a narrower canvas, not no deck. (Port of collins-senior-manager.html.)
+    var root = document.getElementById('impress'), body = document.body, api = null;
+    function ls(k, v) { try { return v === undefined ? localStorage.getItem(k) : localStorage.setItem(k, v); } catch (e) { return null; } }
+
+    // Small screens: shrink the canvas so the render scale lands near 1:1 instead of ~0.2.
+    // impress reads this config once at init, so it has to happen before init().
+    if (window.matchMedia('(max-width: 900px)').matches) {
+        root.setAttribute('data-width', '760'); root.setAttribute('data-height', '1120');
     }
+
+    // Motion preference has to be resolved BEFORE init, because impress bakes each step's
+    // transition duration at init time (toNumber keeps 0, so 0 is a real instant cut).
+    // The body class handles live toggling afterwards. Default = the OS setting.
+    var savedMotion = ls('deckMotion');
+    var reduced = savedMotion ? savedMotion === 'reduced'
+                              : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function applyMotion() {
+        root.setAttribute('data-transition-duration', reduced ? '0' : '800');
+        body.classList.toggle('nomotion', reduced);
+    }
+    applyMotion();
+
     try {
-        // Only run the deck where it is actually usable. impress().init() writes an
-        // inline `overflow: hidden` onto <body>, which out-ranks the `body { overflow: auto }`
-        // in the max-width:768px media query — so on a phone the static fallback rendered
-        // but could not be scrolled: everything past the first viewport was unreachable.
-        // Matching the CSS breakpoint here keeps the two in step, and honouring
-        // prefers-reduced-motion closes the same gap for anyone who can't take the 3D moves.
-        var deckIsUsable = window.matchMedia('(min-width: 769px)').matches
-                        && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (typeof impress === 'function' && deckIsUsable) {
-            impress().init();
-            // impress leaves body.impress-not-supported on unsupported browsers
-            if (document.body.classList.contains('impress-not-supported')) {
-                deckFallback();
-            }
-        } else {
-            deckFallback();
-        }
-    } catch (e) {
-        deckFallback();
+        if (typeof impress === 'function') { api = impress(); api.init(); }
+        // Unsupported browsers get a dummy API and never reach impress-enabled.
+        if (!body.classList.contains('impress-enabled')) { api = null; deckFallback(); }
+    } catch (e) { api = null; deckFallback(); }
+
+    // impress claims Tab and Space at the document level, which strands keyboard users on
+    // the on-page controls and links. Capture phase runs first, so this frees them without
+    // patching the vendored library.
+    document.addEventListener('keydown', function (e) {
+        var inChrome = e.target && e.target.closest && e.target.closest('.deck-controls,.navpair,.deck-footer,.site-return');
+        if (e.keyCode === 9 || (inChrome && (e.keyCode === 32 || e.keyCode === 13))) e.stopPropagation();
+    }, true);
+
+    var mFull = document.getElementById('mFull'), mOff = document.getElementById('mOff');
+    function setMotion(full) {
+        reduced = !full; applyMotion();
+        mFull.setAttribute('aria-pressed', full ? 'true' : 'false');
+        mOff.setAttribute('aria-pressed', full ? 'false' : 'true');
+        ls('deckMotion', full ? 'full' : 'reduced');
     }
+    mFull.setAttribute('aria-pressed', reduced ? 'false' : 'true');
+    mOff.setAttribute('aria-pressed', reduced ? 'true' : 'false');
+    mFull.onclick = function () { setMotion(true); };
+    mOff.onclick = function () { setMotion(false); };
+    document.getElementById('pv').onclick = function () { if (api) api.prev(); };
+    document.getElementById('nx').onclick = function () { if (api) api.next(); };
+})();
 </script>
 
 </body>

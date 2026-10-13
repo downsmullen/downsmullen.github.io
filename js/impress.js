@@ -4701,11 +4701,19 @@
     var lastDX = 0;
     var threshold = window.innerWidth / 20;
 
+    // downsmullen.com patch: only act once a deck is running. Unguarded, a finger-drag on a
+    // page where init() never ran calls swipe() on an uninitialised API and throws TypeError
+    // (and calling window.impress() at all strips body.impress-not-supported as a side effect).
+    var deckRunning = function() {
+        return document.body.classList.contains( "impress-enabled" );
+    };
+
     document.addEventListener( "touchstart", function( event ) {
         lastX = startX = event.touches[ 0 ].clientX;
     } );
 
     document.addEventListener( "touchmove", function( event ) {
+         if ( !deckRunning() ) { return; }
          var x = event.touches[ 0 ].clientX;
          var diff = x - startX;
 
@@ -4717,6 +4725,7 @@
      } );
 
      document.addEventListener( "touchend", function() {
+         if ( !deckRunning() ) { return; }
          var totalDiff = lastX - startX;
          if ( Math.abs( totalDiff ) > window.innerWidth / 5 && ( totalDiff * lastDX ) <= 0 ) {
              if ( totalDiff > window.innerWidth / 5 && lastDX <= 0 ) {
@@ -4738,6 +4747,7 @@
      } );
 
      document.addEventListener( "touchcancel", function() {
+             if ( !deckRunning() ) { return; }
 
              // Move (back) to the current slide
              window.impress().goto( document.querySelector( "#impress .step.active" ) );
