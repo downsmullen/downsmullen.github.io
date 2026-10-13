@@ -644,7 +644,7 @@
 
             <section class="answer-box" aria-labelledby="what-is-fail-closed">
                 <h2 id="what-is-fail-closed">What is a fail-closed AI agent?</h2>
-                <p>A fail-closed AI agent is one whose actions pass through a check it doesn't control, and that check defaults to <em>deny</em>. Before a consequential action runs, such as a file write or a shell command, the check confirms that a plan a human approved covers it. Anything the plan doesn't cover, or anything ambiguous or surprising, is blocked, and the agent stops for a human. A fail-open agent relies on instructions in its prompt instead, so when the instruction slips, the action happens anyway.</p>
+                <p>A fail-closed AI agent is one whose actions pass through a check it doesn't control, and that check defaults to <em>deny</em>. Before a consequential action runs, such as a file write or a shell command, the check confirms that a plan a human approved covers it. Anything the plan doesn't cover, or anything ambiguous or surprising, is blocked, and the agent stops for a human. A fail-open agent relies on instructions in its prompt instead, so when the instruction slips, the action happens anyway. Two exceptions are deliberate: if the gate itself crashes, it fails open with a warning rather than locking up the agent, and a person can switch it off for a session with an emergency bypass, which the decision log still records when logging is on.</p>
             </section>
 
             <p>I let AI agents take real actions on my systems. Not just produce text — edit files, run shell commands, call APIs, write to systems of record. The moment you do that in a regulated domain, the math of a mistake changes. A bad paragraph, you regenerate. An action the operator never approved — a disclosed record, an unauthorized change to a system of record, a file sent to the wrong party — you report. The cost stops being "try again" and becomes a reportable event.</p>
@@ -759,7 +759,7 @@
                 <p>When I first published this, the paragraph above was ahead of the code. The gate logged every deny, but it only logged allows for PowerShell commands. An approved file write or Bash command left no trace. I could reword the claim down or build it true. On 2026-07-15 I built it true, in StrictLock's plan-gate module (<a href="https://github.com/TDM-Technologies/strictlock/pull/11">PR #11</a>).</p>
 
                 <ul>
-                    <li><strong>One log for every decision.</strong> With logging turned on, allow and deny on every gated surface (it can be dialled down to denials only), with the timestamp, target, command, decision class, and the plan that governed it.</li>
+                    <li><strong>One log for every decision.</strong> With logging turned on, allow and deny on every gated surface (it can be dialed down to denials only), with the timestamp, target, command, decision class, and the plan that governed it.</li>
                     <li><strong>Hash-chained.</strong> Each row carries the hash of the row before it. A bundled verifier, <code>plan-gate.py verify-log</code>, re-proves the chain, so an edited or deleted row inside the record shows up.</li>
                     <li><strong>Self-protecting.</strong> The gate denies any gated file write into its own log directory, even when an approved plan names it. Through the file-write tools, a gated agent can never be authorized to touch its own audit trail.</li>
                 </ul>
