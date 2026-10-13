@@ -580,11 +580,14 @@
 
     // impress claims Tab and Space at the document level, which strands keyboard users on
     // the on-page controls and links. Capture phase runs first, so this frees them without
-    // patching the vendored library.
-    document.addEventListener('keydown', function (e) {
+    // patching the vendored library. impress navigates on keyup (keydown only blocks the
+    // default), so both have to be stopped or every Tab also advances a slide.
+    function freeKeys(e) {
         var inChrome = e.target && e.target.closest && e.target.closest('.deck-controls,.navpair,.deck-footer,.site-return');
         if (e.keyCode === 9 || (inChrome && (e.keyCode === 32 || e.keyCode === 13))) e.stopPropagation();
-    }, true);
+    }
+    document.addEventListener('keydown', freeKeys, true);
+    document.addEventListener('keyup', freeKeys, true);
 
     var mFull = document.getElementById('mFull'), mOff = document.getElementById('mOff');
     function setMotion(full) {
