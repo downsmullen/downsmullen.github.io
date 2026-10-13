@@ -305,14 +305,17 @@
             body.impress-enabled .step { width: 700px; padding: 28px 30px; }
             body.impress-enabled h1 { font-size: 2.1rem; }
             body.impress-enabled #overview h1 { font-size: 3rem; }
+            body.impress-enabled .skill-line { font-size: 1.3rem; }
         }
         @media (max-width: 768px) {
             /* Touch: swipe or Prev/Next — the keyboard hint doesn't apply. */
             body.impress-enabled .hint { display: none; }
-            body.impress-enabled .navpair { bottom: 6.5rem; }
-            .site-return { top: 12px; left: 12px; }
-            .deck-controls { top: 12px; right: 12px; }
-        }
+            body.impress-enabled .mobile-links { gap: 0.1rem 0.9rem; }
+            body.impress-enabled .mobile-links a { font-size: 0.66rem; }
+            body.impress-enabled .footer-legal { font-size: 0.55rem; line-height: 1.35; }
+            body.impress-enabled .navpair { bottom: 6.75rem; right: 12px; }
+            .site-return { top: 12px; left: 12px; font-size: 0.8rem; padding: 6px 10px; }
+            .deck-controls { top: 12px; right: 12px; font-size: 0.75rem; }        }
 
         @media print {
             /* Print the static version; impress leaves inline height/overflow on html/body. */
