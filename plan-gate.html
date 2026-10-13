@@ -213,6 +213,100 @@
             margin: 3rem 0;
         }
 
+        /* Short answer box — the literal search question, answered first */
+        .answer-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--primary-light);
+            border-radius: 0 6px 6px 0;
+            padding: 1.5rem 1.75rem;
+            margin: 0 0 2.5rem 0;
+        }
+
+        .cs-main .answer-box h2 {
+            font-size: 1.35rem;
+            margin: 0 0 0.75rem 0;
+        }
+
+        .cs-main .answer-box p {
+            color: var(--text-dark);
+            margin-bottom: 0;
+        }
+
+        /* Dated update section */
+        .update-box {
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid var(--accent);
+            border-radius: 0 0 6px 6px;
+            padding: 1.75rem 1.75rem 0.5rem 1.75rem;
+            margin: 2.5rem 0;
+        }
+
+        .update-date {
+            display: block;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #0369a1;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .cs-main .update-box h2 { margin-bottom: 1rem; }
+
+        .cs-main code {
+            font-family: monospace;
+            font-size: 0.95em;
+            background: #f1f5f9;
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            color: var(--primary-dark);
+        }
+
+        /* PLAN -> CONFIRM -> EXECUTE diagram (inline SVG).
+           Colours come from the page tokens; forced-colors gets system colours. */
+        .gate-figure {
+            margin: 2rem 0 2.5rem 0;
+        }
+
+        .gate-figure svg {
+            display: block;
+            width: 100%;
+            max-width: 460px;
+            height: auto;
+            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gate-figure figcaption {
+            font-size: 0.9rem;
+            color: #64748b;
+            text-align: center;
+            margin-top: 0.75rem;
+        }
+
+        .gd-step { fill: #f8fafc; stroke: var(--primary-light); stroke-width: 1.5; }
+        .gd-gate { fill: var(--primary-dark); stroke: var(--primary-dark); stroke-width: 1.5; }
+        .gd-allow { fill: var(--accent); stroke: var(--primary-dark); stroke-width: 1.5; }
+        .gd-deny { fill: #ffffff; stroke: var(--primary-dark); stroke-width: 2; stroke-dasharray: 6 4; }
+        .gd-log { fill: var(--primary-light); stroke: var(--primary-light); stroke-width: 1.5; }
+        .gd-boundary { fill: none; stroke: #0369a1; stroke-width: 1.5; stroke-dasharray: 4 4; }
+        .gd-arrow { stroke: var(--primary-light); stroke-width: 2; fill: none; }
+        .gd-head { fill: var(--primary-light); }
+        .gd-label { fill: var(--primary-dark); font-size: 15px; font-weight: 800; letter-spacing: 1px; }
+        .gd-text { fill: #475569; font-size: 13px; }
+        .gd-text-dark { fill: var(--primary-dark); font-size: 13px; }
+        .gd-label-inv { fill: var(--accent); font-size: 15px; font-weight: 800; letter-spacing: 1px; }
+        .gd-text-inv { fill: var(--text-main); font-size: 13px; }
+        .gd-boundary-text { fill: #0369a1; font-size: 11.5px; font-weight: 600; letter-spacing: 0.5px; }
+
+        @media (forced-colors: active) {
+            .gd-step, .gd-gate, .gd-allow, .gd-deny, .gd-log { fill: Canvas; stroke: CanvasText; }
+            .gd-boundary, .gd-arrow { stroke: CanvasText; }
+            .gd-head { fill: CanvasText; }
+            .gd-label, .gd-text, .gd-text-dark, .gd-label-inv, .gd-text-inv, .gd-boundary-text { fill: CanvasText; }
+        }
+
         .author-bio {
             margin-top: 3rem;
             padding-top: 2rem;
@@ -401,6 +495,8 @@
             }
             .cs-header { padding: 8rem 5% 4rem 5%; }
             .cs-container { padding: 4rem 5%; }
+            .answer-box { padding: 1.25rem 1.25rem; }
+            .update-box { padding: 1.5rem 1.25rem 0.25rem 1.25rem; }
         }
     
         /* Skip link — off-screen until focused (a11y: bypass blocks) */
@@ -505,7 +601,7 @@
             "@id": "https://downsmullen.com/#person"
           },
           "datePublished": "2026-05-30",
-          "dateModified": "2026-08-11",
+          "dateModified": "2026-10-12",
           "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https://downsmullen.com/plan-gate.html"
@@ -540,11 +636,16 @@
         <span class="cs-type">Field Report — AI Governance Architecture</span>
         <h1>Build a Gate It Can't Work Around.</h1>
         <p class="subtitle">Prose-governed agents fail open. Structurally-governed agents fail closed. How I moved agent governance out of the system prompt and into a gate at the tool boundary — and got the compliance audit trail for free.</p>
-        <p class="cs-dates">First published: 2026-05-30. Last updated: 2026-07-05. The shipped implementation of this idea is <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (plan-gate module).</p>
+        <p class="cs-dates">First published: 2026-05-30. Last updated: 2026-10-12 (<a href="#update-2026-07">what changed</a>). The shipped implementation of this idea is <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a> (plan-gate module).</p>
     </header>
 
     <section class="cs-container">
         <div class="cs-main">
+
+            <section class="answer-box" aria-labelledby="what-is-fail-closed">
+                <h2 id="what-is-fail-closed">What is a fail-closed AI agent?</h2>
+                <p>A fail-closed AI agent is one whose actions pass through a check it doesn't control, and that check defaults to <em>deny</em>. Before any file write or command runs, it's compared against a plan a human approved; anything outside that plan, ambiguous, or surprising is blocked, and the agent stops for a human. A fail-open agent relies on instructions in its prompt instead, so when the instruction slips, the action happens anyway.</p>
+            </section>
 
             <p>I let AI agents take real actions on my systems. Not just produce text — edit files, run shell commands, call APIs, write to systems of record. The moment you do that in a regulated domain, the math of a mistake changes. A bad paragraph, you regenerate. An action the operator never approved — a disclosed record, an unauthorized change to a system of record, a file sent to the wrong party — you report. The cost stops being "try again" and becomes a reportable event.</p>
 
@@ -561,6 +662,65 @@
             <h2>The Gate</h2>
 
             <p>What I built sits at the tool boundary. Every consequential tool call — every file write, every command — gets intercepted <em>before it executes</em> and checked against an approved plan. The protocol is boring on paper: PLAN, then CONFIRM, then EXECUTE. The agent states, in advance, exactly what it intends to do — which files, which commands. I read it and say yes, no, or modify. The agent may then act on the confirmed items, and only those. An action that isn't in the approved plan does not run.</p>
+
+            <figure class="gate-figure">
+                <svg viewBox="0 0 360 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="gd-title gd-desc">
+                    <title id="gd-title">PLAN, CONFIRM, EXECUTE: the gate at the tool boundary</title>
+                    <desc id="gd-desc">Step 1, plan: the agent lists the exact files and commands it intends to touch. Step 2, confirm: a human approves, rejects or modifies the plan. Step 3, execute: the agent calls a tool to write a file or run a command. That call crosses the tool boundary, where a gate in code the agent doesn't control checks it against the approved plan. If the call is in the plan, it is allowed and runs. If it isn't, or it's unclear, it is denied and the agent stops for a human. Either way, the decision is written to a hash-chained decision log.</desc>
+
+                    <rect class="gd-step" x="20" y="10" width="320" height="64" rx="6"/>
+                    <text class="gd-label" x="180" y="36" text-anchor="middle">1 · PLAN</text>
+                    <text class="gd-text" x="180" y="58" text-anchor="middle">Agent lists the exact files and commands</text>
+
+                    <path class="gd-arrow" d="M180 74 V92"/>
+                    <polygon class="gd-head" points="174,90 186,90 180,100"/>
+
+                    <rect class="gd-step" x="20" y="100" width="320" height="64" rx="6"/>
+                    <text class="gd-label" x="180" y="126" text-anchor="middle">2 · CONFIRM</text>
+                    <text class="gd-text" x="180" y="148" text-anchor="middle">A human approves, rejects or modifies it</text>
+
+                    <path class="gd-arrow" d="M180 164 V182"/>
+                    <polygon class="gd-head" points="174,180 186,180 180,190"/>
+
+                    <rect class="gd-step" x="20" y="190" width="320" height="64" rx="6"/>
+                    <text class="gd-label" x="180" y="216" text-anchor="middle">3 · EXECUTE</text>
+                    <text class="gd-text" x="180" y="238" text-anchor="middle">Agent calls a tool: file write or command</text>
+
+                    <rect class="gd-boundary" x="6" y="272" width="348" height="352" rx="8"/>
+                    <text class="gd-boundary-text" x="180" y="292" text-anchor="middle">TOOL BOUNDARY · OUTSIDE THE AGENT'S CONTROL</text>
+
+                    <path class="gd-arrow" d="M180 254 V304"/>
+                    <polygon class="gd-head" points="174,302 186,302 180,312"/>
+
+                    <rect class="gd-gate" x="20" y="312" width="320" height="64" rx="6"/>
+                    <text class="gd-label-inv" x="180" y="338" text-anchor="middle">GATE</text>
+                    <text class="gd-text-inv" x="180" y="360" text-anchor="middle">Is this exact call in the approved plan?</text>
+
+                    <path class="gd-arrow" d="M180 376 V392 H95 V408"/>
+                    <polygon class="gd-head" points="89,406 101,406 95,416"/>
+                    <path class="gd-arrow" d="M180 392 H265 V408"/>
+                    <polygon class="gd-head" points="259,406 271,406 265,416"/>
+
+                    <rect class="gd-allow" x="20" y="416" width="150" height="80" rx="6"/>
+                    <text class="gd-label" x="95" y="442" text-anchor="middle">✓ ALLOW</text>
+                    <text class="gd-text-dark" x="95" y="464" text-anchor="middle">In the plan:</text>
+                    <text class="gd-text-dark" x="95" y="482" text-anchor="middle">the call runs</text>
+
+                    <rect class="gd-deny" x="190" y="416" width="150" height="80" rx="6"/>
+                    <text class="gd-label" x="265" y="442" text-anchor="middle">✕ DENY</text>
+                    <text class="gd-text" x="265" y="464" text-anchor="middle">Outside the plan:</text>
+                    <text class="gd-text" x="265" y="482" text-anchor="middle">stops for a human</text>
+
+                    <path class="gd-arrow" d="M95 496 V512 H265 V496"/>
+                    <path class="gd-arrow" d="M180 512 V526"/>
+                    <polygon class="gd-head" points="174,524 186,524 180,534"/>
+
+                    <rect class="gd-log" x="20" y="534" width="320" height="76" rx="6"/>
+                    <text class="gd-label-inv" x="180" y="562" text-anchor="middle">DECISION LOG</text>
+                    <text class="gd-text-inv" x="180" y="584" text-anchor="middle">Every allow and every deny, hash-chained</text>
+                </svg>
+                <figcaption>The gate sits between the agent's tool call and its effect. Both outcomes are logged.</figcaption>
+            </figure>
 
             <p>The difference from a careful system prompt — the whole difference — is <em>where the rule lives</em>. In the prose approach, the agent is simultaneously the actor and the thing deciding whether to honor the rule. In the structural approach, the check runs in ordinary code the agent doesn't control. It can't reason its way past it, can't decide the rule doesn't apply this time, can't forget it under momentum. The rule isn't something the agent is asked to follow. It's a condition of the action happening at all. This is the difference between asking a driver to brake and installing a brake that engages itself.</p>
 
@@ -589,6 +749,23 @@
             <blockquote>
                 <p>You don't build these controls to pass an audit. You build them to keep the agent safe — and the audit evidence is what they emit while doing it.</p>
             </blockquote>
+
+            <section class="update-box" id="update-2026-07" aria-labelledby="update-heading">
+                <span class="update-date">Update — July 2026</span>
+                <h2 id="update-heading">The Log Became a Record</h2>
+
+                <p>When I first published this, the paragraph above was ahead of the code. The gate logged every deny, but it only logged allows for PowerShell commands. An approved file write or Bash command left no trace. I could reword the claim down or build it true. On 2026-07-15 I built it true, in StrictLock's plan-gate module (<a href="https://github.com/TDM-Technologies/strictlock/pull/11">PR #11</a>).</p>
+
+                <ul>
+                    <li><strong>One log for every decision.</strong> Allow and deny, on every gated surface, with the timestamp, target, command, decision class, and the plan that governed it.</li>
+                    <li><strong>Hash-chained.</strong> Each row carries the hash of the row before it. A bundled verifier, <code>plan-gate.py verify-log</code>, re-proves the chain, so an edited or deleted row inside the record shows up.</li>
+                    <li><strong>Self-protecting.</strong> The gate denies any gated write to its own log directory, even when an approved plan names it. A gated agent can never be authorized to touch its own audit trail.</li>
+                </ul>
+
+                <p>The honest boundary, because it's the same argument as the rest of this piece: the chain is integrity without a secret. It makes tampering within the record detectable. It doesn't stop someone with access to the machine from cutting off the tail or forging the whole file from scratch. Where that threat matters, anchor the latest row's hash somewhere outside the machine.</p>
+
+                <p>Before it merged, an adversarial review by three AI agents, each with a different brief, found a path trick that slipped past the self-protection. It was fixed, with regression tests, the same day. The full story is in its own field report: <a href="/authorizations-record">the authorizations record &rarr;</a></p>
+            </section>
 
             <h2>What I'd Tell You</h2>
 
@@ -651,7 +828,7 @@
 
             <div class="fact-group">
                 <span class="fact-label">Architecture</span>
-                <span class="fact-value">Pre-action gate + per-plan allowlist + <a href="externalized-memory.html">externalized memory</a></span>
+                <span class="fact-value">Pre-action gate + per-plan allowlist + hash-chained decision log + <a href="externalized-memory.html">externalized memory</a></span>
             </div>
 
             <div class="fact-group">
