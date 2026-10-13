@@ -294,6 +294,8 @@
         body.impress-enabled .mobile-links a { font-size: 0.72rem; }
         body.impress-enabled .footer-legal { margin: 0 auto; max-width: none; text-align: center; font-size: 0.6rem; opacity: 0.6; }
         body.impress-enabled .hint { bottom: 4.5rem; }
+        /* Short landscape screens: the hint would sit over slide text. */
+        @media (max-height: 500px) { body.impress-enabled .hint { display: none; } }
 
         /* impress writes transition-duration INLINE on every move, and bakes each step's
            duration at init — so a live Motion toggle can only win with !important. */
@@ -467,17 +469,6 @@
     <div class="mobile-back"><a href="index.html">&larr; Back to site</a></div>
 </div>
 
-<footer class="deck-footer">
-    <div class="mobile-links">
-        <a href="https://github.com/downsmullen">GitHub</a>
-        <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
-        <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
-        <a href="https://www.hipaapath.com">HIPAAPath</a>
-        <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
-    </div>
-    <p class="footer-legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. LeSS is a trademark of The LeSS Company B.V. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
-</footer>
-
 <div class="hint">Use spacebar or arrow keys to navigate</div>
 
 <a class="site-return" href="index.html">&larr; downsmullen.com</a>
@@ -562,63 +553,96 @@
 
 </div>
 
+<footer class="deck-footer">
+    <div class="mobile-links">
+        <a href="https://github.com/downsmullen">GitHub</a>
+        <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
+        <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
+        <a href="https://www.hipaapath.com">HIPAAPath</a>
+        <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
+    </div>
+    <p class="footer-legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. LeSS is a trademark of The LeSS Company B.V. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
+</footer>
+
 <!-- relative, not root-absolute: also works when the file is opened directly from disk -->
 <script src="js/impress.js"></script>
 <script>
 (function () {
-    // The deck ALWAYS initialises. Reduced motion means instant cuts, not no deck;
-    // a small screen means a narrower canvas, not no deck. (Port of collins-senior-manager.html.)
     var root = document.getElementById('impress'), body = document.body, api = null;
-    function ls(k, v) { try { return v === undefined ? localStorage.getItem(k) : localStorage.setItem(k, v); } catch (e) { return null; } }
-
-    // Small screens: shrink the canvas so the render scale lands near 1:1 instead of ~0.2.
-    // impress reads this config once at init, so it has to happen before init().
-    if (window.matchMedia('(max-width: 900px)').matches) {
-        root.setAttribute('data-width', '760'); root.setAttribute('data-height', '1120');
-    }
-
-    // Motion preference has to be resolved BEFORE init, because impress bakes each step's
-    // transition duration at init time (toNumber keeps 0, so 0 is a real instant cut).
-    // The body class handles live toggling afterwards. Default = the OS setting.
-    var savedMotion = ls('deckMotion');
-    var reduced = savedMotion ? savedMotion === 'reduced'
-                              : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function applyMotion() {
-        root.setAttribute('data-transition-duration', reduced ? '0' : '800');
-        body.classList.toggle('nomotion', reduced);
-    }
-    applyMotion();
-
+    // Everything runs inside the try, so any early throw still reaches deckFallback().
     try {
+        // The deck ALWAYS initialises. Reduced motion means instant cuts, not no deck;
+        // a small screen means a narrower canvas, not no deck. (Port of collins-senior-manager.html.)
+        var ls = function (k, v) { try { return v === undefined ? localStorage.getItem(k) : localStorage.setItem(k, v); } catch (e) { return null; } };
+
+        // Small screens: shrink the canvas so the render scale lands near 1:1 instead of ~0.2.
+        // impress reads this config once at init, so it has to happen before init().
+        // Short landscape (a phone on its side) is height-bound, so it needs a wide, short
+        // canvas instead; the portrait one would render text at ~7px there.
+        if (window.matchMedia('(max-height: 500px) and (orientation: landscape)').matches) {
+            root.setAttribute('data-width', '1400'); root.setAttribute('data-height', '920');
+        } else if (window.matchMedia('(max-width: 900px)').matches) {
+            root.setAttribute('data-width', '760'); root.setAttribute('data-height', '1120');
+        }
+
+        // Motion. Default = the OS setting; a saved choice overrides it. impress re-reads each
+        // step's data-transition-duration on every move (initAllSteps runs inside goto), so
+        // writing it on every step makes the toggle work live in BOTH directions; the root
+        // value alone is read only once, at init. toNumber keeps 0, so 0 is a real instant
+        // cut. body.nomotion + !important also beats the durations impress writes inline.
+        var savedMotion = ls('deckMotion');
+        var reduced = savedMotion ? savedMotion === 'reduced'
+                                  : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var applyMotion = function () {
+            var ms = reduced ? '0' : '800';
+            root.setAttribute('data-transition-duration', ms);
+            var steps = root.querySelectorAll('.step');
+            for (var k = 0; k < steps.length; k++) steps[k].setAttribute('data-transition-duration', ms);
+            body.classList.toggle('nomotion', reduced);
+        };
+        applyMotion();
+
         if (typeof impress === 'function') { api = impress(); api.init(); }
         // Unsupported browsers get a dummy API and never reach impress-enabled.
-        if (!body.classList.contains('impress-enabled')) { api = null; deckFallback(); }
+        if (!body.classList.contains('impress-enabled')) { api = null; deckFallback(); return; }
+
+        // impress claims Tab and Space at the document level, which strands keyboard users on
+        // the on-page controls and links. Capture phase runs first, so this frees them without
+        // patching the vendored library. impress navigates on keyup (keydown only blocks the
+        // default), so both have to be stopped or every Tab also advances a slide.
+        var freeKeys = function (e) {
+            var inChrome = e.target && e.target.closest && e.target.closest('.deck-controls,.navpair,.deck-footer,.site-return');
+            if (e.keyCode === 9 || (inChrome && (e.keyCode === 32 || e.keyCode === 13))) e.stopPropagation();
+        };
+        document.addEventListener('keydown', freeKeys, true);
+        document.addEventListener('keyup', freeKeys, true);
+
+        var mFull = document.getElementById('mFull'), mOff = document.getElementById('mOff');
+        var setMotion = function (full) {
+            reduced = !full; applyMotion();
+            mFull.setAttribute('aria-pressed', full ? 'true' : 'false');
+            mOff.setAttribute('aria-pressed', full ? 'false' : 'true');
+            ls('deckMotion', full ? 'full' : 'reduced');
+        };
+        mFull.setAttribute('aria-pressed', reduced ? 'false' : 'true');
+        mOff.setAttribute('aria-pressed', reduced ? 'true' : 'false');
+        mFull.onclick = function () { setMotion(true); };
+        mOff.onclick = function () { setMotion(false); };
+
+        // impress blurs the focused element on every stepleave (its form plugin), which
+        // drops a keyboard user back to the top of the tab order. Give focus back to the
+        // button that triggered the move.
+        var navButton = function (id, move) {
+            var btn = document.getElementById(id);
+            btn.onclick = function () {
+                var hadFocus = document.activeElement === btn;
+                move();
+                if (hadFocus) btn.focus();
+            };
+        };
+        navButton('pv', function () { api.prev(); });
+        navButton('nx', function () { api.next(); });
     } catch (e) { api = null; deckFallback(); }
-
-    // impress claims Tab and Space at the document level, which strands keyboard users on
-    // the on-page controls and links. Capture phase runs first, so this frees them without
-    // patching the vendored library. impress navigates on keyup (keydown only blocks the
-    // default), so both have to be stopped or every Tab also advances a slide.
-    function freeKeys(e) {
-        var inChrome = e.target && e.target.closest && e.target.closest('.deck-controls,.navpair,.deck-footer,.site-return');
-        if (e.keyCode === 9 || (inChrome && (e.keyCode === 32 || e.keyCode === 13))) e.stopPropagation();
-    }
-    document.addEventListener('keydown', freeKeys, true);
-    document.addEventListener('keyup', freeKeys, true);
-
-    var mFull = document.getElementById('mFull'), mOff = document.getElementById('mOff');
-    function setMotion(full) {
-        reduced = !full; applyMotion();
-        mFull.setAttribute('aria-pressed', full ? 'true' : 'false');
-        mOff.setAttribute('aria-pressed', full ? 'false' : 'true');
-        ls('deckMotion', full ? 'full' : 'reduced');
-    }
-    mFull.setAttribute('aria-pressed', reduced ? 'false' : 'true');
-    mOff.setAttribute('aria-pressed', reduced ? 'true' : 'false');
-    mFull.onclick = function () { setMotion(true); };
-    mOff.onclick = function () { setMotion(false); };
-    document.getElementById('pv').onclick = function () { if (api) api.prev(); };
-    document.getElementById('nx').onclick = function () { if (api) api.next(); };
 })();
 </script>
 
