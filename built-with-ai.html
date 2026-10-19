@@ -923,7 +923,7 @@
             </div>
 
             <div id="gate-static">
-                <p class="no-js-note"><strong>The interactive version needs JavaScript.</strong> Here is what the gate decides for eleven example actions:</p>
+                <p class="no-js-note"><strong>The interactive version needs JavaScript.</strong> Here is what the gate decides for twelve example actions:</p>
                 <div class="table-scroll">
                     <table class="rules">
                         <caption>Example actions and the gate's decision</caption>
@@ -940,6 +940,7 @@
                             <tr><td>edit gate-logs/decisions.jsonl</td><td class="v-blocked">BLOCKED</td><td>The gate never authorizes writes to its own log.</td></tr>
                             <tr><td>edit plans/../gate-logs/decisions.jsonl</td><td class="v-blocked">BLOCKED</td><td>The path resolves into the log directory; the gate checks the resolved path too.</td></tr>
                             <tr><td>edit ../plan-gate.html</td><td class="v-held">HELD FOR HUMAN</td><td>Contains "..": the gate won't guess it means the plan's path. Ambiguous means deny.</td></tr>
+                            <tr><td>read ../../etc/passwd</td><td class="v-held">HELD FOR HUMAN</td><td>Contains "..": the gate won't guess where it points. Ambiguous means deny.</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -953,8 +954,8 @@
                     <tbody>
                         <tr><td>1</td><td>is a file write (<code>edit</code>, <code>write</code>, <code>delete</code> and similar) that targets the log directory <code>gate-logs</code>, as written or once <code>..</code> is resolved</td><td class="v-blocked">BLOCKED</td><td>Authorizations record: the gate never authorizes a file write into its own log, and resolved paths are checked after a <code>..</code> bypass was found in review. The protection covers file writes only. A shell command that touches the log is decided by the rules below, and the result says the shell is a documented blind spot where the human reviewing the plan is the control.</td></tr>
                         <tr><td>2</td><td>chains or redirects commands (<code>;</code> <code>&amp;&amp;</code> <code>||</code> <code>|</code> <code>&gt;</code> and similar)</td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: ambiguous actions are denied and the agent stops for a human.</td></tr>
-                        <tr><td>3</td><td>only reads (read, cat, ls, grep and similar)</td><td class="v-allowed">ALLOWED</td><td>Demo simplification. Plan-gate describes gating consequential calls such as writes and commands.</td></tr>
-                        <tr><td>4</td><td>edits a file by an absolute path or a path containing <code>..</code></td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: exact match for file paths, and ambiguous actions are denied.</td></tr>
+                        <tr><td>3</td><td>only reads (read, cat, ls, grep and similar), with plain relative paths. A read whose path is absolute, or contains <code>..</code> or a backslash, is held instead.</td><td class="v-allowed">ALLOWED</td><td>Demo simplification. Plan-gate describes gating consequential calls such as writes and commands. The held case follows "ambiguous means deny".</td></tr>
+                        <tr><td>4</td><td>edits a file by an absolute path, or a path containing <code>..</code> or a backslash</td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: exact match for file paths, and ambiguous actions are denied.</td></tr>
                         <tr><td>5</td><td>edits a file whose exact path the plan names</td><td class="v-allowed">ALLOWED</td><td>Plan-gate: exact match for file paths.</td></tr>
                         <tr><td>6</td><td>runs a command starting with an approved prefix</td><td class="v-allowed">ALLOWED</td><td>Plan-gate: approved prefix for commands.</td></tr>
                         <tr><td>7</td><td>anything else, or anything the demo can't parse</td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: deny by default; the agent stops for a human.</td></tr>

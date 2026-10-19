@@ -30,7 +30,8 @@
         { label: 'Chain a command', text: 'git status && rm -rf .' },
         { label: 'Edit the decision log', text: 'edit gate-logs/decisions.jsonl' },
         { label: 'Log path with ..', text: 'edit plans/../gate-logs/decisions.jsonl' },
-        { label: 'Plan path with ..', text: 'edit ../plan-gate.html' }
+        { label: 'Plan path with ..', text: 'edit ../plan-gate.html' },
+        { label: 'Read outside the repo', text: 'read ../../etc/passwd' }
     ];
 
     /* ---------- pure decision logic ---------- */
@@ -61,13 +62,34 @@
         return lower === prefix || lower.indexOf(prefix + ' ') === 0;
     }
 
+    function hasDotDot(p) {
+        return /(^|[\/\\])\.\.([\/\\]|$)/.test(p);
+    }
+
+    // Absolute, home-relative, backslash or ".." paths are ambiguous: the gate won't guess what they mean.
+    function ambiguousPath(p) {
+        return p.charAt(0) === '/' || p.charAt(0) === '~' || p.indexOf('\\') !== -1 || hasDotDot(p);
+    }
+
+    function anyAmbiguousArg(tokens) {
+        for (var k = 1; k < tokens.length; k++) {
+            if (ambiguousPath(clean(tokens[k]))) { return true; }
+        }
+        return false;
+    }
+
+    var AMBIGUOUS_PATH_REASON = 'An absolute path, or one containing ".." or a backslash. The gate won\'t guess what it means, and ambiguous means deny. The agent stops for a person.';
+
     function result(decision, cls, reason, extra) {
         return { decision: decision, cls: cls, reason: reason, note: extra || '' };
     }
 
     function evaluate(raw) {
         var text = String(raw == null ? '' : raw).replace(/\s+/g, ' ').trim();
-        if (!text) { return null; }
+        if (!text) {
+            return result('HELD FOR HUMAN', 'demo_empty',
+                'Nothing was proposed. With no action to match against the plan, there is nothing to allow; fail closed.');
+        }
         var lower = text.toLowerCase();
         var tokens = text.split(' ');
         var verb = tokens[0].toLowerCase();
@@ -80,7 +102,7 @@
         var logHit = '';
         for (var i = 1; i < tokens.length; i++) {
             var t = clean(tokens[i]);
-            if (inLogDir(normPath(t, false))) { logHit = 'written'; break; }
+            if (!hasDotDot(t) && inLogDir(normPath(t, false))) { logHit = 'written'; break; }
             if (inLogDir(normPath(t, true))) { logHit = 'resolved'; }
         }
         var shellNote = logHit
@@ -103,6 +125,9 @@
 
         // Rule 3: read-only actions are not gated in this demo.
         if (isRead) {
+            if (anyAmbiguousArg(tokens)) {
+                return result('HELD FOR HUMAN', 'demo_ambiguous', AMBIGUOUS_PATH_REASON);
+            }
             return result('ALLOWED', 'demo_not_gated',
                 'Read-only, so nothing changes.',
                 'Demo simplification: the field report describes gating consequential calls such as file writes and commands.');
@@ -111,9 +136,8 @@
         // Rule 4: file edit, exact path in plan.
         if (isEdit && tokens.length > 1) {
             var rawTarget = clean(tokens[1]);
-            if (rawTarget.charAt(0) === '/' || rawTarget.charAt(0) === '~' || /(^|[\/\\])\.\.([\/\\]|$)/.test(rawTarget)) {
-                return result('HELD FOR HUMAN', 'demo_ambiguous',
-                    'An absolute path or one containing "..". The gate won\'t guess that it means the plan\'s path, and ambiguous means deny. The agent stops for a person.');
+            if (anyAmbiguousArg(tokens)) {
+                return result('HELD FOR HUMAN', 'demo_ambiguous', AMBIGUOUS_PATH_REASON);
             }
             var target = normPath(rawTarget, false);
             if (PLAN.files.indexOf(target) !== -1) {
@@ -264,12 +288,12 @@
     }
 
     function run(text) {
-        var res = evaluate(text);
-        if (!res) {
+        if (!String(text == null ? '' : text).trim()) {
             resultEl.textContent = '';
             resultEl.appendChild(el('p', 'placeholder', 'Nothing to check yet. Type an action or choose an example.'));
             return;
         }
+        var res = evaluate(text);
         var target = String(text).replace(/\s+/g, ' ').trim().slice(0, 120);
         var prev = rows.length ? rows[rows.length - 1].h : GENESIS;
         var ts = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
