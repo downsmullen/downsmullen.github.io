@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth; scroll-padding-top: 120px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="description" content="For hiring managers and recruiters: the roles Tim Downs Mullen fits, three sourced proof points, and how to request his résumé. 25 years in software, 21 in regulated industries, 15 in aerospace.">
+    <title>Hiring — Tim Downs Mullen</title>
+    <link rel="canonical" href="https://downsmullen.com/hiring">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://downsmullen.com/hiring">
+    <meta property="og:title" content="Hiring — Tim Downs Mullen">
+    <meta property="og:description" content="Roles that fit, three proof points, and how to request a résumé. Certified avionics, enterprise Agile, and AI governance in regulated industries.">
+    <meta property="og:image" content="https://downsmullen.com/TDM.Monogram.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hiring — Tim Downs Mullen">
+    <meta name="twitter:description" content="Roles that fit, three proof points, and how to request a résumé. Certified avionics, enterprise Agile, and AI governance in regulated industries.">
+    <meta name="twitter:image" content="https://downsmullen.com/TDM.Monogram.webp">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://downsmullen.com/#person",
+      "name": "Tim Downs Mullen",
+      "givenName": "Tim",
+      "familyName": "Downs Mullen",
+      "additionalName": [
+        "Timothy S. Downs Mullen",
+        "Timothy Shane Downs Mullen"
+      ],
+      "url": "https://downsmullen.com/",
+      "jobTitle": "Founder and Lead Engineer",
+      "description": "Fifteen years on certified avionics at Collins Aerospace — DO-178B/C DAL B, flight management systems. Named inventor on U.S. patents. Founder of HIPAAPath, HIPAA compliance for small practices.",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "TDM Technologies"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Iowa State University",
+        "sameAs": "https://www.iastate.edu/"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cedar Rapids",
+        "addressRegion": "IA",
+        "addressCountry": "US"
+      },
+      "knowsAbout": [
+        "DO-178B/C software certification",
+        "Avionics software engineering",
+        "Flight management systems",
+        "ARP4754 systems development",
+        "Safety-critical systems",
+        "HIPAA Security Rule",
+        "NIST SP 800-66",
+        "Enterprise Agile transformation",
+        "Earned Value Management Systems (EVMS)",
+        "Multi-agent AI orchestration",
+        "AI governance in regulated industries"
+      ],
+      "sameAs": [
+        "https://github.com/downsmullen",
+        "https://www.linkedin.com/in/tim-downs-mullen-0599a050",
+        "https://www.npmjs.com/package/eslint-plugin-strictlock",
+        "https://patents.google.com/patent/US8736464B1/en",
+        "https://patents.google.com/patent/US7471199B2/en"
+      ]
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a192f;
+            --primary-light: #112240;
+            --accent: #64ffda;
+            --text-main: #ccd6f6;
+            --text-muted: #a8b2d1;
+            --bg-white: #ffffff;
+            --text-dark: #0f172a;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-wrap: anywhere;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background-color: rgba(10, 25, 47, 0.95);
+            position: fixed;
+            width: 90%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .logo a { color: inherit; text-decoration: none; }
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a.current { color: var(--accent); }
+
+        .nav-cta {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent) !important;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            line-height: 1;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 9rem 10% 3.5rem 10%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+        }
+
+        .hero p.overline {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 1rem;
+            margin: 0 0 1rem 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 4.5vw, 58px);
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.1;
+            max-width: 900px;
+        }
+
+        .hero p.description {
+            max-width: 720px;
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin: 1.25rem 0 2rem 0;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover { background-color: rgba(100, 255, 218, 0.1); }
+
+        .btn-solid {
+            background-color: var(--accent);
+            color: var(--primary-dark);
+        }
+
+        .btn-solid:hover { background-color: #8affe6; }
+
+        /* Light sections */
+        .services, .insights {
+            padding: 5rem 10%;
+            color: var(--text-dark);
+        }
+        .services { background-color: var(--bg-white); }
+        .insights { background-color: #f8fafc; }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 0 1rem 0;
+            color: var(--primary-dark);
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            margin: 0 0 3rem 0;
+            font-size: 1.1rem;
+            max-width: 720px;
+        }
+
+        .services-grid, .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .role-num {
+            font-family: monospace;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #0369a1;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .service-card h3, .insight-content h3 {
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+            margin: 0 0 1rem 0;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .service-card p, .insight-content p {
+            color: #475569;
+            font-size: 1rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .insight-card {
+            background: var(--bg-white);
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .insight-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .insight-type {
+            color: #0369a1;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-content p { flex-grow: 1; }
+
+        .read-more {
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #0369a1;
+            align-self: flex-start;
+            padding-bottom: 2px;
+            margin-top: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            background-color: #0369a1;
+            color: var(--bg-white);
+        }
+
+        .also-line {
+            margin: 2.5rem 0 0 0;
+            color: #475569;
+            font-size: 1.05rem;
+            max-width: 820px;
+        }
+
+        .also-line a, .section-note a {
+            color: #0369a1;
+            font-weight: 600;
+            text-underline-offset: 3px;
+        }
+
+        /* Background strip (dark) */
+        .background {
+            padding: 4rem 10%;
+            background-color: var(--primary-light);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .background h2 {
+            font-size: 1.8rem;
+            margin: 0 0 1.5rem 0;
+            color: var(--text-main);
+        }
+
+        .matrix-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-width: 860px;
+        }
+
+        .matrix-list li {
+            color: var(--text-muted);
+            margin-bottom: 0.7rem;
+            position: relative;
+            padding-left: 1.25em;
+            line-height: 1.5;
+        }
+
+        .matrix-list li::before {
+            content: "\25B9";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .matrix-list a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .matrix-list a:hover, .matrix-list a:focus-visible { color: var(--bg-white); }
+
+        /* Footer */
+        footer {
+            padding: 5rem 10%;
+            text-align: center;
+            background-color: var(--primary-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer h2 {
+            font-size: 2.2rem;
+            margin: 0 0 1rem 0;
+            color: var(--text-main);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            max-width: 620px;
+            margin: 0 auto 2rem auto;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--accent); }
+
+        @media (max-width: 1100px) {
+            .menu-toggle { display: block; }
+            nav { position: relative; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-dark);
+                padding: 1rem 5%;
+                gap: 1rem;
+                z-index: 99;
+                border-top: 1px solid rgba(100,255,218,0.1);
+            }
+            .nav-links.open { display: flex; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 3rem 5% 3rem 5%; }
+            .services, .insights, .background, footer { padding-left: 5%; padding-right: 5%; }
+            .services, .insights { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+            .logo { font-size: 1.3rem; }
+            .section-title { font-size: 1.8rem; }
+            .service-card, .insight-content { padding: 1.5rem; }
+            .btn-primary { width: 100%; text-align: center; padding: 1rem; }
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 1000;
+            padding: 0.75rem 1.25rem;
+            background: #ffffff;
+            color: #0a192f;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid #0369a1;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus { left: 0; }
+        main[tabindex="-1"]:focus { outline: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+    <nav>
+        <div class="logo"><a href="index.html">Tim <span>Downs Mullen</span></a></div>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html#expertise">Capabilities</a>
+            <a href="index.html#matrix">Technical Stack</a>
+            <a href="index.html#feedback">Feedback</a>
+            <a href="index.html#insights">Insights</a>
+            <a href="about.html">About</a>
+            <a href="hiring.html" class="current" aria-current="page">Hiring</a>
+            <a href="mailto:tim@tdmtechsolutions.com" class="nav-cta">Contact</a>
+        </div>
+    </nav>
+
+<main id="main" tabindex="-1">
+
+    <header class="hero">
+        <p class="overline">For hiring managers &amp; recruiters</p>
+        <h1>Technical leadership for certified, safety-critical and regulated software.</h1>
+        <p class="description">25 years in software, 21 in regulated industries, 15 in aerospace. Three kinds of role fit, in this order, with proof below.</p>
+        <div class="cta-row">
+            <a href="mailto:tim@tdmtechsolutions.com?subject=R%C3%A9sum%C3%A9%20request%20-%20Tim%20Downs%20Mullen" class="btn-primary btn-solid">Request my r&eacute;sum&eacute; by email</a>
+            <a href="presentation.html" class="btn-primary">5-minute interview deck &rarr;</a>
+        </div>
+    </header>
+
+    <section id="roles" class="services">
+        <h2 class="section-title">Roles that fit</h2>
+        <p class="section-subtitle">Described by scope of work, in order of fit.</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <p class="role-num">Role 1</p>
+                <h3>AI assurance &amp; AI governance engineering leadership, in regulated industries</h3>
+                <p>I designed the security architecture for connected-aircraft web services at a time when no industry standard existed for it. AI governance is in that position now, and I build the controls and the audit evidence for it: <a href="plan-gate.html" style="color: #0369a1; font-weight: 600;">fail-closed gates on AI agents</a>, with a decision log.</p>
+            </div>
+            <div class="service-card">
+                <p class="role-num">Role 2</p>
+                <h3>Technical leadership for certified, safety-critical software systems</h3>
+                <p>DO-178B/C DAL B on flight management systems, and DAL D process rigor on the IMS-3500 onboard software (classified DAL E). ARP4754 exposure runs through the software interface. Fifteen years on certified avionics at Rockwell Collins and Collins Aerospace.</p>
+            </div>
+            <div class="service-card">
+                <p class="role-num">Role 3</p>
+                <h3>Technical program leadership &amp; engineering management</h3>
+                <p>Scrum Master to cross-functional teams of 11&ndash;15 engineers on flight management systems. Control Account Manager for $10M+ in EVMS control accounts, on a program with about $25M in total scope. Led Transamerica&rsquo;s One Desktop transformation.</p>
+            </div>
+        </div>
+        <p class="also-line">Agile is a proof point, not a job title: <a href="agile-without-the-words.html">Agile on a certified program, and what survived</a> (twelve years as Agile Coach and Scrum Master, 2013&ndash;2025).</p>
+    </section>
+
+    <section id="proof" class="insights">
+        <h2 class="section-title">Three proof points</h2>
+        <p class="section-subtitle">Each one links to the full account on this site.</p>
+
+        <div class="insights-grid">
+            <div class="insight-card">
+                <div class="insight-content">
+                    <span class="insight-type">Enterprise delivery</span>
+                    <h3>Transamerica &lsquo;One Desktop&rsquo;</h3>
+                    <p>I led One Desktop, Transamerica&rsquo;s Enterprise Agile Modernization Initiative (2013&ndash;2019), on insurance systems handling PHI. It won the company&rsquo;s Best New Initiative award.</p>
+                    <a href="case-study-transamerica.html" class="read-more">Read the case study &rarr;</a>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-content">
+                    <span class="insight-type">Certified systems</span>
+                    <h3>Ground-to-aircraft security architecture</h3>
+                    <p>I designed the security architecture for the web services and data transmission between Rockwell Collins&rsquo; Aircraft Information Manager (AIM) and the IMS-3500/6000 onboard equipment, at a time when no industry standard existed for it. The design had to carry its own argument.</p>
+                    <a href="index.html#expertise" class="read-more">See the capability &rarr;</a>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-content">
+                    <span class="insight-type">AI governance</span>
+                    <h3>StrictLock: fail-closed AI agents</h3>
+                    <p>An eleven-module fail-closed governance suite for AI agents, shipped as open source. The field report covers the gate at the tool boundary and what the audit trail records.</p>
+                    <a href="plan-gate.html" class="read-more">Read the field report &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="background" class="background">
+        <h2>Background at a glance</h2>
+        <ul class="matrix-list">
+            <li>Rockwell Collins and Collins Aerospace (2004&ndash;2013, 2019&ndash;2025); Transamerica (2013&ndash;2019); Intermec (2000&ndash;2004).</li>
+            <li>Named inventor on U.S. patents, including sole inventor on <a href="https://patents.google.com/patent/US8736464B1/en">US 8,736,464</a> (granted 2014), &ldquo;System and method for presenting a dynamic checklist to the user of a vehicle&rdquo;.</li>
+            <li>B.S. Computer Engineering, Iowa State University. U.S. Marine Corps intelligence, 1988&ndash;1992.</li>
+            <li>Today: founder of TDM Technologies and <a href="https://www.hipaapath.com">HIPAAPath</a>.</li>
+        </ul>
+    </section>
+
+</main>
+
+    <footer>
+        <h2>Request my r&eacute;sum&eacute;, or talk</h2>
+        <p>Email is the way in. Say which role you are hiring for and I will send my r&eacute;sum&eacute;.</p>
+        <a href="mailto:tim@tdmtechsolutions.com?subject=R%C3%A9sum%C3%A9%20request%20-%20Tim%20Downs%20Mullen" class="btn-primary">Request my r&eacute;sum&eacute;</a>
+        <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">tim@tdmtechsolutions.com</a></p>
+        <p style="margin-top: 1rem;">Prefer the short version? <a href="presentation.html" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">See the interview deck &rarr;</a></p>
+        <div class="footer-links">
+            <a href="https://github.com/downsmullen">GitHub</a>
+            <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
+            <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
+            <a href="https://www.hipaapath.com">HIPAAPath</a>
+            <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
+        </div>
+    </footer>
+
+<script>
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+        var open = document.querySelector('.nav-links').classList.toggle('open');
+        this.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+</script>
+</body>
+</html>
