@@ -209,6 +209,51 @@
             background-color: rgba(100, 255, 218, 0.1);
         }
 
+        /* Three doors (hero) */
+        .doors {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .door {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 8px;
+            background: rgba(10, 25, 47, 0.5);
+        }
+
+        .hero p.door-label {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .door-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 0 0 0.5rem 0;
+            flex-grow: 1;
+        }
+
+        .door-link {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .door-link:hover, .door-link:focus-visible { color: var(--bg-white); }
+
         /* Metrics / Social Proof Bar */
         .metrics-bar {
             padding: 2rem 0 0 0; 
@@ -526,6 +571,21 @@
             font-size: 1.1rem;
         }
 
+        .end-doors { margin-bottom: 2.5rem; }
+
+        footer .end-doors p {
+            margin: 0 auto 0.75rem auto;
+            font-size: 1.05rem;
+        }
+
+        footer .end-doors strong { color: var(--text-main); }
+
+        footer .end-doors a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
         .footer-links {
             margin-top: 3rem;
             padding-top: 2rem;
@@ -581,6 +641,10 @@
             .nav-links.open { display: flex; }
         }
 
+        @media (max-width: 900px) {
+            .doors { grid-template-columns: 1fr; }
+        }
+
         @media (max-width: 768px) {
             .hero { padding: 8rem 5% 4rem 5%; justify-content: center; }
             .hero h1 { font-size: 2.5rem; }
@@ -591,7 +655,8 @@
                 padding-top: 1.5rem;
             }
             .metric h3 { font-size: 2rem; }
-            
+            .doors { grid-template-columns: 1fr; }
+
             .services, .testimonials, .insights { padding: 4rem 5%; }
             .matrix-container { padding: 2rem; }
         }
@@ -659,8 +724,26 @@
         <p class="description">
             Bringing 25 years in software — 15 years of it in Tier-1 aerospace, where I built the security boundary between flight decks and the ground services that update them — and autonomous execution principles to mission-critical delivery, now augmented with AI-assisted SDLC under engineering control. Specializing in Lean optimization, EVMS alignment, multi-agent architecture, and scaling execution across high-compliance environments.
         </p>
-        <p class="description" style="margin-top: -2rem; font-size: 1.05rem;">Now: <a href="https://www.hipaapath.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">HIPAAPath</a> — guided, audit-ready HIPAA documentation for small practices.</p>
-        <p class="description" style="margin-top: -2rem; font-size: 1.05rem;">Run a healthcare practice and worried about staff using AI with client data? <a href="ai-hipaa-readiness.html" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">I do fixed-fee AI + HIPAA readiness assessments &rarr;</a></p>
+        <div class="doors" role="group" aria-label="Where to start">
+            <div class="door">
+                <p class="door-label">Hiring</p>
+                <p class="door-desc">AI assurance and governance engineering leadership, lead and principal software systems engineering for certified safety-critical work, and technical program leadership.</p>
+                <a href="hiring.html" class="door-link">See the roles &rarr;</a>
+            </div>
+            <div class="door">
+                <p class="door-label">AI work</p>
+                <p class="door-desc">Consulting on AI in regulated work, under engineering control &mdash; fail-closed authorization for AI agents, built as StrictLock.</p>
+                <a href="#expertise" class="door-link">Consulting capabilities &rarr;</a>
+                <a href="built-with-ai.html" class="door-link">How this work is built with AI &rarr;</a>
+                <a href="ai-hipaa-readiness.html" class="door-link">Healthcare practice? AI + HIPAA readiness assessment &rarr;</a>
+            </div>
+            <div class="door">
+                <p class="door-label">HIPAAPath &amp; TDM Technologies</p>
+                <p class="door-desc">Checking out the company: HIPAAPath is self-serve HIPAA compliance for solo and small healthcare practices, where the documentation stays in the practice&rsquo;s own storage.</p>
+                <a href="company.html" class="door-link">About the company &rarr;</a>
+                <a href="https://www.hipaapath.com" class="door-link">hipaapath.com &rarr;</a>
+            </div>
+        </div>
         <div class="metrics-bar">
             <div class="metric">
                 <h3>2.5x</h3>
@@ -807,6 +890,18 @@
         
         <div class="insights-grid">
             <div class="insight-card">
+                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">#</span>
+                </div>
+                <div class="insight-content">
+                    <span class="insight-type">Field Report</span>
+                    <h3>Tamper-Evident Audit Logs</h3>
+                    <p>My paper promised a tamper-evident log of every AI agent gate decision, and the code kept less of that promise. So I built the claim true, then adversarial reviewers found the <code>..</code> that slipped past it.</p>
+                    <a href="authorizations-record.html" class="read-more">Read Field Report &rarr;</a>
+                </div>
+            </div>
+
+            <div class="insight-card">
                 <div class="insight-graphic">
                     <img src="onedesktop.png" alt="Transamerica One Desktop Initiative Logo" width="1137" height="795" loading="lazy" decoding="async">
                 </div>
@@ -815,18 +910,6 @@
                     <h3>Transamerica 'One Desktop'</h3>
                     <p>Demonstrating the <strong>Connect</strong> and <strong>Count</strong> pillars: How an enterprise Agile transformation and rigorous SDLC compliance aligned matrixed stakeholders and led to a Best New Initiative award.</p>
                     <a href="case-study-transamerica.html" class="read-more">Read Case Study &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">&#8800;</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Practitioner Essay</span>
-                    <h3>Six Practices Survived a Certified Program</h3>
-                    <p>Twelve years as the Agile guy, most of it where you can't skip a document. When every ceremony competes with certification evidence, you find out fast which practices are load-bearing &mdash; and which ones only a reporting line would miss.</p>
-                    <a href="agile-without-the-words.html" class="read-more">Read the Essay &rarr;</a>
                 </div>
             </div>
 
@@ -842,88 +925,22 @@
                 </div>
             </div>
 
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">#</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Field Report</span>
-                    <h3>Tamper-Evident Audit Logs</h3>
-                    <p>My paper promised a tamper-evident log of every AI agent gate decision, and the code kept less of that promise. So I built the claim true, then adversarial reviewers found the <code>..</code> that slipped past it.</p>
-                    <a href="authorizations-record.html" class="read-more">Read Field Report &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">&#9636;</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Field Report</span>
-                    <h3>Externalized Memory</h3>
-                    <p>Your agent forgets everything; your filesystem doesn't. One on-disk state file per project as the single source of truth — the scars from making it trustworthy, and why git, not the file, is the ground truth.</p>
-                    <a href="externalized-memory.html" class="read-more">Read Field Report &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">&#9939;</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Field Report</span>
-                    <h3>Fail-Closed AI Agents</h3>
-                    <p>Prose tells an AI agent to behave. A gate <em>makes</em> it. Why I moved agent governance out of the system prompt and into the tool boundary — fail-open vs. fail-closed, two war stories, and the audit trail you get for free.</p>
-                    <a href="plan-gate.html" class="read-more">Read Field Report &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">{ }</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Case Study</span>
-                    <h3>Multi-Agent Handoff Protocol</h3>
-                    <p>What breaks when you give two AI agents a shared notepad, and the architecture that fixed it. Context rot, junk drawer handoffs, and cross-project contamination — three failure modes with one root cause.</p>
-                    <a href="multi-agent-handoff-protocol.html" class="read-more">Read Case Study &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic">
-                    <img src="5csFrameworkImage.jpg" alt="5 C's Framework" width="1024" height="559" loading="lazy" decoding="async">
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Whitepaper</span>
-                    <h3>The 5 C's Framework</h3>
-                    <p>Fostering Connect, Count, Capable, Courage, and Choice (Autonomy & Ownership) in highly regulated environments. Scaling autonomous execution by shifting from blame-oriented 'Why' to discovery-oriented 'What' questions.</p>
-                    <a href="5c-framework.html" class="read-more">Read Whitepaper &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic">
-                    <img src="Slide Deck Image.jpg" alt="Slide Deck Image" width="1024" height="559" loading="lazy" decoding="async">
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Slide Walkthrough</span>
-                    <h3>Implementing the 5 C's</h3>
-                    <p>An executive briefing and tactical rollout strategy for embedding the 5 C's across traditional waterfall and V-Model lifecycles, accelerating delivery without sacrificing DO-178B/C compliance.</p>
-                    <a href="5c-presentation.html" class="read-more">View Slide Deck &rarr;</a>
-                </div>
-            </div>
         </div>
+
+        <p style="text-align: center; margin-top: 3rem; margin-bottom: 0;"><a href="insights.html" class="read-more">All insights &rarr;</a></p>
     </section>
 
 </main>
 
     <footer>
-        <h2>Ready to optimize your SDLC?</h2>
-        <p>Whether you require a strategic Agile pivot, embedded coaching, or rigorous systems engineering leadership, predictable delivery starts here.</p>
+        <h2>Where to go from here</h2>
+        <div class="end-doors">
+            <p><strong>Hiring?</strong> <a href="hiring.html">See the roles &rarr;</a></p>
+            <p><strong>AI work?</strong> Tell me what you need under engineering control &mdash; or, for a healthcare practice, <a href="ai-hipaa-readiness.html">start with the AI + HIPAA readiness assessment &rarr;</a></p>
+            <p><strong>HIPAAPath or TDM Technologies?</strong> <a href="company.html">Start with the company page &rarr;</a></p>
+        </div>
         <a href="mailto:tim@tdmtechsolutions.com" class="btn-primary">Contact Tim Downs Mullen</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">tim@tdmtechsolutions.com</a></p>
-        <p style="margin-top: 1rem;">Run a healthcare practice? Start with an <a href="ai-hipaa-readiness.html" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
