@@ -9,15 +9,15 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <title>How This Site Is Built: AI Agents, Human Merge | Tim Downs Mullen</title>
     <link rel="canonical" href="https://downsmullen.com/built-with-ai.html">
-    <meta name="description" content="AI builder agents work in parallel branches, an independent AI reviewer checks them, and a person approves every merge. The loop, the public pull requests, and a fail-closed gate you can try.">
+    <meta name="description" content="AI builder agents work in parallel branches, an independent AI reviewer checks them, and a person approves every page change. The loop, the public pull requests, and a fail-closed gate you can try.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://downsmullen.com/built-with-ai.html">
     <meta property="og:title" content="How This Site Is Built: AI Agents, Human Merge | Tim Downs Mullen">
-    <meta property="og:description" content="AI builds this site. A person holds every merge. The loop, the public pull requests, and a small fail-closed gate you can try.">
+    <meta property="og:description" content="AI builds this site. A person approves every page change. The loop, the public pull requests, and a small fail-closed gate you can try.">
     <meta property="og:image" content="https://downsmullen.com/TDM.Monogram.webp">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="How This Site Is Built: AI Agents, Human Merge | Tim Downs Mullen">
-    <meta name="twitter:description" content="AI builds this site. A person holds every merge. The loop, the public pull requests, and a small fail-closed gate you can try.">
+    <meta name="twitter:description" content="AI builds this site. A person approves every page change. The loop, the public pull requests, and a small fail-closed gate you can try.">
     <meta name="twitter:image" content="https://downsmullen.com/TDM.Monogram.webp">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -265,9 +265,9 @@
         .lp-lane-text { fill: #0a192f; font-size: 12px; font-weight: 600; }
         .lp-label-inv { fill: #64ffda; font-size: 14px; font-weight: 800; letter-spacing: 0.8px; }
         .lp-text-inv { fill: #ccd6f6; font-size: 12.5px; }
-        .lp-tag { fill: #0369a1; font-size: 10.5px; font-weight: 800; letter-spacing: 1px; }
-        .lp-tag-dark { fill: #0a192f; font-size: 10.5px; font-weight: 800; letter-spacing: 1px; }
-        .lp-loop-text { fill: #0369a1; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; }
+        .lp-tag { fill: #0369a1; font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+        .lp-tag-dark { fill: #0a192f; font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+        .lp-loop-text { fill: #0369a1; font-size: 12px; font-weight: 700; letter-spacing: 0.3px; }
 
         @media (forced-colors: active) {
             .lp-step, .lp-lane, .lp-human, .lp-live { fill: Canvas; stroke: CanvasText; }
@@ -651,7 +651,7 @@
           ],
           "url": "https://downsmullen.com/",
           "jobTitle": "Founder and Lead Engineer",
-          "description": "Fifteen years on certified avionics at Collins Aerospace — DO-178B/C DAL B, flight management systems. Named inventor on U.S. patents. Founder of HIPAAPath, HIPAA compliance for small practices.",
+          "description": "Fifteen years on certified avionics at Collins Aerospace — DO-178B/C DAL B, flight management systems. Named inventor on two U.S. patents. Founder of HIPAAPath, HIPAA compliance for small practices.",
           "worksFor": {
             "@type": "Organization",
             "name": "TDM Technologies"
@@ -692,7 +692,7 @@
           "@type": "Article",
           "@id": "https://downsmullen.com/built-with-ai.html#article",
           "headline": "How This Site Is Built: AI Agents, Human Merge",
-          "description": "AI builder agents work in parallel branches, an independent AI reviewer checks them, and a person approves every merge. The loop, the public pull requests, and a fail-closed gate you can try.",
+          "description": "AI builder agents work in parallel branches, an independent AI reviewer checks them, and a person approves every page change. The loop, the public pull requests, and a fail-closed gate you can try.",
           "author": {
             "@id": "https://downsmullen.com/#person"
           },
@@ -733,8 +733,9 @@
 
     <header class="cs-header">
         <span class="cs-type">Field Report — How This Site Is Built</span>
-        <h1>AI builds this site. A person holds every merge.</h1>
-        <p class="subtitle">Parallel AI builders work in isolated branches, an independent AI reviewer checks what they made, and nothing publishes until I say so. Here is the loop, the public record behind it, and a small gate you can try yourself.</p>
+        <h1>AI builds this site. A person approves every page change.</h1>
+        <p class="subtitle">Parallel AI builders work in isolated branches, an independent AI reviewer checks what they made, and no page change publishes until I say so. Here is the loop, the public record behind it, and a small gate you can try yourself.</p>
+        <p style="margin: 1.5rem 0 0 0;"><a href="#demo" class="btn-primary">Try the gate &darr;</a></p>
         <p class="cs-dates">First published: 2026-10-19. Pull-request details and counts below were read from GitHub on 2026-10-19.</p>
     </header>
 
@@ -742,7 +743,7 @@
         <div class="bw-inner">
             <div class="answer-box">
                 <h2 id="short-answer-h">How is this site built?</h2>
-                <p>By AI agents working under a written plan, each on its own Git branch, followed by an independent AI reviewer and then a human decision. The builders write the pages. A separate reviewer looks for what is wrong with them. I read the result and decide whether it merges. This site is hosted on GitHub Pages, so a merge to <code>main</code> is also a publish. The merge is the control point, and it is mine.</p>
+                <p>By AI agents working under a written plan, each on its own Git branch, followed by an independent AI reviewer and then a human decision. The builders write the pages. A separate reviewer looks for what is wrong with them. I read the result and decide whether it merges. This site is hosted on GitHub Pages, so a merge to <code>main</code> is also a publish. For any change to a page, the merge is the control point, and it is mine.</p>
             </div>
         </div>
     </section>
@@ -755,7 +756,7 @@
             <figure class="loop-figure">
                 <svg viewBox="0 0 390 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lp-title lp-desc">
                     <title id="lp-title">The build loop: plan, parallel AI builder lanes, independent AI review, fix rounds, human approval, merge and publish, live verification</title>
-                    <desc id="lp-desc">Step 1, plan: a written batch plan names the lanes and the files each may touch. Step 2, build: three AI builder lanes, A, B and C, work in parallel, each in its own isolated branch. Step 3, review: an independent AI reviewer checks the work. Findings go back to the builder lanes for a fix round, at most two rounds. Step 4, human nod: Tim approves every merge. Step 5, merge equals publish: merging to the main branch deploys the live site. Step 6, live verification: the published page is checked.</desc>
+                    <desc id="lp-desc">Step 1, plan: a written batch plan names the lanes and the files each may touch. Step 2, build: three AI builder lanes, A, B and C, work in parallel, each in its own isolated branch. Step 3, review: an independent AI reviewer checks the work. Findings go back to the builder lanes for a fix round, at most two rounds. Step 4, human nod: Tim approves every change to the site's pages; internal docs may merge without it. Step 5, merge equals publish: merging to the main branch deploys the live site. Step 6, live verification: the published page is checked.</desc>
 
                     <rect class="lp-step" x="16" y="10" width="320" height="70" rx="6"/>
                     <text class="lp-label" x="176" y="34" text-anchor="middle">1 · PLAN</text>
@@ -798,8 +799,8 @@
                     <rect class="lp-human" x="16" y="338" width="320" height="76" rx="6"/>
                     <text class="lp-label" x="30" y="362">4 · HUMAN NOD</text>
                     <text class="lp-tag-dark" x="322" y="362" text-anchor="end">TIM</text>
-                    <text class="lp-text-dark" x="176" y="384" text-anchor="middle">I hold every merge.</text>
-                    <text class="lp-text-dark" x="176" y="402" text-anchor="middle">No nod, no merge.</text>
+                    <text class="lp-text-dark" x="176" y="384" text-anchor="middle">I approve every page change.</text>
+                    <text class="lp-text-dark" x="176" y="402" text-anchor="middle">No nod, no page merge.</text>
 
                     <path class="lp-arrow" d="M176 414 V432"/>
                     <polygon class="lp-head" points="170,430 182,430 176,440"/>
@@ -823,7 +824,7 @@
                 <li><strong>Build in parallel.</strong> Each lane is an AI builder on its own branch. Branch names in the repository follow the work, such as <code>pub/authorizations-record</code> and <code>pub/deck-fixes</code>.</li>
                 <li><strong>Independent review.</strong> A separate AI reviewer, not the one that wrote the change, reads it and reports what's wrong.</li>
                 <li><strong>Fix rounds, at most two.</strong> Findings go back to the lane. If two rounds don't settle it, the question comes to me instead of looping.</li>
-                <li><strong>Human nod.</strong> I decide whether the change merges. Copy, content and visual changes are mine to approve.</li>
+                <li><strong>Human nod.</strong> I decide whether any change to a page merges: copy, content and visuals are mine to approve. Internal docs can merge without it.</li>
                 <li><strong>Merge is publish; then check the live page.</strong> Pushing to <code>main</code> is the deploy, so the check that matters is on the page a visitor sees.</li>
             </ol>
 
@@ -847,12 +848,12 @@
                 <article class="pr-card">
                     <h3><a href="https://github.com/downsmullen/downsmullen.github.io/pull/9">#9 · Authorizations-record field report</a></h3>
                     <span class="pr-meta">Merged 2026-10-13 · +767 / −0 · 3 files</span>
-                    <p>A new field report, a homepage card and a sitemap entry. Independent review plus one fix round; the description says every number was checked against the StrictLock commits and spec.</p>
+                    <p>A new field report, a homepage card and a sitemap entry. Independent review plus one fix round. The description lists what the round changed: the wording of the paper's limits, the order of the checks, the teaser counts and an example row. Every number was checked against the StrictLock commits and spec.</p>
                 </article>
                 <article class="pr-card">
                     <h3><a href="https://github.com/downsmullen/downsmullen.github.io/pull/10">#10 · Plan-gate page refresh</a></h3>
                     <span class="pr-meta">Merged 2026-10-13 · +182 / −3 · 1 file</span>
-                    <p>A short-answer box, an inline-SVG gate diagram and a decision-log update. Independent review plus two fix rounds, including a fix that scoped the self-protection claim to file writes and stated the shell blind spot.</p>
+                    <p>A short-answer box, an inline-SVG gate diagram and a decision-log update. Independent review plus two fix rounds. Review changed what the page claims: self-protection was scoped to file writes with the shell blind spot stated, and plan coverage stopped being described as exact-match.</p>
                 </article>
                 <article class="pr-card">
                     <h3><a href="https://github.com/downsmullen/downsmullen.github.io/pull/11">#11 · Deck fixes</a></h3>
@@ -866,7 +867,8 @@
                 </article>
             </div>
 
-            <p>Three of these (#9, #10, #11) came from one batch, run as Lanes 2, 1 and 3 in the pull-request descriptions. Together the four add 1,227 lines and remove 93 across seven files. They merged between 00:08 and 10:53 UTC on 2026-10-13. Line counts are as GitHub reports them, read on 2026-10-19; they measure volume, not quality.</p>
+            <p>What review catches is the point. In the pull requests above it tightened claims that had run ahead of the evidence. In the StrictLock build behind the authorizations-record report, three adversarial AI reviewers found a <code>..</code> path trick that slipped past the log's self-protection; it was fixed the same day, as that report describes.</p>
+            <p>Three of these pull requests (#9, #10, #11) came from one batch, run as Lanes 2, 1 and 3 in the descriptions. The four merged between 00:08 and 10:53 UTC on 2026-10-13, adding 1,227 lines and removing 93 across seven files, as GitHub reports them on 2026-10-19. Line counts measure volume, not quality.</p>
             <p>The repository is at <a href="https://github.com/downsmullen/downsmullen.github.io">github.com/downsmullen/downsmullen.github.io</a>.</p>
         </div>
     </section>
@@ -876,7 +878,7 @@
             <span class="sim-tag">Simulation</span>
             <h2 id="demo-h">Try a fail-closed gate</h2>
             <p>The loop above relies on one idea from my <a href="plan-gate.html">plan-gate field report</a>: don't ask an agent to behave; put a check it doesn't control between its intent and its effect, and let that check default to deny. Propose an action below and see what a gate like that does.</p>
-            <p class="small"><strong>A simplified illustration.</strong> This is a few dozen lines of JavaScript running in your browser, written to follow how the field reports describe the gate. It is not the StrictLock code, and nothing here touches a real system or a real log.</p>
+            <p class="small"><strong>A simplified illustration.</strong> This is a small script running in your browser, written to follow how the field reports describe the gate. It is not the StrictLock code, and nothing here touches a real system or a real log. It also leaves out the real gate's two deliberate exceptions: it fails open if it crashes, and a person can switch it off with an emergency bypass.</p>
 
             <div class="plan-card">
                 <strong>The approved plan in this simulation</strong>
@@ -921,7 +923,7 @@
             </div>
 
             <div id="gate-static">
-                <p class="no-js-note"><strong>The interactive version needs JavaScript.</strong> Here is what the gate decides for nine example actions:</p>
+                <p class="no-js-note"><strong>The interactive version needs JavaScript.</strong> Here is what the gate decides for eleven example actions:</p>
                 <div class="table-scroll">
                     <table class="rules">
                         <caption>Example actions and the gate's decision</caption>
@@ -933,10 +935,11 @@
                             <tr><td>edit index.html</td><td class="v-held">HELD FOR HUMAN</td><td>Not in the plan. Denied by default; a person decides.</td></tr>
                             <tr><td>git push --force origin main</td><td class="v-held">HELD FOR HUMAN</td><td>No approved prefix covers it. Denied by default.</td></tr>
                             <tr><td>rm -rf docs/</td><td class="v-held">HELD FOR HUMAN</td><td>No approved prefix covers it. Denied by default.</td></tr>
-                            <tr><td>merge to main (publishes live)</td><td class="v-held">HELD FOR HUMAN</td><td>Not in the plan, and on this site a merge also needs Tim's nod.</td></tr>
+                            <tr><td>merge to main (publishes live)</td><td class="v-held">HELD FOR HUMAN</td><td>Not in the plan, and on this site a merge that changes a page also needs Tim's nod.</td></tr>
                             <tr><td>git status &amp;&amp; rm -rf .</td><td class="v-held">HELD FOR HUMAN</td><td>Chained command: can't tell it stays inside one approved command, so deny.</td></tr>
                             <tr><td>edit gate-logs/decisions.jsonl</td><td class="v-blocked">BLOCKED</td><td>The gate never authorizes writes to its own log.</td></tr>
                             <tr><td>edit plans/../gate-logs/decisions.jsonl</td><td class="v-blocked">BLOCKED</td><td>The path resolves into the log directory; the gate checks the resolved path too.</td></tr>
+                            <tr><td>edit ../plan-gate.html</td><td class="v-held">HELD FOR HUMAN</td><td>Contains "..": the gate won't guess it means the plan's path. Ambiguous means deny.</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -948,12 +951,13 @@
                     <caption>First matching rule wins</caption>
                     <thead><tr><th scope="col">#</th><th scope="col">If the action…</th><th scope="col">Decision</th><th scope="col">Source in the field reports</th></tr></thead>
                     <tbody>
-                        <tr><td>1</td><td>is not read-only and targets the gate's log directory, as written or once <code>..</code> is resolved</td><td class="v-blocked">BLOCKED</td><td>Authorizations record: no plan can authorize a write to the log; resolved paths are checked after a <code>..</code> bypass was found in review.</td></tr>
+                        <tr><td>1</td><td>is a file write (<code>edit</code>, <code>write</code>, <code>delete</code> and similar) that targets the log directory <code>gate-logs</code>, as written or once <code>..</code> is resolved</td><td class="v-blocked">BLOCKED</td><td>Authorizations record: the gate never authorizes a file write into its own log, and resolved paths are checked after a <code>..</code> bypass was found in review. The protection covers file writes only. A shell command that touches the log is decided by the rules below, and the result says the shell is a documented blind spot where the human reviewing the plan is the control.</td></tr>
                         <tr><td>2</td><td>chains or redirects commands (<code>;</code> <code>&amp;&amp;</code> <code>||</code> <code>|</code> <code>&gt;</code> and similar)</td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: ambiguous actions are denied and the agent stops for a human.</td></tr>
                         <tr><td>3</td><td>only reads (read, cat, ls, grep and similar)</td><td class="v-allowed">ALLOWED</td><td>Demo simplification. Plan-gate describes gating consequential calls such as writes and commands.</td></tr>
-                        <tr><td>4</td><td>edits a file whose exact path the plan names</td><td class="v-allowed">ALLOWED</td><td>Plan-gate: exact match for file paths.</td></tr>
-                        <tr><td>5</td><td>runs a command starting with an approved prefix</td><td class="v-allowed">ALLOWED</td><td>Plan-gate: approved prefix for commands.</td></tr>
-                        <tr><td>6</td><td>anything else, or anything the demo can't parse</td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: deny by default; the agent stops for a human.</td></tr>
+                        <tr><td>4</td><td>edits a file by an absolute path or a path containing <code>..</code></td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: exact match for file paths, and ambiguous actions are denied.</td></tr>
+                        <tr><td>5</td><td>edits a file whose exact path the plan names</td><td class="v-allowed">ALLOWED</td><td>Plan-gate: exact match for file paths.</td></tr>
+                        <tr><td>6</td><td>runs a command starting with an approved prefix</td><td class="v-allowed">ALLOWED</td><td>Plan-gate: approved prefix for commands.</td></tr>
+                        <tr><td>7</td><td>anything else, or anything the demo can't parse</td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: deny by default; the agent stops for a human.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1017,7 +1021,6 @@
             <a href="https://www.hipaapath.com">HIPAAPath</a>
             <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
         </div>
-        <p class="footer-legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. LeSS is a trademark of The LeSS Company B.V. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
     </footer>
 
 <script>

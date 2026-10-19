@@ -29,7 +29,8 @@
         { label: 'Merge to main (publishes live)', text: 'merge to main (publishes live)' },
         { label: 'Chain a command', text: 'git status && rm -rf .' },
         { label: 'Edit the decision log', text: 'edit gate-logs/decisions.jsonl' },
-        { label: 'Sneak in with ..', text: 'edit plans/../gate-logs/decisions.jsonl' }
+        { label: 'Log path with ..', text: 'edit plans/../gate-logs/decisions.jsonl' },
+        { label: 'Plan path with ..', text: 'edit ../plan-gate.html' }
     ];
 
     /* ---------- pure decision logic ---------- */
@@ -73,28 +74,31 @@
         var isRead = READ_VERBS.indexOf(verb) !== -1;
         var chained = /[;&|`<>]|\$\(/.test(text);
 
-        // Rule 1: the gate's own log is never writable (checked as written AND resolved).
-        if (!isRead || chained) {
-            for (var i = 1; i < tokens.length; i++) {
-                var t = clean(tokens[i]);
-                if (t.indexOf('/') === -1 && t.indexOf('.') === -1) { continue; }
-                var written = normPath(t, false);
-                var resolved = normPath(t, true);
-                if (inLogDir(written)) {
-                    return result('BLOCKED', 'log_self_protect',
-                        'This targets the gate\'s own log directory. The gate never authorizes writes there, even if a plan names the path.');
-                }
-                if (inLogDir(resolved)) {
-                    return result('BLOCKED', 'log_self_protect',
-                        'The path looks harmless as written, but it resolves into the log directory. The gate checks the resolved path too.');
-                }
-            }
+        var isEdit = EDIT_VERBS.indexOf(verb) !== -1;
+
+        // Does any argument point at the gate's log directory (as written or resolved)?
+        var logHit = '';
+        for (var i = 1; i < tokens.length; i++) {
+            var t = clean(tokens[i]);
+            if (inLogDir(normPath(t, false))) { logHit = 'written'; break; }
+            if (inLogDir(normPath(t, true))) { logHit = 'resolved'; }
+        }
+        var shellNote = logHit
+            ? 'This command touches the log directory. The real gate\'s self-protection covers file-write tools, not the shell. That is a documented blind spot, and the person reviewing the plan is the control.'
+            : '';
+
+        // Rule 1: file writes into the gate's own log are never authorized (as written AND resolved).
+        if (isEdit && !chained && logHit) {
+            return result('BLOCKED', 'log_self_protect', logHit === 'written'
+                ? 'This file write targets the gate\'s own log directory. The gate never authorizes writes there, even if a plan names the path.'
+                : 'The path looks harmless as written, but it resolves into the log directory. The gate checks the resolved path too.');
         }
 
         // Rule 2: ambiguity denies.
         if (chained) {
             return result('HELD FOR HUMAN', 'demo_ambiguous',
-                'A chained or redirected command. The gate can\'t tell it stays inside one approved command, and ambiguous means deny. The agent stops for a person.');
+                'A chained or redirected command. The gate can\'t tell it stays inside one approved command, and ambiguous means deny. The agent stops for a person.',
+                shellNote);
         }
 
         // Rule 3: read-only actions are not gated in this demo.
@@ -105,8 +109,13 @@
         }
 
         // Rule 4: file edit, exact path in plan.
-        if (EDIT_VERBS.indexOf(verb) !== -1 && tokens.length > 1) {
-            var target = normPath(clean(tokens[1]), true);
+        if (isEdit && tokens.length > 1) {
+            var rawTarget = clean(tokens[1]);
+            if (rawTarget.charAt(0) === '/' || rawTarget.charAt(0) === '~' || /(^|[\/\\])\.\.([\/\\]|$)/.test(rawTarget)) {
+                return result('HELD FOR HUMAN', 'demo_ambiguous',
+                    'An absolute path or one containing "..". The gate won\'t guess that it means the plan\'s path, and ambiguous means deny. The agent stops for a person.');
+            }
+            var target = normPath(rawTarget, false);
             if (PLAN.files.indexOf(target) !== -1) {
                 return result('ALLOWED', 'demo_in_plan',
                     'The approved plan names this exact path, so the call runs.');
@@ -119,18 +128,18 @@
         for (var p = 0; p < PLAN.prefixes.length; p++) {
             if (startsWithPrefix(lower, PLAN.prefixes[p])) {
                 return result('ALLOWED', 'demo_in_plan',
-                    'Starts with the approved command prefix "' + PLAN.prefixes[p] + '", so the call runs.');
+                    'Starts with the approved command prefix "' + PLAN.prefixes[p] + '", so the call runs.', shellNote);
             }
         }
 
-        // Rule 6: everything else is denied by default.
+        // Rule 7: everything else is denied by default.
         if (/\b(merge|publish|deploy|release)\b/.test(lower)) {
             return result('HELD FOR HUMAN', 'demo_outside_plan',
                 'Not in the approved plan, so it stops for a person.',
-                'On this site a merge to main is also a publish and needs Tim\'s explicit nod. That is a workflow rule, separate from the gate.');
+                'On this site a merge that changes a page also needs Tim\'s nod. That is a workflow rule, separate from the gate.');
         }
         return result('HELD FOR HUMAN', 'demo_outside_plan',
-            'Nothing in the approved plan covers this. Denied by default; the agent stops for a person.');
+            'Nothing in the approved plan covers this. Denied by default; the agent stops for a person.', shellNote);
     }
 
     /* ---------- simulated hash chain (NOT cryptographic) ---------- */
@@ -201,6 +210,7 @@
     var verifyStatus = doc.getElementById('verify-status');
 
     var rows = [];
+    var truncated = false;
 
     function el(tag, cls, text) {
         var n = doc.createElement(tag);
@@ -238,7 +248,12 @@
 
     function showResult(res, target) {
         resultEl.textContent = '';
-        resultEl.appendChild(el('span', 'verdict ' + verdictClass(res.decision), verdictGlyph(res.decision) + res.decision));
+        var verdict = el('span', 'verdict ' + verdictClass(res.decision));
+        var glyph = el('span', '', verdictGlyph(res.decision));
+        glyph.setAttribute('aria-hidden', 'true');
+        verdict.appendChild(glyph);
+        verdict.appendChild(doc.createTextNode(res.decision));
+        resultEl.appendChild(verdict);
         resultEl.appendChild(el('p', 'acted', target));
         resultEl.appendChild(el('p', 'reason', res.reason));
         if (res.note) { resultEl.appendChild(el('p', 'note', res.note)); }
@@ -286,7 +301,8 @@
         }
         var v = verifyChain(rows);
         if (v.ok) {
-            verifyStatus.textContent = 'Chain intact: ' + rows.length + ' line' + (rows.length === 1 ? '' : 's') + ', every hash matches.';
+            verifyStatus.textContent = 'Chain intact: ' + rows.length + ' line' + (rows.length === 1 ? '' : 's') + ', every hash matches.' +
+                (truncated ? ' But a line was cut off the end earlier, and the chain can\'t show that. This is the honest boundary: truncation is undetectable without an external anchor, such as the latest hash recorded somewhere outside the machine.' : '');
             renderLog();
         } else {
             verifyStatus.textContent = 'Chain broken: first bad line is ' + v.row + '. (The real verifier exits 2 and names the first bad row.)';
@@ -314,7 +330,8 @@
             verifyStatus.textContent = 'A middle line was deleted. Now press "Verify the chain".';
         } else {
             rows.pop();
-            verifyStatus.textContent = 'The last line was deleted. Now press "Verify the chain".';
+            truncated = true;
+            verifyStatus.textContent = 'The last line was deleted. Now press "Verify the chain" and see what it says.';
         }
         renderLog();
         if (kind === 'delete-last' && !rows.length) {
@@ -324,6 +341,7 @@
 
     resetBtn.addEventListener('click', function () {
         rows = [];
+        truncated = false;
         renderLog();
         resultEl.textContent = '';
         resultEl.appendChild(el('p', 'placeholder', 'The gate\'s answer appears here.'));
