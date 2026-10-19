@@ -10,10 +10,13 @@
  * BEHAVIOUR: never created under prefers-reduced-motion: reduce (also reacts to changes);
  *            paused while the tab is hidden; canvas is pointer-events:none, aria-hidden.
  *            Clicks/taps send the fish to the pointer in a burst, then they mill and relax.
+ *            A fast mouse flick near the fish startles them (set STARTLE = false below to remove).
  * Swimming model: carangiform travelling wave, after VectorBattles docs/research-fish-swimming.md.
  */
 (function () {
   'use strict';
+  if (window.SeaBass) return;   // double-load guard
+  var STARTLE = true;           // fast-flick startle-scatter; false disables it
 
   var script = document.currentScript;
   var AUTOSTART = !!(script && script.hasAttribute('data-autostart'));
@@ -46,7 +49,7 @@
   function makeFish(i, n) {
     var bl = rnd(28, 48);
     var hue = Math.random();
-    return {
+    var o = {
       x: rnd(0, W), y: rnd(0, H), th: rnd(0, TAU),
       bl: bl, u: rnd(1.0, 1.8),
       speed: bl * 1.2, phase: rnd(0, TAU),
@@ -55,8 +58,11 @@
       burstUntil: 0, burstSpeed: 0,
       orbitR: rnd(1.2, 3.2), orbitA: rnd(0, TAU), orbitDir: Math.random() < 0.5 ? -1 : 1,
       // teal -> steel blue: legible on navy and on white at low alpha
-      r: Math.round(62 + hue * 30), g: Math.round(168 - hue * 28), b: Math.round(168 + hue * 40)
+      fill: null, line: null
     };
+    var rgb = Math.round(62 + hue * 30) + ',' + Math.round(168 - hue * 28) + ',' + Math.round(168 + hue * 40);
+    o.fill = 'rgba(' + rgb + ',0.30)'; o.line = 'rgba(' + rgb + ',0.55)';
+    return o;
   }
 
   function spawn() {
@@ -72,9 +78,11 @@
 
   function resize() {
     if (!canvas) return;
-    W = window.innerWidth; H = window.innerHeight;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    var w = window.innerWidth, h = window.innerHeight, d = Math.min(window.devicePixelRatio || 1, 2);
+    var pw = Math.round(w * d), ph = Math.round(h * d);
+    W = w; H = h; dpr = d;
+    if (canvas.width === pw && canvas.height === ph) return;   // address-bar churn: nothing to do
+    canvas.width = pw; canvas.height = ph;
     canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
   }
 
@@ -167,21 +175,24 @@
     for (var i = 0; i < fish.length; i++) drawFish(fish[i]);
   }
 
+  // per-fish drawing state, set once per fish so the helpers below can live outside drawFish
+  var gBl = 40, gAmp = 0, gPh = 0, gK = 0, gFl = 1;
+  // lateral displacement (body lengths) at position s: wave + C-bend (never mirrored)
+  function wy(sv) {
+    var a = gAmp * (0.05 + 0.95 * sv * sv);
+    return a * Math.sin(TAU * sv - gPh) + 0.35 * gK * sv * sv;
+  }
+  function X(sv) { return (0.5 - sv) * gBl; }
+  // only the outline/fin offset `up` is mirrored when heading left, so the bend stays on the inside of the turn
+  function Y(sv, up) { return (wy(sv) - up * gFl) * gBl; }
+
   function drawFish(f) {
     var bl = f.bl, c = Math.cos(f.th), s = Math.sin(f.th);
     ctx.setTransform(dpr * c, dpr * s, -dpr * s, dpr * c, dpr * f.x, dpr * f.y);
-    var k = f.kappa, amp = A_TAIL * (1 + 0.2 * Math.abs(k)), ph = f.phase, fl = f.flip;
-    var fill = 'rgba(' + f.r + ',' + f.g + ',' + f.b + ',0.30)';
-    var line = 'rgba(' + f.r + ',' + f.g + ',' + f.b + ',0.55)';
-    ctx.fillStyle = fill; ctx.strokeStyle = line;
-
-    // lateral displacement (body lengths) at position s: wave + C-bend
-    function wy(sv) {
-      var a = amp * (0.05 + 0.95 * sv * sv);
-      return a * Math.sin(TAU * (sv - ph / TAU)) + 0.35 * k * sv * sv;
-    }
-    function X(sv) { return (0.5 - sv) * bl; }
-    function Y(sv, up) { return (wy(sv) - up) * bl * fl; }
+    var k = f.kappa, ph = f.phase;
+    gBl = bl; gK = k; gPh = ph; gFl = f.flip; gAmp = A_TAIL * (1 + 0.2 * Math.abs(k));
+    var line = f.line;
+    ctx.fillStyle = f.fill; ctx.strokeStyle = line;
     var fold = 0.45 + 0.55 * Math.min(1, Math.abs(k) * 1.5 + Math.max(0, f.speed / bl - 2) * 0.3);
 
     // dorsal fin (spiny + soft), folded flat when cruising
@@ -235,6 +246,7 @@
     var t = ts / 1000;
     var dt = last ? Math.min(0.05, t - last) : 0.016;
     last = t; now = t;
+    if (Math.min(window.devicePixelRatio || 1, 2) !== dpr) resize();   // zoom / monitor change
     step(dt); draw();
   }
   function loopOn() { if (!raf && canvas && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } }
@@ -242,7 +254,7 @@
 
   // ---- input -----------------------------------------------------------------------
   function onClick(e) {
-    if (!canvas) return;
+    if (!canvas || e.detail === 0) return;   // detail 0 = keyboard/script click: no real pointer position
     var el = e.target;
     if (el && el.closest && el.closest('[data-seabass-toggle]')) return;
     attract = { x: e.clientX, y: e.clientY, t0: now };
@@ -254,7 +266,7 @@
     }
   }
   function onMove(e) {
-    if (!canvas || e.pointerType === 'touch') return;
+    if (!STARTLE || !canvas || e.pointerType === 'touch') return;
     var t = e.timeStamp / 1000;
     if (ptr.ok) {
       var dt = t - ptr.t;
@@ -282,7 +294,7 @@
 
   // ---- lifecycle ----------------------------------------------------------------------
   function mount() {
-    if (canvas || reduced()) return;
+    if (canvas || reduced() || !document.body) return;   // choice stays recorded; init() mounts once body exists
     canvas = document.createElement('canvas');
     canvas.setAttribute('aria-hidden', 'true');
     canvas.style.cssText = 'position:fixed;left:0;top:0;width:100%;height:100%;' +
@@ -305,19 +317,32 @@
     canvas = ctx = null; fish = []; attract = null;
   }
   function syncToggles() {
-    var els = document.querySelectorAll('[data-seabass-toggle][aria-pressed]');
-    for (var i = 0; i < els.length; i++) els[i].setAttribute('aria-pressed', wanted ? 'true' : 'false');
+    var off = reduced(), TIP = 'Animations are off (reduced motion)';
+    var els = document.querySelectorAll('[data-seabass-toggle]');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (off) {
+        el.setAttribute('aria-disabled', 'true'); el.setAttribute('title', TIP);
+        if (el.hasAttribute('aria-pressed')) el.setAttribute('aria-pressed', 'false');
+      } else {
+        if (el.getAttribute('title') === TIP) { el.removeAttribute('title'); el.removeAttribute('aria-disabled'); }
+        if (el.hasAttribute('aria-pressed')) el.setAttribute('aria-pressed', wanted ? 'true' : 'false');
+      }
+    }
   }
   function apply() { if (wanted && !reduced()) mount(); else unmount(); syncToggles(); }
 
-  function start(persist) { wanted = true; if (persist !== false) save(true); apply(); }
-  function stop(persist) { wanted = false; if (persist !== false) save(false); apply(); }
-  function toggle() { if (wanted) stop(); else start(); }
+  var decided = false;
+  function start(persist) { wanted = decided = true; if (persist !== false) save(true); apply(); }
+  function stop(persist) { wanted = false; decided = true; if (persist !== false) save(false); apply(); }
+  function toggle() { if (reduced()) return; if (wanted) stop(); else start(); }
 
   // Fish need document.body; run once it exists.
   function init() {
-    var stored = load();
-    wanted = stored === '1' || (stored === null && AUTOSTART);
+    if (!decided) {   // a start()/stop() made before init already chose
+      var stored = load();
+      wanted = stored === '1' || (stored === null && AUTOSTART);
+    }
     document.addEventListener('click', onToggleClick);
     document.addEventListener('visibilitychange', function () { if (document.hidden) loopOff(); else loopOn(); });
     if (mq) {
