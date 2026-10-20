@@ -14,7 +14,7 @@ const mq=matchMedia('(prefers-reduced-motion: reduce)');let reduce=mq.matches;
 const coarse=matchMedia('(pointer: coarse)').matches;
 
 /* ---------- station links, placed on the bodies each frame ---------- */
-const STATIONS=[['hiring.html','01','Hiring'],['built-with-ai.html','02','AI Work'],['company.html','03','HIPAAPath']];
+const STATIONS=[['hiring.html','01','Career'],['built-with-ai.html','02','AI Work'],['company.html','03','HIPAAPath']];
 const doorList=hero.querySelector('.orbit-doors');
 const links=STATIONS.map((s,i)=>{
   const li=document.createElement('li'),a=document.createElement('a');
