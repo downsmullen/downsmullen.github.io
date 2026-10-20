@@ -641,12 +641,12 @@
             line-height: 1;
         }
 
-        /* Nav collapses to the menu button at 1100px, not at the layout
-           breakpoint below. The six-item row stops fitting around 1000px
-           (1063px on this page's longer CTA), and before this it wrapped the
+        /* Nav collapses to the menu button at 1300px, not at the layout
+           breakpoint below. The eight-item row stops fitting around 1250px
+           (longer CTAs need a bit more), and before this it wrapped the
            logo onto two lines and grew the fixed bar by 28px. Layout
            breakpoints are deliberately left where they were. */
-        @media (max-width: 1100px) {
+        @media (max-width: 1300px) {
             .menu-toggle { display: block; }
             nav { position: relative; }
             .nav-links {
@@ -730,7 +730,9 @@
             <a href="#expertise">Capabilities</a>
             <a href="#matrix">Technical Stack</a>
             <a href="#feedback">Feedback</a>
-            <a href="#insights">Insights</a>
+            <a href="insights.html">Insights</a>
+            <a href="hiring.html">Career</a>
+            <a href="company.html">Company</a>
             <a href="about.html">About</a>
             <a href="mailto:tim@tdmtechsolutions.com" class="nav-cta">Contact</a>
         </div>
@@ -963,6 +965,7 @@
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
             <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
+            <a href="company.html">Company</a>
             <a href="https://www.hipaapath.com">HIPAAPath</a>
             <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
             <button type="button" class="fish-toggle" data-seabass-toggle aria-pressed="false">Fish</button>
