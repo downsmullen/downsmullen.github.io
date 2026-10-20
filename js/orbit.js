@@ -14,7 +14,7 @@ const mq=matchMedia('(prefers-reduced-motion: reduce)');let reduce=mq.matches;
 const coarse=matchMedia('(pointer: coarse)').matches;
 
 /* ---------- station links, placed on the bodies each frame ---------- */
-const STATIONS=[['hiring.html','01','Hiring'],['built-with-ai.html','02','AI work'],['company.html','03','HIPAAPath & TDM Technologies']];
+const STATIONS=[['hiring.html','01','Hiring'],['built-with-ai.html','02','AI Work'],['company.html','03','HIPAAPath']];
 const doorList=hero.querySelector('.orbit-doors');
 const links=STATIONS.map((s,i)=>{
   const li=document.createElement('li'),a=document.createElement('a');
@@ -25,7 +25,7 @@ const links=STATIONS.map((s,i)=>{
   const l=document.createElement('span');l.className='l';l.textContent=s[2];
   t.appendChild(n);t.appendChild(l);a.appendChild(ring);a.appendChild(t);li.appendChild(a);doorList.appendChild(li);
   return a});
-hero.classList.add('is-live');
+if(!reduce)hero.classList.add('is-live');   // grab cursor + drag hint only when motion is allowed
 
 let seed=7;const rnd=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
 const gauss=()=>{let u=0,v=0;while(!u)u=rnd();while(!v)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(6.2832*v)};
@@ -48,7 +48,7 @@ for(let j=0;j<TH;j++){const lat=(j+.5)/TH*Math.PI-Math.PI/2,cl=Math.cos(lat),y=M
     const pop=tf(z*3.1,x*3.1,y*3.1);
     TEX_C[k]=f>.18&&Math.abs(y)<.85&&rnd()<.18+pop*.35?clamp(.15+pop*.6+rnd()*.35,0,.8):0;
     TEX_K[k]=clamp((tf(y*2.2+1,z*2.2,x*2.2)-.15)*1.3,0,.85)*(1-Math.abs(y)*.3)}}
-const PT=document.createElement('canvas'),ptx=PT.getContext('2d');let PTimg=null,PTsize=0;
+const PT=document.createElement('canvas'),ptx=PT.getContext('2d');let PTimg=null,PTsize=0,shadeN=0;const shadedF=[9,9,9];
 const TILT=.41,PR=1.25;   // planet radius (world units)
 const SUN=norm([-1,.25,.55]);
 
@@ -94,8 +94,11 @@ function proj(p){const d0=p[0]-cam.pos[0],d1=p[1]-cam.pos[1],d2=p[2]-cam.pos[2];
   pr.x=CX+F*(d0*cam.r[0]+d1*cam.r[1]+d2*cam.r[2])/z;pr.y=CY-F*(d0*cam.u[0]+d1*cam.u[1]+d2*cam.u[2])/z;return pr}
 function layout(){const b=hero.getBoundingClientRect();W=b.width;H=b.height;dpr=Math.min(devicePixelRatio||1,2);
   cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);portrait=W/H<.9;
-  if(portrait){CX=.5*W;CY=.56*H;F=Math.min(.66*W,.36*H)*D/5.3;pitch=.62}
-  else{CX=.65*W;CY=.54*H;F=Math.min(.41*W,.52*H)*D/5.3;pitch=.36}}
+  if(portrait){CX=.5*W;CY=.56*H;F=Math.min(.66*W,.36*H)*D/5.3}
+  else{CX=.65*W;CY=.54*H;F=Math.min(.41*W,.52*H)*D/5.3}}
+// the nav is measured, not hard-coded: its height drives the hero's top margin and height (CSS --nav-h)
+const navEl=document.querySelector('body > nav');
+function measureNav(){if(navEl)hero.style.setProperty('--nav-h',navEl.offsetHeight+'px')}
 
 /* ---------- state ---------- */
 let simT=0,T=0,warp=1,sel=-1,exec=null,plan=null;
@@ -135,11 +138,16 @@ function drawStars(t){
 function drawPlanet(){
   const c=proj([0,0,0]),R=PR*F/c.z,cz=c.z,px=c.x,py=c.y;
   // per-pixel sphere shading into a small offscreen canvas, then scaled up
-  const S=Math.max(32,Math.min(220,Math.round(R*2*Math.min(dpr,1.5))));
-  if(S!==PTsize){PTsize=S;PT.width=PT.height=S;PTimg=ptx.createImageData(S,S)}
+  const S=Math.max(32,Math.min(coarse?140:220,Math.round(R*2*Math.min(dpr,1.5))));
+  let force=false;
+  if(S!==PTsize){PTsize=S;PT.width=PT.height=S;PTimg=ptx.createImageData(S,S);force=true}
   const d=PTimg.data,r=cam.r,u=cam.u,f=cam.f;
   const ct=Math.cos(TILT),st=Math.sin(TILT),cs=Math.cos(planetSpin),ss=Math.sin(planetSpin);
   const half=S/2;
+  // re-shade only when the camera has moved or every 3rd frame; otherwise reuse the cached buffer
+  const moved=Math.abs(f[0]-shadedF[0])+Math.abs(f[1]-shadedF[1])+Math.abs(f[2]-shadedF[2])>.004;
+  const reshade=force||moved||++shadeN%3===0;
+  if(reshade){shadedF[0]=f[0];shadedF[1]=f[1];shadedF[2]=f[2];
   for(let j=0;j<S;j++){const sy=-(j+.5-half)/half;
     for(let i=0;i<S;i++){const sx=(i+.5-half)/half,q=sx*sx+sy*sy,o=(j*S+i)*4;
       if(q>=1){d[o+3]=0;continue}
@@ -164,7 +172,7 @@ function drawPlanet(){
       rr+=60*haze;gg+=120*haze;bb+=220*haze;
       const dark=.18+.82*Math.pow(sz,.35);                          // limb darkening
       d[o]=rr*dark+6;d[o+1]=gg*dark+9;d[o+2]=bb*dark+18;d[o+3]=q>.985?(1-q)/.015*255:255}}
-  ptx.putImageData(PTimg,0,0);
+  ptx.putImageData(PTimg,0,0)}
   ctx.imageSmoothingEnabled=true;ctx.drawImage(PT,px-R,py-R,R*2,R*2);
   // atmosphere halo, brighter on the sunward side
   const sx=dot(SUN,cam.r),sy=dot(SUN,cam.u),sl=Math.hypot(sx,sy)||1,face=-dot(SUN,cam.f);
@@ -249,7 +257,7 @@ function render(){
   const order=[...items].sort((a,b)=>b.z-a.z);
   order.forEach((it,zi)=>{const a=links[it.i];const hidden=occluded(it,pl);
     const flip=it.x>W*.66;a.classList.toggle('flip',flip);
-    const x=clamp(it.x,8,W-8),y=clamp(it.y,24,H-24);
+    const x=clamp(it.x,30,W-30),y=clamp(it.y,24,H-24);
     a.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`+(flip?' translateX(-100%) translateX(44px)':'');
     a.style.zIndex=zi+1;a.style.opacity=hidden?.45:1;a.classList.toggle('on',it.i===sel)});
 }
@@ -271,10 +279,15 @@ function sync(){const s=onScreen&&!document.hidden&&!reduce;
 function still(){shipTrail.length=0;if(sel>=0)plan=planTransfer(sel,simT,2.2);render()}
 if('IntersectionObserver' in window)new IntersectionObserver(e=>{onScreen=e[0].isIntersecting;sync()}).observe(hero);
 document.addEventListener('visibilitychange',sync);
-mq.addEventListener('change',e=>{reduce=e.matches;if(reduce){running=false;simT=4.2;still()}sync()});
+mq.addEventListener('change',e=>{reduce=e.matches;hero.classList.toggle('is-live',!reduce);if(reduce){running=false;simT=4.2;still()}sync()});
 
 /* ---------- input ---------- */
 let drag=null;
+// After a drag that actually moved, swallow the click that follows it once (so the fish don't treat a drag as a tap).
+// A plain tap with no movement is not swallowed. The swallow is cleared on the next pointerdown or after 400ms.
+let swallow=null,swallowT=0;
+const clearSwallow=()=>{if(swallow){removeEventListener('click',swallow,true);swallow=null}clearTimeout(swallowT)};
+addEventListener('pointerdown',clearSwallow,true);
 hero.addEventListener('pointerdown',e=>{if(e.target.closest('a')||exec||reduce)return;drag={x:e.clientX,y:e.clientY,t:performance.now(),id:e.pointerId,moved:false};
   if(e.pointerType==='mouse'){hero.setPointerCapture(e.pointerId);hero.classList.add('drag')}});
 hero.addEventListener('pointermove',e=>{const b=hero.getBoundingClientRect();
@@ -283,7 +296,9 @@ hero.addEventListener('pointermove',e=>{const b=hero.getBoundingClientRect();
   if(e.pointerType!=='mouse'&&Math.abs(dy)>Math.abs(dx)&&!drag.moved){drag=null;return} // vertical swipe on phones = page scroll
   drag.moved=true;const now=performance.now(),dt=Math.max(1,now-drag.t)/1000;
   yaw-=dx*.006;pitch=clamp(pitch+dy*.004,-1.1,1.3);vyaw=-dx*.006/dt*.6;vpitch=dy*.004/dt*.6;drag.x=e.clientX;drag.y=e.clientY;drag.t=now});
-const endDrag=()=>{drag=null;hero.classList.remove('drag')};
+const endDrag=()=>{
+  if(drag&&drag.moved){clearSwallow();swallow=e=>{e.stopPropagation();clearSwallow()};addEventListener('click',swallow,true);swallowT=setTimeout(clearSwallow,400)}
+  drag=null;hero.classList.remove('drag')};
 hero.addEventListener('pointerup',endDrag);hero.addEventListener('pointercancel',endDrag);
 hero.addEventListener('pointerleave',()=>{tnx=0;tny=0});
 function choose(i){sel=i;plan=i>=0?planTransfer(i,simT,2.2):null;if(plan)plan.made=T;if(reduce)render()}
@@ -300,7 +315,9 @@ links.forEach(bind);
 // fixed, non-moving links (lower left): same behaviour as the stations — hover/focus plots the transfer, click flies it
 hero.querySelectorAll('.orbit-quick a').forEach(a=>bind(a,+a.dataset.i));
 addEventListener('pageshow',()=>{exec=null;zoom=1;look=[0,0,0];fade.classList.remove('on');choose(-1)});
-let rt=0;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();shipTrail.length=0;if(!running)render()},80)});
+let rt=0;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{measureNav();layout();shipTrail.length=0;if(!running)render()},80)});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{measureNav();layout();if(!running)render()});
 
-layout();if(reduce)simT=4.2;render();sync();
+measureNav();layout();pitch=portrait?.62:.36;   // default tilt is set once here; resizing never resets the user's drag
+if(reduce)simT=4.2;render();sync();
 })();

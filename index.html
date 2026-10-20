@@ -216,7 +216,7 @@
             --omono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
             position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden;
             isolation: isolate; background: var(--obg); color: var(--ink);
-            font-family: var(--osans); line-height: normal; touch-action: pan-y;
+            font-family: var(--osans); line-height: normal; touch-action: pan-y pinch-zoom;
         }
         .orbit-hero.is-live { cursor: grab; }
         .orbit-hero.is-live.drag { cursor: grabbing; }
@@ -248,11 +248,17 @@
         .orbit-hero .orbit-quick a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
         .orbit-hero .fade { position: absolute; inset: 0; z-index: 6; background: #fff; opacity: 0; pointer-events: none; transition: opacity .5s ease; }
         .orbit-hero .fade.on { opacity: 1; }
-        @media (max-width: 640px) { .orbit-hero .hint { display: none !important; } .orbit-hero .st .l { font-size: .95rem; max-width: 12ch; } }
-        /* The nav is 99px tall in-flow (<=1100px) and 105px tall and fixed above 1100px. The hero starts below it either way,
-           so the name/tagline never sit under the nav, and the hero plus nav fill one screen. */
-        .orbit-hero { height: calc(100vh - 99px); height: calc(100svh - 99px); }
-        @media (min-width: 1101px) { .orbit-hero { margin-top: 105px; height: calc(100vh - 105px); height: calc(100svh - 105px); } }
+        @media (max-width: 640px) {
+            .orbit-hero .hint { display: none !important; }
+            .orbit-hero .st .l { font-size: .95rem; max-width: 12ch; }
+            /* phones: stations show only their number (the labelled links are the fixed ones, lower left);
+               the label is still in the page for screen readers, and appears on hover/focus/selection */
+            .orbit-hero .st:not(.on):not(:hover):not(:focus-visible) .l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+        }
+        /* --nav-h is the nav's measured height (set by js/orbit.js; fallbacks are the usual sizes). The nav is in flow at
+           <=1100px and fixed above it; the hero starts below it either way, so the name/tagline never sit under the nav. */
+        .orbit-hero { height: calc(100vh - var(--nav-h, 99px)); height: calc(100svh - var(--nav-h, 99px)); }
+        @media (min-width: 1101px) { .orbit-hero { margin-top: var(--nav-h, 105px); } }
 
         /* Intro block directly below the Orbit hero (the old hero's copy, unchanged) */
         .hero.hero-intro { min-height: 0; padding: 5rem 10% 4rem 10%; }
