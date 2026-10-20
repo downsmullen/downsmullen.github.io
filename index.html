@@ -606,6 +606,22 @@
 
         .footer-links a:hover { color: var(--accent); }
 
+        .fish-toggle {
+            background: none;
+            border: 0;
+            padding: 0;
+            font: inherit;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .fish-toggle:hover { color: var(--accent); }
+        .fish-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+        .fish-toggle[aria-disabled="true"] { opacity: 0.5; cursor: default; }
+
         .menu-toggle {
             display: none;
             background: none;
@@ -948,6 +964,7 @@
             <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
             <a href="https://www.hipaapath.com">HIPAAPath</a>
             <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
+            <button type="button" class="fish-toggle" data-seabass-toggle aria-pressed="false">Fish</button>
         </div>
         <p class="footer-legal">SAFe&reg; and Scaled Agile Framework&reg; are registered trademarks of Scaled Agile, Inc. LeSS is a trademark of The LeSS Company B.V. Company names, logos and program marks shown are the property of their respective owners and are used to identify past work; no affiliation or endorsement is implied.</p>
     </footer>
@@ -958,5 +975,6 @@
         this.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 </script>
+<script src="js/fish.js" defer data-autostart></script>
 </body>
 </html>
