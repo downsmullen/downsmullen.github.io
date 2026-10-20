@@ -34,7 +34,7 @@
       ],
       "url": "https://downsmullen.com/",
       "jobTitle": "Founder and Lead Engineer",
-      "description": "Fifteen years on certified avionics at Collins Aerospace — DO-178B/C DAL B, flight management systems. Named inventor on U.S. patents. Founder of HIPAAPath, HIPAA compliance for small practices.",
+      "description": "Fifteen years on certified avionics at Collins Aerospace — DO-178B/C DAL B, flight management systems. Named inventor on two U.S. patents. Founder of HIPAAPath, HIPAA compliance for small practices.",
       "worksFor": {
         "@type": "Organization",
         "name": "TDM Technologies"
@@ -72,7 +72,7 @@
       ]
     }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-dark: #0a192f; 
@@ -209,6 +209,59 @@
             background-color: rgba(100, 255, 218, 0.1);
         }
 
+        /* ORBIT hero (js/orbit.js). Everything is scoped under .orbit-hero. */
+        .orbit-hero {
+            --ink: #eef2ff; --ink-2: #9aa6c4; --cyan: #7ce7ff; --amber: #ffc46b; --obg: #01020a;
+            --osans: 'Space Grotesk', system-ui, sans-serif;
+            --omono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+            position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden;
+            isolation: isolate; background: var(--obg); color: var(--ink);
+            font-family: var(--osans); line-height: normal; touch-action: pan-y pinch-zoom;
+        }
+        .orbit-hero.is-live { cursor: grab; }
+        .orbit-hero.is-live.drag { cursor: grabbing; }
+        .orbit-hero, .orbit-hero * { box-sizing: border-box; }
+        .orbit-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+        .orbit-hero .ident { position: absolute; z-index: 3; left: clamp(16px, 5vw, 72px); top: clamp(22px, 8vh, 96px); max-width: min(520px, 88vw); pointer-events: none; }
+        .orbit-hero .name { font-family: var(--omono); font-weight: 400; font-size: clamp(.72rem, 1vw, .82rem); letter-spacing: .3em; text-transform: uppercase; color: var(--cyan); margin: 0 0 1rem; }
+        .orbit-hero .tag { font-family: var(--osans); font-weight: 500; font-size: clamp(1.9rem, 4.4vw, 3.7rem); line-height: 1.04; letter-spacing: -.03em; color: var(--ink); margin: 0; max-width: none; text-shadow: 0 2px 24px rgba(0,0,0,.8); }
+        .orbit-hero .tag span { color: var(--amber); }
+        .orbit-hero .hint { display: none; position: absolute; z-index: 3; right: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vh, 32px); margin: 0; font-family: var(--omono); font-size: .7rem; letter-spacing: .14em; color: var(--ink-2); pointer-events: none; text-transform: uppercase; opacity: .75; }
+        .orbit-hero.is-live .hint { display: block; }
+        .orbit-hero .hint b { color: var(--cyan); font-weight: 400; }
+        .orbit-hero .orbit-doors { position: absolute; inset: 0; z-index: 4; margin: 0; padding: 0; list-style: none; pointer-events: none; }
+        .orbit-hero .st { position: absolute; left: 0; top: 0; pointer-events: auto; display: flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; padding: 8px 12px 8px 8px; margin: -22px 0 0 -22px; border-radius: 24px; min-height: 44px; will-change: transform; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+        .orbit-hero .st .ring { flex: 0 0 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(124,231,255,.55); transition: border-color .2s, transform .25s; }
+        .orbit-hero .st .t { display: flex; flex-direction: column; line-height: 1.15; }
+        .orbit-hero .st .n { font-family: var(--omono); font-size: .66rem; letter-spacing: .18em; color: var(--ink-2); }
+        .orbit-hero .st .l { font-weight: 600; font-size: clamp(.98rem, 1.4vw, 1.12rem); max-width: 15ch; text-shadow: 0 0 3px #000, 0 1px 14px #000; }
+        .orbit-hero .st.flip { flex-direction: row-reverse; padding: 8px 8px 8px 12px; text-align: right; }
+        .orbit-hero .st.flip .t { align-items: flex-end; }
+        .orbit-hero .st.on .ring, .orbit-hero .st:hover .ring, .orbit-hero .st:focus-visible .ring { border-color: var(--amber); transform: scale(1.25); }
+        .orbit-hero .st.on .n, .orbit-hero .st:hover .n, .orbit-hero .st:focus-visible .n { color: var(--amber); }
+        .orbit-hero .st:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; background: rgba(1,2,10,.6); }
+        .orbit-hero .orbit-quick { position: absolute; z-index: 5; left: clamp(16px, 5vw, 72px); bottom: clamp(16px, 4vh, 40px); margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+        .orbit-hero .orbit-quick a { display: inline-flex; gap: .7rem; align-items: baseline; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 1rem; padding: 8px 10px; margin-left: -10px; border-radius: 8px; min-height: 40px; text-shadow: 0 0 3px #000, 0 1px 12px #000; }
+        .orbit-hero .orbit-quick .n { font-family: var(--omono); font-weight: 400; font-size: .74rem; letter-spacing: .14em; color: var(--cyan); }
+        .orbit-hero .orbit-quick a:hover, .orbit-hero .orbit-quick a:focus-visible { background: rgba(255,196,107,.12); }
+        .orbit-hero .orbit-quick a:hover .n, .orbit-hero .orbit-quick a:focus-visible .n { color: var(--amber); }
+        .orbit-hero .orbit-quick a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+        .orbit-hero .fade { position: absolute; inset: 0; z-index: 6; background: #fff; opacity: 0; pointer-events: none; transition: opacity .5s ease; }
+        .orbit-hero .fade.on { opacity: 1; }
+        @media (max-width: 640px) {
+            .orbit-hero .hint { display: none !important; }
+            .orbit-hero .st .l { font-size: .95rem; max-width: 12ch; }
+            /* phones: stations show only their number (the labelled links are the fixed ones, lower left);
+               the label is still in the page for screen readers, and appears on hover/focus/selection */
+            .orbit-hero .st:not(.on):not(:hover):not(:focus-visible) .l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+        }
+        /* --nav-h is the nav's measured height (set by js/orbit.js; fallbacks are the usual sizes). The nav is in flow at
+           <=1100px and fixed above it; the hero starts below it either way, so the name/tagline never sit under the nav. */
+        .orbit-hero { height: calc(100vh - var(--nav-h, 99px)); height: calc(100svh - var(--nav-h, 99px)); }
+        @media (min-width: 1101px) { .orbit-hero { margin-top: var(--nav-h, 105px); } }
+
+        /* Intro block directly below the Orbit hero (the old hero's copy, unchanged) */
+        .hero.hero-intro { min-height: 0; padding: 5rem 10% 4rem 10%; }
         /* Metrics / Social Proof Bar */
         .metrics-bar {
             padding: 2rem 0 0 0; 
@@ -526,6 +579,21 @@
             font-size: 1.1rem;
         }
 
+        .end-doors { margin-bottom: 2.5rem; }
+
+        footer .end-doors p {
+            margin: 0 auto 0.75rem auto;
+            font-size: 1.05rem;
+        }
+
+        footer .end-doors strong { color: var(--text-main); }
+
+        footer .end-doors a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
         .footer-links {
             margin-top: 3rem;
             padding-top: 2rem;
@@ -598,8 +666,10 @@
         }
 
         @media (max-width: 768px) {
-            .hero { padding: 8rem 5% 4rem 5%; justify-content: center; }
+            .hero { padding: 3rem 5% 4rem 5%; justify-content: center; }
+            .hero.hero-intro { padding: 3rem 5% 4rem 5%; }
             .hero h1 { font-size: 2.5rem; }
+            .hero h2 { font-size: 1.35rem; margin: 0.75rem 0 1.5rem 0; }
             
             .metrics-bar { 
                 grid-template-columns: repeat(2, 1fr); 
@@ -607,7 +677,7 @@
                 padding-top: 1.5rem;
             }
             .metric h3 { font-size: 2rem; }
-            
+
             .services, .testimonials, .insights { padding: 4rem 5%; }
             .matrix-container { padding: 2rem; }
         }
@@ -668,15 +738,30 @@
 
 <main id="main" tabindex="-1">
 
-    <header class="hero">
+    <header class="orbit-hero" id="orbit-hero">
+        <canvas id="orbit-c" aria-hidden="true"></canvas>
+        <div class="ident">
+            <p class="name">Tim Downs Mullen</p>
+            <h1 class="tag">Accountable systems for people who <span>can't afford a mistake.</span></h1>
+        </div>
+        <p class="hint" aria-hidden="true"><b>drag</b> to rotate · <b>select</b> a station</p>
+        <div role="navigation" aria-label="Where to start"><ul class="orbit-doors"></ul></div>
+        <div role="navigation" aria-label="Quick links">
+            <ul class="orbit-quick">
+                <li><a href="hiring.html" data-i="0"><span class="n">01</span>Career</a></li>
+                <li><a href="built-with-ai.html" data-i="1"><span class="n">02</span>AI Work</a></li>
+                <li><a href="company.html" data-i="2"><span class="n">03</span>HIPAAPath</a></li>
+            </ul>
+        </div>
+        <div class="fade" id="orbit-fade"></div>
+    </header>
+
+    <section class="hero hero-intro">
         <p class="overline">Systems Engineering & Agile Architecture</p>
-        <h1>Accountable systems for people who can't afford a mistake.</h1>
         <h2>Avionics-grade engineering discipline, applied to AI-era software — for regulated teams and small practices alike.</h2>
         <p class="description">
             Bringing 25 years in software — 15 years of it in Tier-1 aerospace, where I built the security boundary between flight decks and the ground services that update them — and autonomous execution principles to mission-critical delivery, now augmented with AI-assisted SDLC under engineering control. Specializing in Lean optimization, EVMS alignment, multi-agent architecture, and scaling execution across high-compliance environments.
         </p>
-        <p class="description" style="margin-top: -2rem; font-size: 1.05rem;">Now: <a href="https://www.hipaapath.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">HIPAAPath</a> — guided, audit-ready HIPAA documentation for small practices.</p>
-        <p class="description" style="margin-top: -2rem; font-size: 1.05rem;">Run a healthcare practice and worried about staff using AI with client data? <a href="ai-hipaa-readiness.html" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">I do fixed-fee AI + HIPAA readiness assessments &rarr;</a></p>
         <div class="metrics-bar">
             <div class="metric">
                 <h3>2.5x</h3>
@@ -696,12 +781,12 @@
             </div>
         </div>
         <p style="margin-top: 2.5rem; font-size: 0.95rem; color: var(--text-muted); max-width: 900px;"><strong style="color: var(--text-main);">Tim Downs Mullen</strong> &mdash; 25 years in software, 21 in regulated industries, based in Cedar Rapids, Iowa. Avionics at <strong style="color: var(--text-main);">Rockwell Collins / Collins Aerospace</strong> (DO-178B/C; EVMS Control Account Manager on $10M+ baselines) · Enterprise Agile transformation at <strong style="color: var(--text-main);">Transamerica</strong> · U.S. Marine Corps · Founder, <strong style="color: var(--text-main);">TDM Technologies</strong>.</p>
-    </header>
+    </section>
 
     <section id="who" class="services" style="padding-bottom: 3rem;">
         <h2 class="section-title">Tim Downs Mullen &mdash; avionics-grade engineering, applied to regulated software</h2>
         <p class="section-subtitle" style="max-width: 760px; margin-bottom: 0; text-align: left;">
-            I&rsquo;m Tim Downs Mullen, an engineering leader in Cedar Rapids, Iowa &mdash; fifteen years on certified avionics at <strong>Rockwell Collins</strong> and <strong>Collins Aerospace</strong>, DO-178B/C DAL B on flight management systems, and the onboard information systems behind Pro&nbsp;Line 4, 21 and Fusion flight decks. I&rsquo;m a named inventor on U.S. patents. Today I run <strong>TDM Technologies</strong> and <a href="https://www.hipaapath.com" style="color: var(--primary-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 3px;">HIPAAPath</a>: self-serve HIPAA compliance for solo and small healthcare practices, where the documentation stays in the practice&rsquo;s own storage.
+            I&rsquo;m Tim Downs Mullen, an engineering leader in Cedar Rapids, Iowa &mdash; fifteen years on certified avionics at <strong>Rockwell Collins</strong> and <strong>Collins Aerospace</strong>, DO-178B/C DAL B on flight management systems, and the onboard information systems behind Pro&nbsp;Line 4, 21 and Fusion flight decks. I&rsquo;m a named inventor on two U.S. patents. Today I run <strong>TDM Technologies</strong> and <a href="https://www.hipaapath.com" style="color: var(--primary-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 3px;">HIPAAPath</a>: self-serve HIPAA compliance for solo and small healthcare practices, where the documentation stays in the practice&rsquo;s own storage.
         </p>
     </section>
 
@@ -823,6 +908,18 @@
         
         <div class="insights-grid">
             <div class="insight-card">
+                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">#</span>
+                </div>
+                <div class="insight-content">
+                    <span class="insight-type">Field Report</span>
+                    <h3>Tamper-Evident Audit Logs</h3>
+                    <p>My paper promised a tamper-evident log of every AI agent gate decision, and the code kept less of that promise. So I built the claim true, then adversarial reviewers found the <code>..</code> that slipped past it.</p>
+                    <a href="authorizations-record.html" class="read-more">Read Field Report &rarr;</a>
+                </div>
+            </div>
+
+            <div class="insight-card">
                 <div class="insight-graphic">
                     <img src="onedesktop.png" alt="Transamerica One Desktop Initiative Logo" width="1137" height="795" loading="lazy" decoding="async">
                 </div>
@@ -831,18 +928,6 @@
                     <h3>Transamerica 'One Desktop'</h3>
                     <p>Demonstrating the <strong>Connect</strong> and <strong>Count</strong> pillars: How an enterprise Agile transformation and rigorous SDLC compliance aligned matrixed stakeholders and led to a Best New Initiative award.</p>
                     <a href="case-study-transamerica.html" class="read-more">Read Case Study &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">&#8800;</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Practitioner Essay</span>
-                    <h3>Six Practices Survived a Certified Program</h3>
-                    <p>Twelve years as the Agile guy, most of it where you can't skip a document. When every ceremony competes with certification evidence, you find out fast which practices are load-bearing &mdash; and which ones only a reporting line would miss.</p>
-                    <a href="agile-without-the-words.html" class="read-more">Read the Essay &rarr;</a>
                 </div>
             </div>
 
@@ -858,88 +943,22 @@
                 </div>
             </div>
 
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">#</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Field Report</span>
-                    <h3>Tamper-Evident Audit Logs</h3>
-                    <p>My paper promised a tamper-evident log of every AI agent gate decision, and the code kept less of that promise. So I built the claim true, then adversarial reviewers found the <code>..</code> that slipped past it.</p>
-                    <a href="authorizations-record.html" class="read-more">Read Field Report &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">&#9636;</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Field Report</span>
-                    <h3>Externalized Memory</h3>
-                    <p>Your agent forgets everything; your filesystem doesn't. One on-disk state file per project as the single source of truth — the scars from making it trustworthy, and why git, not the file, is the ground truth.</p>
-                    <a href="externalized-memory.html" class="read-more">Read Field Report &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">&#9939;</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Field Report</span>
-                    <h3>Fail-Closed AI Agents</h3>
-                    <p>Prose tells an AI agent to behave. A gate <em>makes</em> it. Why I moved agent governance out of the system prompt and into the tool boundary — fail-open vs. fail-closed, two war stories, and the audit trail you get for free.</p>
-                    <a href="plan-gate.html" class="read-more">Read Field Report &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic" style="background: linear-gradient(135deg, #0a192f 0%, #112240 100%); display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: monospace; font-size: 2.5rem; color: #64ffda; opacity: 0.6;">{ }</span>
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Case Study</span>
-                    <h3>Multi-Agent Handoff Protocol</h3>
-                    <p>What breaks when you give two AI agents a shared notepad, and the architecture that fixed it. Context rot, junk drawer handoffs, and cross-project contamination — three failure modes with one root cause.</p>
-                    <a href="multi-agent-handoff-protocol.html" class="read-more">Read Case Study &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic">
-                    <img src="5csFrameworkImage.jpg" alt="5 C's Framework" width="1024" height="559" loading="lazy" decoding="async">
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Whitepaper</span>
-                    <h3>The 5 C's Framework</h3>
-                    <p>Fostering Connect, Count, Capable, Courage, and Choice (Autonomy & Ownership) in highly regulated environments. Scaling autonomous execution by shifting from blame-oriented 'Why' to discovery-oriented 'What' questions.</p>
-                    <a href="5c-framework.html" class="read-more">Read Whitepaper &rarr;</a>
-                </div>
-            </div>
-
-            <div class="insight-card">
-                <div class="insight-graphic">
-                    <img src="Slide Deck Image.jpg" alt="Slide Deck Image" width="1024" height="559" loading="lazy" decoding="async">
-                </div>
-                <div class="insight-content">
-                    <span class="insight-type">Slide Walkthrough</span>
-                    <h3>Implementing the 5 C's</h3>
-                    <p>An executive briefing and tactical rollout strategy for embedding the 5 C's across traditional waterfall and V-Model lifecycles, accelerating delivery without sacrificing DO-178B/C compliance.</p>
-                    <a href="5c-presentation.html" class="read-more">View Slide Deck &rarr;</a>
-                </div>
-            </div>
         </div>
+
+        <p style="text-align: center; margin-top: 3rem; margin-bottom: 0;"><a href="insights.html" class="read-more">All insights &rarr;</a></p>
     </section>
 
 </main>
 
     <footer>
-        <h2>Ready to optimize your SDLC?</h2>
-        <p>Whether you require a strategic Agile pivot, embedded coaching, or rigorous systems engineering leadership, predictable delivery starts here.</p>
+        <h2>Where to go from here</h2>
+        <div class="end-doors">
+            <p><strong>Hiring?</strong> <a href="hiring.html">See the roles &rarr;</a></p>
+            <p><strong>AI work?</strong> <a href="built-with-ai.html">See how I work with AI under engineering control &rarr;</a> Healthcare practice? <a href="ai-hipaa-readiness.html">AI + HIPAA readiness assessment &rarr;</a></p>
+            <p><strong>HIPAAPath or TDM Technologies?</strong> <a href="company.html">Start with the company page &rarr;</a></p>
+        </div>
         <a href="mailto:tim@tdmtechsolutions.com" class="btn-primary">Contact Tim Downs Mullen</a>
         <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">tim@tdmtechsolutions.com</a></p>
-        <p style="margin-top: 1rem;">Run a healthcare practice? Start with an <a href="ai-hipaa-readiness.html" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">AI + HIPAA readiness assessment &rarr;</a></p>
         <div class="footer-links">
             <a href="https://github.com/downsmullen">GitHub</a>
             <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
@@ -957,6 +976,7 @@
         this.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 </script>
+<script src="js/orbit.js" defer></script>
 <script src="js/fish.js" defer data-autostart></script>
 </body>
 </html>
