@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <title>How This Site Is Built: AI Agents, Human Merge | Tim Downs Mullen</title>
+    <link rel="canonical" href="https://downsmullen.com/built-with-ai.html">
+    <meta name="description" content="AI builder agents work in parallel branches, an independent AI reviewer checks them, and a person approves every page change. The loop, the public pull requests, and a fail-closed gate you can try.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://downsmullen.com/built-with-ai.html">
+    <meta property="og:title" content="How This Site Is Built: AI Agents, Human Merge | Tim Downs Mullen">
+    <meta property="og:description" content="AI builds this site. A person approves every page change. The loop, the public pull requests, and a small fail-closed gate you can try.">
+    <meta property="og:image" content="https://downsmullen.com/TDM.Monogram.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How This Site Is Built: AI Agents, Human Merge | Tim Downs Mullen">
+    <meta name="twitter:description" content="AI builds this site. A person approves every page change. The loop, the public pull requests, and a small fail-closed gate you can try.">
+    <meta name="twitter:image" content="https://downsmullen.com/TDM.Monogram.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a192f;
+            --primary-light: #112240;
+            --accent: #64ffda;
+            --text-main: #ccd6f6;
+            --text-muted: #a8b2d1;
+            --bg-white: #ffffff;
+            --text-dark: #0f172a;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            background-color: rgba(10, 25, 47, 0.95);
+            position: fixed;
+            width: 90%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo a {
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        .nav-cta {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent) !important;
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--accent);
+            color: var(--primary-dark) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            line-height: 1;
+        }
+
+        /* Article header */
+        .cs-header {
+            padding: 10rem 10% 4rem 10%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .cs-type {
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .cs-header h1 {
+            font-size: clamp(32px, 4vw, 60px);
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 1rem 0;
+            line-height: 1.1;
+            max-width: 900px;
+        }
+
+        .cs-header p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 0;
+        }
+
+        .cs-dates {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin: 1.5rem 0 0 0;
+        }
+
+        /* White reading sections */
+        .bw-section {
+            padding: 5rem 10%;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .bw-section.alt { background-color: #f8fafc; border-top: 1px solid #e2e8f0; }
+
+        .bw-inner { max-width: 860px; margin: 0 auto; }
+
+        .bw-inner h2 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin: 0 0 1.5rem 0;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .bw-inner h3 {
+            font-size: 1.2rem;
+            color: var(--primary-light);
+            margin: 2rem 0 0.75rem 0;
+            font-weight: 800;
+        }
+
+        .bw-inner p, .bw-inner li {
+            color: #475569;
+            font-size: 1.1rem;
+        }
+
+        .bw-inner p { margin: 0 0 1.5rem 0; }
+        .bw-inner li { margin-bottom: 0.75rem; }
+        .bw-inner ul, .bw-inner ol { padding-left: 1.5rem; margin: 0 0 2rem 0; }
+        .bw-inner li strong, .bw-inner p strong { color: var(--primary-dark); }
+
+        .bw-inner a { color: #0369a1; font-weight: 600; overflow-wrap: anywhere; }
+
+        .bw-inner code {
+            font-family: monospace;
+            font-size: 0.95em;
+            background: #f1f5f9;
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            color: var(--primary-dark);
+            overflow-wrap: anywhere;
+        }
+
+        .answer-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--primary-light);
+            border-radius: 0 6px 6px 0;
+            padding: 1.5rem 1.75rem;
+            margin: 0;
+        }
+
+        .bw-inner .answer-box h2 { font-size: 1.35rem; margin: 0 0 0.75rem 0; }
+        .bw-inner .answer-box p { color: var(--text-dark); margin-bottom: 0; }
+
+        .bw-inner blockquote {
+            border-left: 4px solid var(--accent);
+            margin: 2rem 0;
+            padding: 0.5rem 1.5rem;
+            background: #f8fafc;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .bw-inner blockquote p {
+            font-style: italic;
+            color: var(--primary-dark);
+            margin-bottom: 0;
+        }
+
+        /* Loop diagram (inline SVG). It sits on its own light panel so it reads
+           the same in either of the site's two colour themes. */
+        .loop-figure {
+            margin: 2rem 0 2.5rem 0;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.25rem 0.75rem 1rem 0.75rem;
+        }
+
+        .loop-figure svg {
+            display: block;
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .loop-figure figcaption {
+            font-size: 0.9rem;
+            color: #64748b;
+            text-align: center;
+            margin-top: 0.75rem;
+            padding: 0 0.5rem;
+        }
+
+        .lp-step { fill: #ffffff; stroke: #112240; stroke-width: 1.5; }
+        .lp-lane { fill: #f1f5f9; stroke: #112240; stroke-width: 1.25; }
+        .lp-human { fill: #64ffda; stroke: #0a192f; stroke-width: 2; }
+        .lp-live { fill: #0a192f; stroke: #0a192f; stroke-width: 1.5; }
+        .lp-arrow { stroke: #112240; stroke-width: 2; fill: none; }
+        .lp-head { fill: #112240; }
+        .lp-loop { stroke: #0369a1; stroke-width: 2; fill: none; stroke-dasharray: 5 4; }
+        .lp-loop-head { fill: #0369a1; }
+        .lp-label { fill: #0a192f; font-size: 14px; font-weight: 800; letter-spacing: 0.8px; }
+        .lp-text { fill: #475569; font-size: 12.5px; }
+        .lp-text-dark { fill: #0a192f; font-size: 12.5px; }
+        .lp-lane-text { fill: #0a192f; font-size: 12px; font-weight: 600; }
+        .lp-label-inv { fill: #64ffda; font-size: 14px; font-weight: 800; letter-spacing: 0.8px; }
+        .lp-text-inv { fill: #ccd6f6; font-size: 12.5px; }
+        .lp-tag { fill: #0369a1; font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+        .lp-tag-dark { fill: #0a192f; font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+        .lp-loop-text { fill: #0369a1; font-size: 12px; font-weight: 700; letter-spacing: 0.3px; }
+
+        @media (forced-colors: active) {
+            .lp-step, .lp-lane, .lp-human, .lp-live { fill: Canvas; stroke: CanvasText; }
+            .lp-arrow, .lp-loop { stroke: CanvasText; }
+            .lp-head, .lp-loop-head { fill: CanvasText; }
+            .lp-label, .lp-text, .lp-text-dark, .lp-lane-text, .lp-label-inv, .lp-text-inv,
+            .lp-tag, .lp-tag-dark, .lp-loop-text { fill: CanvasText; }
+        }
+
+        /* Evidence cards */
+        .pr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin: 1.5rem 0 2rem 0;
+        }
+
+        .pr-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid var(--accent);
+            border-radius: 0 0 6px 6px;
+            padding: 1.25rem 1.25rem 1rem 1.25rem;
+        }
+
+        .bw-inner .pr-card h3 { margin: 0 0 0.5rem 0; font-size: 1.05rem; }
+        .bw-inner .pr-card p { font-size: 0.98rem; margin: 0 0 0.75rem 0; }
+
+        .pr-meta {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #475569;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .link-card {
+            display: block;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1.1rem 1.25rem;
+            margin-bottom: 1rem;
+            text-decoration: none;
+        }
+
+        .link-card:hover, .link-card:focus-visible { border-color: #0369a1; box-shadow: 0 6px 14px -6px rgba(15, 23, 42, 0.25); }
+
+        .bw-inner .link-card .lc-title { display: block; color: var(--primary-dark); font-weight: 800; font-size: 1.05rem; }
+        .bw-inner .link-card .lc-body { display: block; color: #475569; font-weight: 400; font-size: 0.98rem; margin-top: 0.3rem; }
+        .bw-inner .link-card .lc-go { display: block; color: #0369a1; font-weight: 600; font-size: 0.9rem; margin-top: 0.4rem; }
+
+        /* Demo (dark theme section) */
+        .demo-section {
+            padding: 5rem 10%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: var(--text-main);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .demo-inner { max-width: 860px; margin: 0 auto; }
+
+        .demo-inner h2 { font-size: 2rem; margin: 0 0 1rem 0; color: var(--text-main); font-weight: 800; line-height: 1.2; }
+        .demo-inner h3 { font-size: 1.1rem; margin: 2rem 0 0.75rem 0; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        .demo-inner p { color: var(--text-muted); font-size: 1.05rem; margin: 0 0 1.25rem 0; }
+        .demo-inner a { color: var(--accent); font-weight: 600; }
+        .demo-inner code { font-family: monospace; color: var(--text-main); background: rgba(255,255,255,0.08); padding: 0.05rem 0.3rem; border-radius: 3px; overflow-wrap: anywhere; }
+
+        .sim-tag {
+            display: inline-block;
+            font-family: monospace;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--primary-dark);
+            background: #ffd166;
+            border-radius: 3px;
+            padding: 0.1rem 0.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .plan-card {
+            background: rgba(10, 25, 47, 0.6);
+            border: 1px solid rgba(100, 255, 218, 0.25);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.98rem;
+            color: var(--text-muted);
+        }
+
+        .plan-card strong { color: var(--text-main); }
+        .plan-card ul { margin: 0.4rem 0 0 0; padding-left: 1.25rem; }
+        .plan-card li { margin-bottom: 0.2rem; }
+
+        .gate-form label { display: block; font-weight: 600; color: var(--text-main); margin-bottom: 0.4rem; }
+
+        .gate-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+        .gate-row input[type="text"] {
+            flex: 1 1 240px;
+            min-width: 0;
+            font: inherit;
+            font-family: monospace;
+            font-size: 1rem;
+            color: var(--text-main);
+            background: var(--primary-dark);
+            border: 1px solid rgba(204, 214, 246, 0.45);
+            border-radius: 4px;
+            padding: 0.75rem 0.9rem;
+        }
+
+        .demo-btn {
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--accent);
+            background: rgba(100, 255, 218, 0.08);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            padding: 0.7rem 1.1rem;
+            cursor: pointer;
+        }
+
+        .demo-btn:hover { background: rgba(100, 255, 218, 0.2); }
+
+        .demo-btn.quiet {
+            color: var(--text-main);
+            background: transparent;
+            border-color: rgba(204, 214, 246, 0.4);
+            font-weight: 400;
+            font-size: 0.9rem;
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+        }
+
+        .demo-btn.quiet:hover { border-color: var(--accent); color: var(--accent); }
+
+        .demo-inner :focus-visible,
+        .bw-inner :focus-visible,
+        .cs-header :focus-visible,
+        footer :focus-visible,
+        nav :focus-visible {
+            outline: 3px solid #ffd166;
+            outline-offset: 2px;
+        }
+
+        .bw-inner :focus-visible { outline-color: #0369a1; }
+
+        .presets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 0 0; }
+
+        .gate-result {
+            margin-top: 1.5rem;
+            min-height: 5.5rem;
+            background: rgba(10, 25, 47, 0.6);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+        }
+
+        .gate-result .placeholder { color: var(--text-muted); margin: 0; }
+
+        .verdict {
+            display: inline-block;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            font-size: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            border: 2px solid;
+        }
+
+        .verdict.allowed { color: var(--accent); border-color: var(--accent); background: rgba(100, 255, 218, 0.1); }
+        .verdict.blocked { color: #ff9b9b; border-color: #ff9b9b; background: rgba(255, 155, 155, 0.1); }
+        .verdict.held { color: #ffd166; border-color: #ffd166; background: rgba(255, 209, 102, 0.1); }
+
+        .gate-result .acted { font-family: monospace; color: var(--text-main); margin: 0.75rem 0 0.25rem 0; overflow-wrap: anywhere; }
+        .gate-result .reason { color: var(--text-main); margin: 0 0 0.75rem 0; }
+        .gate-result .note { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+
+        .log-wrap {
+            font-family: monospace;
+            font-size: 0.85rem;
+            background: #06101f;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            max-height: 16rem;
+            overflow: auto;
+            color: var(--text-main);
+        }
+
+        .log-wrap ol { list-style: none; margin: 0; padding: 0; }
+        .log-wrap li { margin: 0 0 0.6rem 0; padding-bottom: 0.6rem; border-bottom: 1px dashed rgba(255,255,255,0.1); overflow-wrap: anywhere; line-height: 1.45; }
+        .log-wrap li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+        .log-wrap .empty { color: var(--text-muted); }
+        .log-wrap .bad { color: #ff9b9b; }
+        .log-wrap .hash { color: var(--text-muted); }
+
+        .log-tools { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 0.9rem; }
+        .log-tools select {
+            font: inherit;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            background: var(--primary-dark);
+            border: 1px solid rgba(204, 214, 246, 0.45);
+            border-radius: 4px;
+            padding: 0.5rem 0.6rem;
+            max-width: 100%;
+        }
+
+        .log-tools label { font-size: 0.9rem; color: var(--text-muted); }
+
+        .verify-status { margin: 0.9rem 0 0 0; min-height: 1.6em; color: var(--text-main); font-size: 0.98rem; }
+
+        /* Tables */
+        .table-scroll { overflow-x: auto; margin: 0 0 1.5rem 0; }
+
+        table.rules {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        table.rules caption { text-align: left; font-weight: 600; padding-bottom: 0.5rem; }
+        table.rules th, table.rules td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.12); }
+        table.rules th { color: var(--accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        table.rules td { color: var(--text-main); }
+        table.rules td:first-child { font-family: monospace; overflow-wrap: anywhere; }
+        table.rules .v-allowed { color: var(--accent); font-weight: 800; }
+        table.rules .v-blocked { color: #ff9b9b; font-weight: 800; }
+        table.rules .v-held { color: #ffd166; font-weight: 800; }
+
+        .demo-inner .small { font-size: 0.9rem; }
+
+        .no-js-note { margin-top: 0; }
+
+        /* Footer */
+        footer {
+            padding: 6rem 10%;
+            text-align: center;
+            background-color: var(--primary-dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer h2 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-main); line-height: 1.15; }
+
+        footer p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            font-size: 1.1rem;
+        }
+
+        .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; }
+
+        .footer-links {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--accent); }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover { background-color: rgba(100, 255, 218, 0.1); }
+
+        .footer-legal {
+            margin: 2rem auto 0 auto;
+            max-width: 780px;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            opacity: 0.75;
+        }
+
+        .back-link { text-align: center; padding: 2rem 5%; }
+        .back-link a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+        .back-link a:hover { color: var(--text-main); }
+
+        @media (max-width: 1100px) {
+            .menu-toggle { display: block; }
+            nav { position: relative; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-dark);
+                padding: 1rem 5%;
+                gap: 1rem;
+                z-index: 99;
+                border-top: 1px solid rgba(100,255,218,0.1);
+            }
+            .nav-links.open { display: flex; }
+        }
+
+        @media (max-width: 900px) {
+            .cs-header { padding: 8rem 5% 3rem 5%; }
+            .bw-section, .demo-section { padding: 3.5rem 5%; }
+            footer { padding: 4rem 5%; }
+            footer h2 { font-size: 1.9rem; }
+            .answer-box { padding: 1.25rem; }
+        }
+
+        @media (max-width: 480px) {
+            .cs-header { padding-top: 3rem; }
+            .bw-inner h2, .demo-inner h2 { font-size: 1.6rem; }
+            .btn-primary { padding: 0.9rem 1.25rem; }
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 1000;
+            padding: 0.75rem 1.25rem;
+            background: #ffffff;
+            color: #0a192f;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid #0369a1;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus { left: 0; }
+        main[tabindex="-1"]:focus { outline: none; }
+
+        /* Result reveal: only for visitors who have not asked for reduced motion */
+        @media (prefers-reduced-motion: no-preference) {
+            .gate-result.fresh { animation: gate-in 0.35s ease-out; }
+            @keyframes gate-in {
+                from { opacity: 0; transform: translateY(6px); }
+                to { opacity: 1; transform: none; }
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://downsmullen.com/#person",
+          "name": "Tim Downs Mullen",
+          "givenName": "Tim",
+          "familyName": "Downs Mullen",
+          "additionalName": [
+            "Timothy S. Downs Mullen",
+            "Timothy Shane Downs Mullen"
+          ],
+          "url": "https://downsmullen.com/",
+          "jobTitle": "Founder and Lead Engineer",
+          "description": "Fifteen years on certified avionics at Collins Aerospace — DO-178B/C DAL B, flight management systems. Named inventor on two U.S. patents. Founder of HIPAAPath, HIPAA compliance for small practices.",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "TDM Technologies"
+          },
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Iowa State University",
+            "sameAs": "https://www.iastate.edu/"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Cedar Rapids",
+            "addressRegion": "IA",
+            "addressCountry": "US"
+          },
+          "knowsAbout": [
+            "DO-178B/C software certification",
+            "Avionics software engineering",
+            "Flight management systems",
+            "ARP4754 systems development",
+            "Safety-critical systems",
+            "HIPAA Security Rule",
+            "NIST SP 800-66",
+            "Enterprise Agile transformation",
+            "Earned Value Management Systems (EVMS)",
+            "Multi-agent AI orchestration",
+            "AI governance in regulated industries"
+          ],
+          "sameAs": [
+            "https://github.com/downsmullen",
+            "https://www.linkedin.com/in/tim-downs-mullen-0599a050",
+            "https://www.npmjs.com/package/eslint-plugin-strictlock",
+            "https://patents.google.com/patent/US8736464B1/en",
+            "https://patents.google.com/patent/US7471199B2/en"
+          ]
+        },
+        {
+          "@type": "Article",
+          "@id": "https://downsmullen.com/built-with-ai.html#article",
+          "headline": "How This Site Is Built: AI Agents, Human Merge",
+          "description": "AI builder agents work in parallel branches, an independent AI reviewer checks them, and a person approves every page change. The loop, the public pull requests, and a fail-closed gate you can try.",
+          "author": {
+            "@id": "https://downsmullen.com/#person"
+          },
+          "publisher": {
+            "@id": "https://downsmullen.com/#person"
+          },
+          "datePublished": "2026-10-19",
+          "dateModified": "2026-10-19",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://downsmullen.com/built-with-ai.html"
+          },
+          "url": "https://downsmullen.com/built-with-ai.html",
+          "image": "https://downsmullen.com/TDM.Monogram.webp",
+          "inLanguage": "en"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+    <nav>
+        <div class="logo"><a href="index.html">Tim <span>Downs Mullen</span></a></div>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html#expertise">Capabilities</a>
+            <a href="index.html#matrix">Technical Stack</a>
+            <a href="index.html#feedback">Feedback</a>
+            <a href="index.html#insights">Insights</a>
+            <a href="about.html">About</a>
+            <a href="mailto:tim@tdmtechsolutions.com" class="nav-cta">Contact</a>
+        </div>
+    </nav>
+
+<main id="main" tabindex="-1">
+
+    <header class="cs-header">
+        <span class="cs-type">Field Report — How This Site Is Built</span>
+        <h1>AI builds this site. A person approves every page change.</h1>
+        <p class="subtitle">Parallel AI builders work in isolated branches, an independent AI reviewer checks what they made, and no page change publishes until I say so. Here is the loop, the public record behind it, and a small gate you can try yourself.</p>
+        <p style="margin: 1.5rem 0 0 0;"><a href="#demo" class="btn-primary">Try the gate &darr;</a></p>
+        <p class="cs-dates">First published: 2026-10-19. Pull-request details and counts below were read from GitHub on 2026-10-19.</p>
+    </header>
+
+    <section class="bw-section" aria-labelledby="short-answer-h">
+        <div class="bw-inner">
+            <div class="answer-box">
+                <h2 id="short-answer-h">How is this site built?</h2>
+                <p>By AI agents working under a written plan, each on its own Git branch, followed by an independent AI reviewer and then a human decision. The builders write the pages. A separate reviewer looks for what is wrong with them. I read the result and decide whether it merges. This site is hosted on GitHub Pages, so a merge to <code>main</code> is also a publish. For any change to a page, the merge is the control point, and it is mine.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bw-section alt" aria-labelledby="loop-h">
+        <div class="bw-inner">
+            <h2 id="loop-h">The loop</h2>
+            <p>The same cycle runs for every batch of changes. The AI does the volume work; the steps that carry authority stay with a person.</p>
+
+            <figure class="loop-figure">
+                <svg viewBox="0 0 390 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="lp-title lp-desc">
+                    <title id="lp-title">The build loop: plan, parallel AI builder lanes, independent AI review, fix rounds, human approval, merge and publish, live verification</title>
+                    <desc id="lp-desc">Step 1, plan: a written batch plan names the lanes and the files each may touch. Step 2, build: three AI builder lanes, A, B and C, work in parallel, each in its own isolated branch. Step 3, review: an independent AI reviewer checks the work. Findings go back to the builder lanes for a fix round, at most two rounds. Step 4, human nod: Tim approves every change to the site's pages; internal docs may merge without it. Step 5, merge equals publish: merging to the main branch deploys the live site. Step 6, live verification: the published page is checked.</desc>
+
+                    <rect class="lp-step" x="16" y="10" width="320" height="70" rx="6"/>
+                    <text class="lp-label" x="176" y="34" text-anchor="middle">1 · PLAN</text>
+                    <text class="lp-text" x="176" y="54" text-anchor="middle">A written batch plan names the lanes</text>
+                    <text class="lp-text" x="176" y="70" text-anchor="middle">and the files each lane may touch</text>
+
+                    <path class="lp-arrow" d="M176 80 V98"/>
+                    <polygon class="lp-head" points="170,96 182,96 176,106"/>
+
+                    <rect class="lp-step" x="16" y="106" width="320" height="110" rx="6"/>
+                    <text class="lp-label" x="30" y="130">2 · BUILD IN PARALLEL</text>
+                    <text class="lp-tag" x="322" y="130" text-anchor="end">AI</text>
+                    <rect class="lp-lane" x="28" y="142" width="92" height="52" rx="4"/>
+                    <rect class="lp-lane" x="130" y="142" width="92" height="52" rx="4"/>
+                    <rect class="lp-lane" x="232" y="142" width="92" height="52" rx="4"/>
+                    <text class="lp-lane-text" x="74" y="162" text-anchor="middle">Lane A</text>
+                    <text class="lp-lane-text" x="176" y="162" text-anchor="middle">Lane B</text>
+                    <text class="lp-lane-text" x="278" y="162" text-anchor="middle">Lane C</text>
+                    <text class="lp-text" x="74" y="180" text-anchor="middle">own branch</text>
+                    <text class="lp-text" x="176" y="180" text-anchor="middle">own branch</text>
+                    <text class="lp-text" x="278" y="180" text-anchor="middle">own branch</text>
+                    <text class="lp-text" x="176" y="208" text-anchor="middle">Isolated from each other and from main</text>
+
+                    <path class="lp-arrow" d="M176 216 V234"/>
+                    <polygon class="lp-head" points="170,232 182,232 176,242"/>
+
+                    <rect class="lp-step" x="16" y="242" width="320" height="70" rx="6"/>
+                    <text class="lp-label" x="30" y="266">3 · INDEPENDENT REVIEW</text>
+                    <text class="lp-tag" x="322" y="266" text-anchor="end">AI</text>
+                    <text class="lp-text" x="176" y="288" text-anchor="middle">A separate reviewer, not the author,</text>
+                    <text class="lp-text" x="176" y="304" text-anchor="middle">reads the change and reports findings</text>
+
+                    <path class="lp-loop" d="M336 277 H356 V161 H342"/>
+                    <polygon class="lp-loop-head" points="344,155 344,167 334,161"/>
+                    <text class="lp-loop-text" x="372" y="219" text-anchor="middle" transform="rotate(90 372 219)">FIX ROUNDS · MAX 2</text>
+
+                    <path class="lp-arrow" d="M176 312 V330"/>
+                    <polygon class="lp-head" points="170,328 182,328 176,338"/>
+
+                    <rect class="lp-human" x="16" y="338" width="320" height="76" rx="6"/>
+                    <text class="lp-label" x="30" y="362">4 · HUMAN NOD</text>
+                    <text class="lp-tag-dark" x="322" y="362" text-anchor="end">TIM</text>
+                    <text class="lp-text-dark" x="176" y="384" text-anchor="middle">I approve every page change.</text>
+                    <text class="lp-text-dark" x="176" y="402" text-anchor="middle">No nod, no page merge.</text>
+
+                    <path class="lp-arrow" d="M176 414 V432"/>
+                    <polygon class="lp-head" points="170,430 182,430 176,440"/>
+
+                    <rect class="lp-step" x="16" y="440" width="320" height="70" rx="6"/>
+                    <text class="lp-label" x="176" y="464" text-anchor="middle">5 · MERGE = PUBLISH</text>
+                    <text class="lp-text" x="176" y="484" text-anchor="middle">Merging to main deploys the live site</text>
+                    <text class="lp-text" x="176" y="500" text-anchor="middle">(GitHub Pages)</text>
+
+                    <path class="lp-arrow" d="M176 510 V528"/>
+                    <polygon class="lp-head" points="170,526 182,526 176,536"/>
+
+                    <rect class="lp-live" x="16" y="536" width="320" height="38" rx="6"/>
+                    <text class="lp-label-inv" x="176" y="560" text-anchor="middle">6 · VERIFY THE LIVE PAGE</text>
+                </svg>
+                <figcaption>AI steps are labelled AI; the human step is highlighted. The dashed arrow is the fix loop, capped at two rounds.</figcaption>
+            </figure>
+
+            <ol>
+                <li><strong>Plan.</strong> A written batch plan names the lanes and the files each lane may touch, so parallel work can't collide.</li>
+                <li><strong>Build in parallel.</strong> Each lane is an AI builder on its own branch. Branch names in the repository follow the work, such as <code>pub/authorizations-record</code> and <code>pub/deck-fixes</code>.</li>
+                <li><strong>Independent review.</strong> A separate AI reviewer, not the one that wrote the change, reads it and reports what's wrong.</li>
+                <li><strong>Fix rounds, at most two.</strong> Findings go back to the lane. If two rounds don't settle it, the question comes to me instead of looping.</li>
+                <li><strong>Human nod.</strong> I decide whether any change to a page merges: copy, content and visuals are mine to approve. Internal docs can merge without it.</li>
+                <li><strong>Merge is publish; then check the live page.</strong> Pushing to <code>main</code> is the deploy, so the check that matters is on the page a visitor sees.</li>
+            </ol>
+
+            <h3>What keeps the agents honest</h3>
+            <p>Four mechanisms do most of the work. The method itself lives in private notes, because the site's repository is public. This is what each one does.</p>
+            <ul>
+                <li><strong>A written batch plan.</strong> Scope is decided before anyone writes, and each lane's allowed files are listed.</li>
+                <li><strong>A facts file every public claim must trace to.</strong> Statements about my career have to match a private, source-checked facts file. Statements about the tooling have to match the field reports linked below.</li>
+                <li><strong>A do-not-write list.</strong> Claims I've ruled out because they don't hold up are listed, and reviewers check drafts against the list.</li>
+                <li><strong>One writer for shared state.</strong> Shared records have a single writer, so parallel lanes can't overwrite each other. The failures this prevents are documented in <a href="multi-agent-handoff-protocol.html">what breaks when two AI agents share a notepad</a>.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="bw-section" aria-labelledby="evidence-h">
+        <div class="bw-inner">
+            <h2 id="evidence-h">The record is public</h2>
+            <p>This site's repository is public, so the loop leaves a trail anyone can read. Four recent pull requests show it. Each description says what changed and who approved the merge, and each carries Claude Code's generation notice.</p>
+
+            <div class="pr-grid">
+                <article class="pr-card">
+                    <h3><a href="https://github.com/downsmullen/downsmullen.github.io/pull/9">#9 · Authorizations-record field report</a></h3>
+                    <span class="pr-meta">Merged 2026-10-13 · +767 / −0 · 3 files</span>
+                    <p>A new field report, a homepage card and a sitemap entry. Independent review plus one fix round. The description lists what the round changed: the wording of the paper's limits, the order of the checks, the teaser counts and an example row. Every number was checked against the StrictLock commits and spec.</p>
+                </article>
+                <article class="pr-card">
+                    <h3><a href="https://github.com/downsmullen/downsmullen.github.io/pull/10">#10 · Plan-gate page refresh</a></h3>
+                    <span class="pr-meta">Merged 2026-10-13 · +182 / −3 · 1 file</span>
+                    <p>A short-answer box, an inline-SVG gate diagram and a decision-log update. Independent review plus two fix rounds. Review changed what the page claims: self-protection was scoped to file writes with the shell blind spot stated, and plan coverage stopped being described as exact-match.</p>
+                </article>
+                <article class="pr-card">
+                    <h3><a href="https://github.com/downsmullen/downsmullen.github.io/pull/11">#11 · Deck fixes</a></h3>
+                    <span class="pr-meta">Merged 2026-10-13 · +260 / −72 · 2 files</span>
+                    <p>The presentation deck now always starts, with instant cuts under reduced motion and phone fixes. Independent review with no blockers, plus two fix rounds; claims were checked against the private facts files.</p>
+                </article>
+                <article class="pr-card">
+                    <h3><a href="https://github.com/downsmullen/downsmullen.github.io/pull/12">#12 · Case-study rulings</a></h3>
+                    <span class="pr-meta">Merged 2026-10-13 · +18 / −18 · 1 file</span>
+                    <p>My seven rulings from an audit applied to the Transamerica case study, with unsourced phrases removed. The description records that the merge was approved on 2026-10-13.</p>
+                </article>
+            </div>
+
+            <p>What review catches is the point. In the pull requests above it tightened claims that had run ahead of the evidence. In the StrictLock build behind the authorizations-record report, three adversarial AI reviewers found a <code>..</code> path trick that slipped past the log's self-protection; it was fixed the same day, as that report describes.</p>
+            <p>Three of these pull requests (#9, #10, #11) came from one batch, run as Lanes 2, 1 and 3 in the descriptions. The four merged between 00:08 and 10:53 UTC on 2026-10-13, adding 1,227 lines and removing 93 across seven files, as GitHub reports them on 2026-10-19. Line counts measure volume, not quality.</p>
+            <p>The repository is at <a href="https://github.com/downsmullen/downsmullen.github.io">github.com/downsmullen/downsmullen.github.io</a>.</p>
+        </div>
+    </section>
+
+    <section class="demo-section" id="demo" aria-labelledby="demo-h">
+        <div class="demo-inner">
+            <span class="sim-tag">Simulation</span>
+            <h2 id="demo-h">Try a fail-closed gate</h2>
+            <p>The loop above relies on one idea from my <a href="plan-gate.html">plan-gate field report</a>: don't ask an agent to behave; put a check it doesn't control between its intent and its effect, and let that check default to deny. Propose an action below and see what a gate like that does.</p>
+            <p class="small"><strong>A simplified illustration.</strong> This is a small script running in your browser, written to follow how the field reports describe the gate. It is not the StrictLock code, and nothing here touches a real system or a real log. It also leaves out the real gate's two deliberate exceptions: it fails open if it crashes, and a person can switch it off with an emergency bypass.</p>
+
+            <div class="plan-card">
+                <strong>The approved plan in this simulation</strong>
+                <ul>
+                    <li>Files that may be written, exact paths: <code>plan-gate.html</code></li>
+                    <li>Commands that may run, approved prefixes: <code>git status</code>, <code>git diff</code>, <code>git add</code>, <code>git commit</code></li>
+                    <li>The gate's own log directory: <code>gate-logs/</code></li>
+                </ul>
+            </div>
+
+            <div id="gate-demo" hidden>
+                <form class="gate-form" id="gate-form" autocomplete="off">
+                    <label for="gate-input">Proposed agent action</label>
+                    <div class="gate-row">
+                        <input type="text" id="gate-input" name="action" maxlength="200" spellcheck="false" autocapitalize="off" placeholder="e.g. edit plan-gate.html" aria-describedby="gate-hint">
+                        <button type="submit" class="demo-btn">Send through the gate</button>
+                    </div>
+                    <p id="gate-hint" class="small" style="margin:0.5rem 0 0 0;">Start with <code>edit</code>, <code>read</code> or a shell command. Or choose an example:</p>
+                    <div class="presets" id="gate-presets" role="group" aria-label="Example actions"></div>
+                </form>
+
+                <div class="gate-result" id="gate-result" role="status" aria-live="polite" aria-atomic="true">
+                    <p class="placeholder">The gate's answer appears here.</p>
+                </div>
+
+                <h3 id="log-h">Decision log (simulated)</h3>
+                <div class="log-wrap" id="gate-log-wrap" tabindex="0" role="region" aria-labelledby="log-h">
+                    <ol id="gate-log"><li class="empty">No decisions yet. Each one you make is appended here, and each line carries the hash of the line before it.</li></ol>
+                </div>
+                <div class="log-tools">
+                    <button type="button" class="demo-btn" id="verify-btn">Verify the chain</button>
+                    <label for="tamper-kind">Tamper with the log:</label>
+                    <select id="tamper-kind">
+                        <option value="edit">Edit an earlier line</option>
+                        <option value="delete-middle">Delete a middle line</option>
+                        <option value="delete-last">Delete the last line</option>
+                    </select>
+                    <button type="button" class="demo-btn quiet" id="tamper-btn">Tamper</button>
+                    <button type="button" class="demo-btn quiet" id="reset-btn">Reset log</button>
+                </div>
+                <p class="verify-status" id="verify-status" role="status" aria-live="polite"></p>
+            </div>
+
+            <div id="gate-static">
+                <p class="no-js-note"><strong>The interactive version needs JavaScript.</strong> Here is what the gate decides for twelve example actions:</p>
+                <div class="table-scroll">
+                    <table class="rules">
+                        <caption>Example actions and the gate's decision</caption>
+                        <thead><tr><th scope="col">Proposed action</th><th scope="col">Decision</th><th scope="col">Why</th></tr></thead>
+                        <tbody>
+                            <tr><td>edit plan-gate.html</td><td class="v-allowed">ALLOWED</td><td>The plan names this exact path.</td></tr>
+                            <tr><td>read README.md</td><td class="v-allowed">ALLOWED</td><td>Read-only; this demo does not gate reads.</td></tr>
+                            <tr><td>git commit -m "update"</td><td class="v-allowed">ALLOWED</td><td>Matches the approved prefix <code>git commit</code>.</td></tr>
+                            <tr><td>edit index.html</td><td class="v-held">HELD FOR HUMAN</td><td>Not in the plan. Denied by default; a person decides.</td></tr>
+                            <tr><td>git push --force origin main</td><td class="v-held">HELD FOR HUMAN</td><td>No approved prefix covers it. Denied by default.</td></tr>
+                            <tr><td>rm -rf docs/</td><td class="v-held">HELD FOR HUMAN</td><td>No approved prefix covers it. Denied by default.</td></tr>
+                            <tr><td>merge to main (publishes live)</td><td class="v-held">HELD FOR HUMAN</td><td>Not in the plan, and on this site a merge that changes a page also needs Tim's nod.</td></tr>
+                            <tr><td>git status &amp;&amp; rm -rf .</td><td class="v-held">HELD FOR HUMAN</td><td>Chained command: can't tell it stays inside one approved command, so deny.</td></tr>
+                            <tr><td>edit gate-logs/decisions.jsonl</td><td class="v-blocked">BLOCKED</td><td>The gate never authorizes writes to its own log.</td></tr>
+                            <tr><td>edit plans/../gate-logs/decisions.jsonl</td><td class="v-blocked">BLOCKED</td><td>The path resolves into the log directory; the gate checks the resolved path too.</td></tr>
+                            <tr><td>edit ../plan-gate.html</td><td class="v-held">HELD FOR HUMAN</td><td>Contains "..": the gate won't guess it means the plan's path. Ambiguous means deny.</td></tr>
+                            <tr><td>read ../../etc/passwd</td><td class="v-held">HELD FOR HUMAN</td><td>Contains "..": the gate won't guess where it points. Ambiguous means deny.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h3>The rules, in the order the gate applies them</h3>
+            <div class="table-scroll">
+                <table class="rules">
+                    <caption>First matching rule wins</caption>
+                    <thead><tr><th scope="col">#</th><th scope="col">If the action…</th><th scope="col">Decision</th><th scope="col">Source in the field reports</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>is a file write (<code>edit</code>, <code>write</code>, <code>delete</code> and similar) that targets the log directory <code>gate-logs</code>, as written or once <code>..</code> is resolved</td><td class="v-blocked">BLOCKED</td><td>Authorizations record: the gate never authorizes a file write into its own log, and resolved paths are checked after a <code>..</code> bypass was found in review. The protection covers file writes only. A shell command that touches the log is decided by the rules below, and the result says the shell is a documented blind spot where the human reviewing the plan is the control.</td></tr>
+                        <tr><td>2</td><td>chains or redirects commands (<code>;</code> <code>&amp;&amp;</code> <code>||</code> <code>|</code> <code>&gt;</code> and similar)</td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: ambiguous actions are denied and the agent stops for a human.</td></tr>
+                        <tr><td>3</td><td>only reads (read, cat, ls, grep and similar), with plain relative paths. A read whose path is absolute, or contains <code>..</code> or a backslash, is held instead.</td><td class="v-allowed">ALLOWED</td><td>Demo simplification. Plan-gate describes gating consequential calls such as writes and commands. The held case follows "ambiguous means deny".</td></tr>
+                        <tr><td>4</td><td>edits a file by an absolute path, or a path containing <code>..</code> or a backslash</td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: exact match for file paths, and ambiguous actions are denied.</td></tr>
+                        <tr><td>5</td><td>edits a file whose exact path the plan names</td><td class="v-allowed">ALLOWED</td><td>Plan-gate: exact match for file paths.</td></tr>
+                        <tr><td>6</td><td>runs a command starting with an approved prefix</td><td class="v-allowed">ALLOWED</td><td>Plan-gate: approved prefix for commands.</td></tr>
+                        <tr><td>7</td><td>anything else, or anything the demo can't parse</td><td class="v-held">HELD FOR HUMAN</td><td>Plan-gate: deny by default; the agent stops for a human.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="small">In the described gate, HELD and BLOCKED are both denials. The demo separates them to show the difference between "outside the plan, a person could widen it" and "no plan can authorize this". The log line carries a timestamp, the decision, a class, the target, the previous line's hash and its own. The real log chains SHA-256 hashes; this simulation uses a short non-cryptographic hash so it fits on one line. The honest boundary from the field report applies: the chain makes edits and deletions inside the record detectable, but cutting off the last line goes unnoticed without an external anchor. Try "Delete the last line" to see it.</p>
+        </div>
+    </section>
+
+    <section class="bw-section" aria-labelledby="machinery-h">
+        <div class="bw-inner">
+            <h2 id="machinery-h">The machinery, written up</h2>
+            <p>Each part of the loop has its own field report, with the failures and the fixes.</p>
+
+            <a class="link-card" href="plan-gate.html">
+                <span class="lc-title">Build a Gate It Can't Work Around</span>
+                <span class="lc-body">A deny-by-default check at the tool boundary: plan, confirm, execute. Anything outside the approved plan is blocked and the agent stops for a human.</span>
+                <span class="lc-go">Read the plan-gate field report &rarr;</span>
+            </a>
+            <a class="link-card" href="authorizations-record.html">
+                <span class="lc-title">My Paper Overclaimed. So I Built the Claim True.</span>
+                <span class="lc-body">The hash-chained decision log, its verifier, and what three adversarial AI reviewers found when asked to break it, including a path trick that slipped past the log's self-protection.</span>
+                <span class="lc-go">Read the authorizations-record report &rarr;</span>
+            </a>
+            <a class="link-card" href="multi-agent-handoff-protocol.html">
+                <span class="lc-title">What Breaks When You Give Two AI Agents a Shared Notepad</span>
+                <span class="lc-body">Context rot, junk-drawer handoffs and cross-project contamination, and the handoff protocol that came out of them.</span>
+                <span class="lc-go">Read the handoff-protocol case study &rarr;</span>
+            </a>
+            <a class="link-card" href="externalized-memory.html">
+                <span class="lc-title">Your Agent Forgets Everything. Your Filesystem Doesn't.</span>
+                <span class="lc-body">Stateless agents, one on-disk state file per project, and the pattern that is now a shipped StrictLock module.</span>
+                <span class="lc-go">Read the externalized-memory report &rarr;</span>
+            </a>
+
+            <p>The open-source implementation is <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>, also published as <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>.</p>
+
+            <h3>What this page does not claim</h3>
+            <ul>
+                <li>The demo above is an illustration, not the code that gated these pull requests.</li>
+                <li>An AI reviewer is one layer, not a guarantee. The review rounds in the pull requests caught problems; they don't promise there were none left.</li>
+                <li>The human nod is a person reading and deciding. It is not a gate, and it only works as well as the reading.</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="back-link"><a href="index.html#insights">&larr; Back to Insights</a></div>
+
+</main>
+
+    <footer>
+        <h2>Want this discipline around your own agents?</h2>
+        <p>A plan, a gate, an independent review and a human decision are what turn AI-assisted work into work you can ship and explain afterwards. If you're adopting agents where the evidence trail matters, that's the problem I work on.</p>
+        <div class="cta-row">
+            <a href="hiring.html" class="btn-primary">Career</a>
+            <a href="company.html" class="btn-primary">Working with TDM Technologies</a>
+        </div>
+        <p style="font-family: monospace; font-size: 0.95rem; margin-top: 0.75rem;"><a href="mailto:tim@tdmtechsolutions.com" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">tim@tdmtechsolutions.com</a></p>
+        <div class="footer-links">
+            <a href="https://github.com/downsmullen">GitHub</a>
+            <a href="https://github.com/TDM-Technologies/strictlock">StrictLock</a>
+            <a href="https://www.npmjs.com/package/eslint-plugin-strictlock">eslint-plugin-strictlock on npm</a>
+            <a href="https://www.hipaapath.com">HIPAAPath</a>
+            <a href="https://www.linkedin.com/in/tim-downs-mullen-0599a050">LinkedIn</a>
+        </div>
+    </footer>
+
+<script>
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+        var open = document.querySelector('.nav-links').classList.toggle('open');
+        this.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+</script>
+<script src="js/gate-demo.js" defer></script>
+</body>
+</html>
