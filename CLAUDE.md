@@ -12,7 +12,7 @@ Repo: downsmullen/downsmullen.github.io.
 
 - **Session state lives in the TDM vault, not this repo** — the portfolio card
   `portfolio/downsmullen-site.md` and vault memory are the durable trail; the vault
-  handoff/resume skills read and write them.
+  handoff/pickup skills read and write them.
 - Work on a branch (`pub/<topic>` for site content, `chore/<topic>` for internal), then
   merge to `main`. **Merging publishes to the live site.**
 - **Copy, content, and visual changes are Tim's call — get his approval before merge.**
